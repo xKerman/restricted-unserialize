@@ -103,14 +103,15 @@ class UnserializeTest extends TestCase {
                 'input' => 'd:-1.0e10;',
                 'expected' => -1e10,
             ],
+
             'positive double represented as exponential notion w/ positive exponential part' => [
-                'input' => 'd:25e+2.0;',
+                'input' => 'd:25E+2;',
                 'expected' => 2500.0,
             ],
             'positive double represented as exponential notion w/ negative exponential part' => [
-                'input' => 'd:25e-2.0;',
+                'input' => 'd:25E-2;',
                 'expeced' => 0.25,
-            ]
+            ],
         ];
     }
 

@@ -4,20 +4,31 @@ namespace xKerman\Restricted;
 
 function unserialize($str) {
     $source = new Source($str);
-    $symbol = $source->readSymbol();
-    switch ($symbol) {
+    switch ($source->peek()) {
     case 'N':
-        return null;
+        $parser = new NullParser();
+        list($result, $source) = $parser->parse($source);
+        return $result;
     case 'b':
-        return $source->readBoolean();
+        $parser = new BooleanParser();
+        list($result, $source) = $parser->parse($source);
+        return $result;
     case 'i':
-        return $source->readInteger();
+        $parser = new IntegerParser();
+        list($result, $source) = $parser->parse($source);
+        return $result;
     case 'd':
-        return $source->readDouble();
+        $parser = new FloatParser();
+        list($result, $source) = $parser->parse($source);
+        return $result;
     case 's':
-        return $source->readString();
+        $parser = new StringParser();
+        list($result, $source) = $parser->parse($source);
+        return $result;
     case 'a':
-        return $source->readArray();
+        $parser = new ArrayParser();
+        list($result, $source) = $parser->parse($source);
+        return $result;
     default:
         return false;
     }
