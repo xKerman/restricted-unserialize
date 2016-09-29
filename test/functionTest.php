@@ -160,6 +160,14 @@ class UnserializeTest extends TestCase {
                 'input' => 'a:0:{}',
                 'expected' => [],
             ],
+            'one element array' => [
+                'input' => 'a:1:{i:0;s:1:"a";}',
+                'expected' => ['a'],
+            ],
+            'nested array' => [
+                'input' => serialize([[], [[1], null], "a" => ["b" => "c"]]),
+                'expected' => [[], [[1], null], "a" => ["b" => "c"]],
+            ],
         ];
     }
 
