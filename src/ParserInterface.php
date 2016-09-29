@@ -2,6 +2,7 @@
 
 namespace xKerman\Restricted;
 
-interface ParserInterface {
+interface ParserInterface
+{
     public function parse(Source $source);
 }

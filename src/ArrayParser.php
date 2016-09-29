@@ -2,8 +2,10 @@
 
 namespace xKerman\Restricted;
 
-class ArrayParser implements ParserInterface {
-    public function parse(Source $source) {
+class ArrayParser implements ParserInterface
+{
+    public function parse(Source $source)
+    {
         $source->consume('a');
         $source->consume(':');
 
@@ -24,22 +26,24 @@ class ArrayParser implements ParserInterface {
         return [$result, $source];
     }
 
-    private function parseKey($source) {
+    private function parseKey($source)
+    {
         switch ($source->peek()) {
-        case 'i':
-            $parser = new IntegerParser();
-            break;
-        case 's':
-            $parser = new StringParser();
-            break;
-        default:
-            $source->triggerError();
-            return;
+            case 'i':
+                $parser = new IntegerParser();
+                break;
+            case 's':
+                $parser = new StringParser();
+                break;
+            default:
+                $source->triggerError();
+                return;
         }
         return $parser->parse($source);
     }
 
-    private function parseValue($source) {
+    private function parseValue($source)
+    {
         $parser = new ExpressionParser();
         return $parser->parse($source);
     }

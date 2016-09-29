@@ -9,8 +9,10 @@ namespace xKerman\Restricted;
  * <dnum> = (*DIGIT "." <lnum>) / (<lnum> "." *DIGIT)
  * <exponent-dnum> = ["+" / "-"] (<lnum> | <dnum>) ["e" / "E"] ["+" / "-"] <lnum>
  */
-class FloatParser implements ParserInterface {
-    public function parse(Source $source) {
+class FloatParser implements ParserInterface
+{
+    public function parse(Source $source)
+    {
         $source->consume('d');
         $source->consume(':');
 
@@ -45,7 +47,8 @@ class FloatParser implements ParserInterface {
         return [floatval($result), $source];
     }
 
-    private function isSign($char) {
+    private function isSign($char)
+    {
         return $char === '+' || $char === '-';
     }
 }

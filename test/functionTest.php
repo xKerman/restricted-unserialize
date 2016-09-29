@@ -2,18 +2,19 @@
 
 namespace xKerman\Restricted\Test;
 
-
 use PHPUnit\Framework\TestCase;
 
 use function xKerman\Restricted\unserialize;
 
-
-class UnserializeTest extends TestCase {
-    public function testNull() {
+class UnserializeTest extends TestCase
+{
+    public function testNull()
+    {
         $this->assertNull(unserialize('N;'));
     }
 
-    public function provideDataForBooleanTest() {
+    public function provideDataForBooleanTest()
+    {
         return [
             'true' => [
                 'input' => 'b:1;',
@@ -29,11 +30,13 @@ class UnserializeTest extends TestCase {
     /**
      * @dataProvider provideDataForBooleanTest
      */
-    public function testBoolean($input, $expected) {
+    public function testBoolean($input, $expected)
+    {
         $this->assertSame($expected, unserialize($input));
     }
 
-    function provideDataForIntegerTest() {
+    public function provideDataForIntegerTest()
+    {
         return [
             'positive integer w/o plus sign' => [
                 'input' => 'i:1;',
@@ -57,11 +60,13 @@ class UnserializeTest extends TestCase {
     /**
      * @dataProvider provideDataForIntegerTest
      */
-    public function testInteger($input, $expected) {
+    public function testInteger($input, $expected)
+    {
         $this->assertSame($expected, unserialize($input));
     }
 
-    public function provideDataForDoubleTest() {
+    public function provideDataForDoubleTest()
+    {
         return [
             'positive double w/o plus sign and point' => [
                 'input' => 'd:1;',
@@ -118,11 +123,13 @@ class UnserializeTest extends TestCase {
     /**
      * @dataProvider provideDataForDoubleTest
      */
-    public function testDouble($input, $expected) {
+    public function testDouble($input, $expected)
+    {
         $this->assertSame($expected, unserialize($input));
     }
 
-    public function provideDataForStringTest() {
+    public function provideDataForStringTest()
+    {
         return [
             'empty string' => [
                 'input' => 's:0:"";',
@@ -154,11 +161,13 @@ class UnserializeTest extends TestCase {
     /**
      * @dataProvider provideDataForStringTest
      */
-    public function testString($input, $expected) {
+    public function testString($input, $expected)
+    {
         $this->assertSame($expected, unserialize($input));
     }
 
-    public function provideDataForArrayTest() {
+    public function provideDataForArrayTest()
+    {
         return [
             'empty array' => [
                 'input' => 'a:0:{}',
@@ -178,7 +187,8 @@ class UnserializeTest extends TestCase {
     /**
      * @dataProvider provideDataForArrayTest
      */
-    public function testArray($input, $expected) {
+    public function testArray($input, $expected)
+    {
         $this->assertSame($expected, unserialize($input));
     }
 }

@@ -2,8 +2,10 @@
 
 namespace xKerman\Restricted;
 
-class BooleanParser implements ParserInterface {
-    public function parse(Source $source) {
+class BooleanParser implements ParserInterface
+{
+    public function parse(Source $source)
+    {
         $result = null;
         $source->consume('b');
         $source->consume(':');
@@ -16,7 +18,8 @@ class BooleanParser implements ParserInterface {
         return [(boolean)$result, $source];
     }
 
-    public function isBoolean($char) {
+    public function isBoolean($char)
+    {
         return $char === '0' || $char === '1';
     }
 }
