@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+  <testsuites>
+    <testsuite>
+      <directory>test</directory>
+    </testsuite>
+  </testsuites>
+  <filter>
+    <whitelist processUncoveredFilesFromWhiltelist="true">
+      <directory suffix=".php">src</directory>
+    </whitelist>
+  </filter>
+  <php>
+    <ini name="error_reporting" value="-1" />
+  </php>
+</phpunit>
