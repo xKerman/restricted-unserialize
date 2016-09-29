@@ -34,7 +34,6 @@ class Source
     {
         if ($expected !== $this->peek()) {
             $this->triggerError();
-            return;
         }
         $this->next();
     }
