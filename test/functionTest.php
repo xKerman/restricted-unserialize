@@ -140,6 +140,10 @@ class UnserializeTest extends TestCase {
                 'input' => serialize("'"),
                 'expected' => "'",
             ],
+            'single character (null byte)' => [
+                'input' => serialize("\x00"),
+                'expected' => "\x00",
+            ],
             'japanese character' => [
                 'input' => serialize('こんにちは'),
                 'expected' => 'こんにちは',
