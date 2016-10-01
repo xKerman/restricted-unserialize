@@ -35,6 +35,9 @@ class StringParserTest extends TestCase
             'non string tag' => [
                 'input' => 'a:0:"";',
             ],
+            'length is missing' => [
+                'input' => 's::"";',
+            ],
             'length is not number' => [
                 'input' => 's:a:"";',
             ],

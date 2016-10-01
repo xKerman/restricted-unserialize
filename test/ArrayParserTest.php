@@ -32,6 +32,9 @@ class ArrayParserTest extends TestCase
             'not array' => [
                 'input' => 'N;',
             ],
+            'array length is missing' => [
+                'input' => 'a::{}',
+            ],
             'array length is not number' => [
                 'input' => 'a:s:{}',
             ],
