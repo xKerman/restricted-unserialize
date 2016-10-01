@@ -121,6 +121,14 @@ class UnserializeTest extends TestCase
                 'input' => 'd:25E-2;',
                 'expeced' => 0.25,
             ],
+            'positive infinity' => [
+                'input' => 'd:INF;',
+                'expected' => INF,
+            ],
+            'negative infinity' => [
+                'input' => 'd:-INF;',
+                'expected' => -INF,
+            ],
         ];
     }
 
@@ -130,6 +138,11 @@ class UnserializeTest extends TestCase
     public function testDouble($input, $expected)
     {
         $this->assertSame($expected, unserialize($input));
+    }
+
+    public function testNan()
+    {
+        $this->assertNan(unserialize('d:NAN;'));
     }
 
     public function provideDataForStringTest()

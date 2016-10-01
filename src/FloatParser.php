@@ -4,10 +4,6 @@ namespace xKerman\Restricted;
 
 /**
  * format: http://php.net/manual/en/language.types.float.php
- *
- * <lnum> = 1*DIGIT
- * <dnum> = (*DIGIT "." <lnum>) / (<lnum> "." *DIGIT)
- * <exponent-dnum> = ["+" / "-"] (<lnum> | <dnum>) ["e" / "E"] ["+" / "-"] <lnum>
  */
 class FloatParser implements ParserInterface
 {
@@ -17,22 +13,45 @@ class FloatParser implements ParserInterface
         $source->consume(':');
 
         $result = '';
+
+        if ($source->peek() === 'N') {
+            return $this->parseNan($source);
+        }
+
         if ($this->isSign($source->peek())) {
             $result .= $source->peek();
             $source->next();
         }
+
+        if ($source->peek() === 'I') {
+            if ($result === '+') {
+                $source->triggerError();
+                return;
+            }
+            return $this->parseInf($source, ($result === '-'));
+        }
+
+        $hasIntegerPart = false;
         while (ctype_digit($source->peek())) {
             $result .= $source->peek();
             $source->next();
+            $hasIntegerPart = true;
         }
 
+        $hasFractionPart = false;
         if ($source->peek() === '.') {
             $result .= $source->peek();
             $source->next();
             while (ctype_digit($source->peek())) {
                 $result .= $source->peek();
                 $source->next();
+                $hasFractionPart = true;
             }
+        }
+
+        if (!$hasIntegerPart && !$hasFractionPart) {
+            $source->triggerError();
+            return;
         }
 
         if (strtolower($source->peek()) === 'e') {
@@ -50,5 +69,27 @@ class FloatParser implements ParserInterface
     private function isSign($char)
     {
         return $char === '+' || $char === '-';
+    }
+
+    private function parseNan($source)
+    {
+        $source->consume('N');
+        $source->consume('A');
+        $source->consume('N');
+        $source->consume(';');
+        return [NAN, $source];
+    }
+
+    private function parseInf($source, $minus)
+    {
+        $source->consume('I');
+        $source->consume('N');
+        $source->consume('F');
+        $source->consume(';');
+
+        if ($minus) {
+            return [-INF, $source];
+        }
+        return [INF, $source];
     }
 }
