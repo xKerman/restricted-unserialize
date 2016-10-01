@@ -11,6 +11,10 @@ class ArrayParser implements ParserInterface
 
         $parser = new NumberParser();
         list($length, $source) = $parser->parse($source);
+        if ($length < 0) {
+            $source->triggerError();
+            return;
+        }
         $result = [];
 
         $source->consume(':');
