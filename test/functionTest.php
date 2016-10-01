@@ -54,6 +54,10 @@ class UnserializeTest extends TestCase
                 'input' => 'i:-1;',
                 'expected' => -1,
             ],
+            'integer w/ leading zero' => [
+                'input' => 'i:0987;',
+                'expected' => 987,
+            ],
         ];
     }
 
