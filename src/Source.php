@@ -8,8 +8,15 @@ class Source
 
     private $current;
 
+    /**
+     * @param string $str
+     * @throws \InvalidArgumentException
+     */
     public function __construct($str)
     {
+        if (!is_string($str)) {
+            throw new \InvalidArgumentException('expected string, but got: ' . gettype($str));
+        }
         $this->str = $str;
         $this->current = 0;
     }

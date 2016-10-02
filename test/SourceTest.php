@@ -11,6 +11,14 @@ use xKerman\Restricted\Source;
  */
 class SourceTest extends TestCase
 {
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testConstructFailed()
+    {
+        new Source(2);
+    }
+
     public function testPeek()
     {
         $source = new Source('hello');
