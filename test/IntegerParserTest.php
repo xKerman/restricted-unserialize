@@ -47,7 +47,8 @@ class IntegerParserTest extends TestCase
 
     /**
      * @covers \xKerman\Restricted\IntegerParser
-     * @covers \xKerman\Restricted\NumberParser
+     * @covers \xKerman\Restricted\NumberLiteralParser
+     * @covers \xKerman\Restricted\NumberStringParser
      * @dataProvider provideInvalidData
      * @expectedException \xKerman\Restricted\UnserializeFailedException
      */

@@ -8,7 +8,7 @@ class StringParser implements ParserInterface
     {
         $source->consume('s');
         $source->consume(':');
-        $number = new NumberParser();
+        $number = new NumberLiteralParser();
         list($length, $source) = $number->parse($source);
         if ($length < 0) {
             return $source->triggerError();

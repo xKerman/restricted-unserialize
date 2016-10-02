@@ -9,7 +9,7 @@ class ArrayParser implements ParserInterface
         $source->consume('a');
         $source->consume(':');
 
-        $parser = new NumberParser();
+        $parser = new NumberLiteralParser();
         list($length, $source) = $parser->parse($source);
         if ($length < 0) {
             return $source->triggerError();

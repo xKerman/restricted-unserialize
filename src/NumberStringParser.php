@@ -2,20 +2,10 @@
 
 namespace xKerman\Restricted;
 
-class NumberParser implements ParserInterface
+class NumberStringParser implements ParserInterface
 {
-    private $returnString;
-
     /**
-     * @param boolean $withSign
-     */
-    public function __construct($returnString = false)
-    {
-        $this->returnString = $returnString;
-    }
-
-    /**
-     * @return int
+     * @return string
      */
     public function parse(Source $source)
     {
@@ -35,10 +25,7 @@ class NumberParser implements ParserInterface
             return $source->triggerError();
         }
 
-        if ($this->returnString) {
-            return [$result, $source];
-        }
-        return [intval($result, 10), $source];
+        return [$result, $source];
     }
 
     private function isSign($char)

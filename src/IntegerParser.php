@@ -8,7 +8,7 @@ class IntegerParser implements ParserInterface
     {
         $source->consume('i');
         $source->consume(':');
-        $parser = new NumberParser();
+        $parser = new NumberLiteralParser();
         list($result, $source) = $parser->parse($source);
         $source->consume(';');
 

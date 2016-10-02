@@ -51,7 +51,7 @@ class FloatParser implements ParserInterface
         if (strtolower($source->peek()) === 'e') {
             $result .= $source->peek();
             $source->next();
-            $parser = new NumberParser(true);
+            $parser = new NumberStringParser();
             list($exp, $source) = $parser->parse($source);
             $result .= $exp;
         }
