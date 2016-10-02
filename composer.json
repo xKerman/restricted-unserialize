@@ -7,6 +7,7 @@
     "require-dev": {
         "phpmd/phpmd": "@stable",
         "phpunit/phpunit": "^5.5",
+        "sebastian/phpcpd": "^2.0",
         "squizlabs/php_codesniffer": "2.*"
     },
     "license": "MIT",
@@ -26,6 +27,7 @@
         "test": [
             "phpcs -sw --standard=psr2 src/ test/",
             "phpmd src/,test/ text ./phpmd.xml",
+            "phpcpd src/",
             "phpunit"
         ]
     }
