@@ -63,7 +63,7 @@ class FloatParserTest extends TestCase
     /**
      * @covers \xKerman\Restricted\FloatParser
      * @dataProvider provideInvalidData
-     * @expectedException \ErrorException
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testParseFailure($input)
     {

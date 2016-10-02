@@ -57,7 +57,7 @@ class ArrayParserTest extends TestCase
     /**
      * @covers \xKerman\Restricted\ArrayParser
      * @dataProvider provideInvalidData
-     * @expectedException \ErrorException
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testParseFailure($input)
     {

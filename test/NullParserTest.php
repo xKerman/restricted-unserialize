@@ -30,7 +30,7 @@ class NullParserTest extends TestCase
     /**
      * @cover \xKerman\Restricted\NullParser
      * @dataProvider provideInvalidData
-     * @expectedException \ErrorException
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testParseFailure($input)
     {

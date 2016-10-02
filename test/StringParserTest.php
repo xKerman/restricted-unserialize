@@ -51,7 +51,7 @@ class StringParserTest extends TestCase
     /**
      * @covers ::parse
      * @dataProvider provideInvalidData
-     * @expectedException \ErrorException
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testParseFailure($input)
     {

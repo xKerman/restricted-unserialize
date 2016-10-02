@@ -38,7 +38,7 @@ class SourceTest extends TestCase
     }
 
     /**
-     * @expectedException \ErrorException
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testConsumeFailure()
     {

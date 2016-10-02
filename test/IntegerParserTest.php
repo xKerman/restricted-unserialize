@@ -49,7 +49,7 @@ class IntegerParserTest extends TestCase
      * @covers \xKerman\Restricted\IntegerParser
      * @covers \xKerman\Restricted\NumberParser
      * @dataProvider provideInvalidData
-     * @expectedException \ErrorException
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testParseFailure($input)
     {

@@ -15,12 +15,12 @@ class Source
     }
 
     /**
-     * @throws \ErrorException
+     * @throws UnserializeFailedException
      */
     public function triggerError()
     {
         $bytes = strlen($this->str);
-        throw new \ErrorException("unserialize(): Error at offset {$this->current} of {$bytes} bytes");
+        throw new UnserializeFailedException("unserialize(): Error at offset {$this->current} of {$bytes} bytes");
     }
 
     public function peek()
