@@ -21,5 +21,12 @@
         "psr-4": {
             "xKerman\\Restricted\\": "src"
         }
+    },
+    "scripts": {
+        "test": [
+            "phpcs -sw --standard=psr2 src/ test/",
+            "phpmd src/,test/ text ./phpmd.xml",
+            "phpunit"
+        ]
     }
 }
