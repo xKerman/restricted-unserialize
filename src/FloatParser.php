@@ -25,8 +25,7 @@ class FloatParser implements ParserInterface
 
         if ($source->peek() === 'I') {
             if ($result === '+') {
-                $source->triggerError();
-                return;
+                return $source->triggerError();
             }
             return $this->parseInf($source, ($result === '-'));
         }
@@ -50,8 +49,7 @@ class FloatParser implements ParserInterface
         }
 
         if (!$hasIntegerPart && !$hasFractionPart) {
-            $source->triggerError();
-            return;
+            return $source->triggerError();
         }
 
         if (strtolower($source->peek()) === 'e') {

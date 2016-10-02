@@ -12,20 +12,6 @@ use xKerman\Restricted\StringParser;
  */
 class StringParserTest extends TestCase
 {
-    public function setUp()
-    {
-        set_error_handler(function ($errno, $errstr, $errfile, $errline) {
-            if ($errno & E_USER_NOTICE) {
-                throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
-            }
-        }, E_USER_NOTICE);
-    }
-
-    public function tearDown()
-    {
-        restore_error_handler();
-    }
-
     public function provideInvalidData()
     {
         return [

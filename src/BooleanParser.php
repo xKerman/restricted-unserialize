@@ -10,8 +10,7 @@ class BooleanParser implements ParserInterface
         $source->consume('b');
         $source->consume(':');
         if (!$this->isBoolean($source->peek())) {
-            $source->triggerError();
-            return;
+            return $source->triggerError();
         }
         $result = $source->peek();
         $source->next();

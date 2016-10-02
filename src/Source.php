@@ -14,10 +14,13 @@ class Source
         $this->current = 0;
     }
 
+    /**
+     * @throws \ErrorException
+     */
     public function triggerError()
     {
         $bytes = strlen($this->str);
-        trigger_error("unserialize(): Error at offset {$this->current} of {$bytes} bytes");
+        throw new \ErrorException("unserialize(): Error at offset {$this->current} of {$bytes} bytes");
     }
 
     public function peek()
@@ -33,8 +36,7 @@ class Source
     public function consume($expected)
     {
         if ($expected !== $this->peek()) {
-            $this->triggerError();
-            return;
+            return $this->triggerError();
         }
         $this->next();
     }

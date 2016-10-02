@@ -27,7 +27,7 @@ class ExpressionParser implements ParserInterface
             case 'a':
                 return new ArrayParser();
             default:
-                $source->triggerError();
+                return $source->triggerError();
         }
     }
 }

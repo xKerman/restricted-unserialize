@@ -11,8 +11,7 @@ class StringParser implements ParserInterface
         $number = new NumberParser();
         list($length, $source) = $number->parse($source);
         if ($length < 0) {
-            $source->triggerError();
-            return;
+            return $source->triggerError();
         }
 
         $source->consume(':');

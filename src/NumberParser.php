@@ -32,8 +32,7 @@ class NumberParser implements ParserInterface
             $source->next();
         }
         if (!$hasDigit) {
-            $source->triggerError();
-            return;
+            return $source->triggerError();
         }
 
         if ($this->returnString) {

@@ -12,8 +12,7 @@ class ArrayParser implements ParserInterface
         $parser = new NumberParser();
         list($length, $source) = $parser->parse($source);
         if ($length < 0) {
-            $source->triggerError();
-            return;
+            return $source->triggerError();
         }
         $result = [];
 
@@ -40,8 +39,7 @@ class ArrayParser implements ParserInterface
                 $parser = new StringParser();
                 break;
             default:
-                $source->triggerError();
-                return;
+                return $source->triggerError();
         }
         return $parser->parse($source);
     }
