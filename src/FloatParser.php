@@ -31,21 +31,17 @@ class FloatParser implements ParserInterface
         }
 
         $hasIntegerPart = false;
-        while (ctype_digit($source->peek())) {
-            $result .= $source->peek();
-            $source->next();
-            $hasIntegerPart = true;
-        }
+        list($digits, $source) = $this->parseDigits($source);
+        $result .= $digits;
+        $hasIntegerPart = ($digits !== '');
 
         $hasFractionPart = false;
         if ($source->peek() === '.') {
             $result .= $source->peek();
             $source->next();
-            while (ctype_digit($source->peek())) {
-                $result .= $source->peek();
-                $source->next();
-                $hasFractionPart = true;
-            }
+            list($digits, $source) = $this->parseDigits($source);
+            $result .= $digits;
+            $hasFractionPart = ($digits !== '');
         }
 
         if (!$hasIntegerPart && !$hasFractionPart) {
@@ -89,5 +85,15 @@ class FloatParser implements ParserInterface
             return [-INF, $source];
         }
         return [INF, $source];
+    }
+
+    private function parseDigits($source)
+    {
+        $result = '';
+        while (ctype_digit($source->peek())) {
+            $result .= $source->peek();
+            $source->next();
+        }
+        return [$result, $source];
     }
 }
