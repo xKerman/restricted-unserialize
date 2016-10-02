@@ -34,7 +34,7 @@ class BooleanParserTest extends TestCase
     }
 
     /**
-     * @cover \xKerman\Restricted\BooleanParser
+     * @covers \xKerman\Restricted\BooleanParser
      * @dataProvider provideInvalidData
      * @expectedException \xKerman\Restricted\UnserializeFailedException
      */

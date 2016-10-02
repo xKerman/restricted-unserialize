@@ -28,7 +28,7 @@ class NullParserTest extends TestCase
     }
 
     /**
-     * @cover \xKerman\Restricted\NullParser
+     * @covers \xKerman\Restricted\NullParser
      * @dataProvider provideInvalidData
      * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
