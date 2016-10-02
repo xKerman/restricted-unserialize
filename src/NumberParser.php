@@ -37,9 +37,8 @@ class NumberParser implements ParserInterface
 
         if ($this->returnString) {
             return [$result, $source];
-        } else {
-            return [intval($result, 10), $source];
         }
+        return [intval($result, 10), $source];
     }
 
     private function isSign($char)
