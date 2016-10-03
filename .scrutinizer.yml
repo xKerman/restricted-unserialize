@@ -2,7 +2,7 @@ checks:
   php: true
 filter:
   excluded_paths:
-    - tests/*
+    - test/*
 build:
   environment:
     php:
