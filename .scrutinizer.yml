@@ -1,0 +1,16 @@
+checks:
+  php: true
+filter:
+  excluded_paths:
+    - test/*
+build:
+  environment:
+    php:
+      version: 5.6
+  tests:
+    override:
+      -
+        command: composer test
+        coverage:
+          file: report/coverage/clover.xml
+          format: php-clover
