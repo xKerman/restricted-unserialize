@@ -1,6 +1,6 @@
 # restricted-unserialize
 
-[![Build Status](https://travis-ci.org/xKerman/restricted-unserialize.svg?branch=feature%2Ftravis-ci)](https://travis-ci.org/xKerman/restricted-unserialize)
+[![Build Status](https://travis-ci.org/xKerman/restricted-unserialize.svg?branch=master)](https://travis-ci.org/xKerman/restricted-unserialize)
 
 This composer package provides `unserialize` function that is safe for [PHP Obejct Injection (POI)](https://www.owasp.org/index.php/PHP_Object_Injection).
 
