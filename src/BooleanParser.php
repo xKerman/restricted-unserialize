@@ -6,7 +6,6 @@ class BooleanParser implements ParserInterface
 {
     public function parse(Source $source)
     {
-        $result = null;
         $source->consume('b');
         $source->consume(':');
         if (!$this->isBoolean($source->peek())) {

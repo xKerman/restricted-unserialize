@@ -30,7 +30,6 @@ class FloatParser implements ParserInterface
             return $this->parseInf($source, ($result === '-'));
         }
 
-        $hasIntegerPart = false;
         list($digits, $source) = $this->parseDigits($source);
         $result .= $digits;
         $hasIntegerPart = ($digits !== '');
