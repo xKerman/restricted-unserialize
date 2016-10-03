@@ -6,6 +6,6 @@ function unserialize($str)
 {
     $source = new Source($str);
     $parser = new ExpressionParser();
-    list($result, $source) = $parser->parse($source);
+    list($result,) = $parser->parse($source);
     return $result;
 }
