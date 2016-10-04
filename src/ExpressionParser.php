@@ -1,9 +1,21 @@
 <?php
-
+/**
+ * parser for serialized expression
+ */
 namespace xKerman\Restricted;
 
+/**
+ * Parser for serialized PHP values
+ */
 class ExpressionParser implements ParserInterface
 {
+    /**
+     * parse given `$source` as PHP serialized value
+     *
+     * @param Source $source parser input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     public function parse(Source $source)
     {
         $parser = $this->createParser($source);
@@ -11,6 +23,13 @@ class ExpressionParser implements ParserInterface
         return [$result, $source];
     }
 
+    /**
+     * create parser for given input
+     *
+     * @param Source $source input
+     * @return ParserInterface
+     * @throws UnserializeFailedException
+     */
     private function createParser($source)
     {
         switch ($source->peek()) {

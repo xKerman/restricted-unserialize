@@ -1,9 +1,21 @@
 <?php
-
+/**
+ * parser for PHP serialized array
+ */
 namespace xKerman\Restricted;
 
+/**
+ * Parser for PHP serialiezed array
+ */
 class ArrayParser implements ParserInterface
 {
+    /**
+     * parse given `$source` as PHP serialized array
+     *
+     * @param Source $source parser input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     public function parse(Source $source)
     {
         $source->consume('a');
@@ -29,6 +41,13 @@ class ArrayParser implements ParserInterface
         return [$result, $source];
     }
 
+    /**
+     * parse given `$source` as array key (s.t. integer|string)
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     private function parseKey($source)
     {
         switch ($source->peek()) {
@@ -44,6 +63,13 @@ class ArrayParser implements ParserInterface
         return $parser->parse($source);
     }
 
+    /**
+     * parse given `$source` as array value
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     private function parseValue($source)
     {
         $parser = new ExpressionParser();
