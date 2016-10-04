@@ -41,30 +41,11 @@ class FloatParser implements ParserInterface
             return $this->parseInf($source, ($result === '-'));
         }
 
-        list($digits, $source) = $this->parseDigits($source);
-        $result .= $digits;
-        $hasIntegerPart = ($digits !== '');
+        list($dnum, $source) = $this->parseDnum($source);
+        $result .= $dnum;
 
-        $hasFractionPart = false;
-        if ($source->peek() === '.') {
-            $result .= $source->peek();
-            $source->next();
-            list($digits, $source) = $this->parseDigits($source);
-            $result .= $digits;
-            $hasFractionPart = ($digits !== '');
-        }
-
-        if (!$hasIntegerPart && !$hasFractionPart) {
-            return $source->triggerError();
-        }
-
-        if (strtolower($source->peek()) === 'e') {
-            $result .= $source->peek();
-            $source->next();
-            $parser = new NumberStringParser();
-            list($exp, $source) = $parser->parse($source);
-            $result .= $exp;
-        }
+        list($exponential, $source) = $this->parseExponentialPart($source);
+        $result .= $exponential;
 
         $source->consume(';');
         return [floatval($result), $source];
@@ -132,6 +113,55 @@ class FloatParser implements ParserInterface
             $result .= $source->peek();
             $source->next();
         }
+        return [$result, $source];
+    }
+
+    /**
+     * parse integer part and fraction part
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
+    private function parseDnum($source)
+    {
+        list($digits, $source) = $this->parseDigits($source);
+        $result = $digits;
+        $hasIntegerPart = ($digits !== '');
+
+        $hasFractionPart = false;
+        if ($source->peek() === '.') {
+            $result .= $source->peek();
+            $source->next();
+            list($digits, $source) = $this->parseDigits($source);
+            $result .= $digits;
+            $hasFractionPart = ($digits !== '');
+        }
+
+        if (!$hasIntegerPart && !$hasFractionPart) {
+            return $source->triggerError();
+        }
+        return [$result, $source];
+    }
+
+    /**
+     * parse given `$source` as exponentail part
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
+    private function parseExponentialPart($source)
+    {
+        if (strtolower($source->peek()) !== 'e') {
+            return ['', $source];
+        }
+
+        $result = $source->peek();
+        $source->next();
+        $parser = new NumberStringParser();
+        list($exp, $source) = $parser->parse($source);
+        $result .= $exp;
         return [$result, $source];
     }
 }
