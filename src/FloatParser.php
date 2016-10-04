@@ -29,10 +29,9 @@ class FloatParser implements ParserInterface
             return $this->parseNan($source);
         }
 
-        if ($this->isSign($source->peek())) {
-            $result .= $source->peek();
-            $source->next();
-        }
+        $parser = new OptionalSignParser();
+        list($sign, $source) = $parser->parse($source);
+        $result .= $sign;
 
         if ($source->peek() === 'I') {
             if ($result === '+') {
@@ -49,17 +48,6 @@ class FloatParser implements ParserInterface
 
         $source->consume(';');
         return [floatval($result), $source];
-    }
-
-    /**
-     * judge if given `$char` is minus|plus sign
-     *
-     * @param string $char target character
-     * @return boolean
-     */
-    private function isSign($char)
-    {
-        return $char === '+' || $char === '-';
     }
 
     /**
