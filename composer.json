@@ -25,7 +25,7 @@
     },
     "scripts": {
         "test": [
-            "phpcs -sw --standard=psr2 src/ test/",
+            "phpcs",
             "phpmd src/ text ./phpmd.xml",
             "phpcpd src/",
             "phpunit"

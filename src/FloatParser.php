@@ -1,12 +1,23 @@
 <?php
-
+/**
+ * parser for PHP serialized float number
+ */
 namespace xKerman\Restricted;
 
 /**
+ * Parser for PHP serialized float number
+ *
  * format: http://php.net/manual/en/language.types.float.php
  */
 class FloatParser implements ParserInterface
 {
+    /**
+     * parse given `$source` as PHP serialized float number
+     *
+     * @param Source $source parser input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     public function parse(Source $source)
     {
         $source->consume('d');
@@ -59,11 +70,24 @@ class FloatParser implements ParserInterface
         return [floatval($result), $source];
     }
 
+    /**
+     * judge if given `$char` is minus|plus sign
+     *
+     * @param string $char target character
+     * @return boolean
+     */
     private function isSign($char)
     {
         return $char === '+' || $char === '-';
     }
 
+    /**
+     * parse given `$source` as NAN
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     private function parseNan($source)
     {
         $source->consume('N');
@@ -73,6 +97,14 @@ class FloatParser implements ParserInterface
         return [NAN, $source];
     }
 
+    /**
+     * parse given `$source` as INF / -INF
+     *
+     * @param Source  $source input
+     * @param boolean $minus  target is negative or not
+     * @return array
+     * @throws UnserializeFailedException
+     */
     private function parseInf($source, $minus)
     {
         $source->consume('I');
@@ -86,6 +118,13 @@ class FloatParser implements ParserInterface
         return [INF, $source];
     }
 
+    /**
+     * parse given `$source` as sequence of DIGIT
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
     private function parseDigits($source)
     {
         $result = '';
