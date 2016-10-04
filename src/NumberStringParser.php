@@ -20,11 +20,8 @@ class NumberStringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $result = '';
-        if ($this->isSign($source->peek())) {
-            $result .= $source->peek();
-            $source->next();
-        }
+        $parser = new OptionalSignParser();
+        list($result, $source) = $parser->parse($source);
 
         $hasDigit = false;
         while (ctype_digit($source->peek())) {
@@ -37,16 +34,5 @@ class NumberStringParser implements ParserInterface
         }
 
         return [$result, $source];
-    }
-
-    /**
-     * judge if given `$char` is minus|plus sign
-     *
-     * @param string $char target character
-     * @return boolean
-     */
-    private function isSign($char)
-    {
-        return $char === '+' || $char === '-';
     }
 }
