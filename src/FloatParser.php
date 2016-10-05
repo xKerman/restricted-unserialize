@@ -23,15 +23,13 @@ class FloatParser implements ParserInterface
         $source->consume('d');
         $source->consume(':');
 
-        $result = '';
-
         if ($source->peek() === 'N') {
             return $this->parseNan($source);
         }
 
         $parser = new OptionalSignParser();
         list($sign, $source) = $parser->parse($source);
-        $result .= $sign;
+        $result = $sign;
 
         if ($source->peek() === 'I') {
             return $this->parseInf($source, $sign);
