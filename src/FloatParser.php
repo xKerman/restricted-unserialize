@@ -29,20 +29,16 @@ class FloatParser implements ParserInterface
 
         $parser = new OptionalSignParser();
         list($sign, $source) = $parser->parse($source);
-        $result = $sign;
 
         if ($source->peek() === 'I') {
             return $this->parseInf($source, $sign);
         }
 
         list($dnum, $source) = $this->parseDnum($source);
-        $result .= $dnum;
-
         list($exponential, $source) = $this->parseExponentialPart($source);
-        $result .= $exponential;
 
         $source->consume(';');
-        return [floatval($result), $source];
+        return [floatval(implode([$sign, $dnum, $exponential])), $source];
     }
 
     /**
