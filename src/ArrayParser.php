@@ -21,11 +21,7 @@ class ArrayParser implements ParserInterface
         $source->consume('a');
         $source->consume(':');
 
-        $parser = new NumberLiteralParser();
-        list($length, $source) = $parser->parse($source);
-        if ($length < 0) {
-            return $source->triggerError();
-        }
+        list($length, $source) = $this->parseLength($source);
         $result = [];
 
         $source->consume(':');
@@ -39,6 +35,23 @@ class ArrayParser implements ParserInterface
 
         $source->consume('}');
         return [$result, $source];
+    }
+
+    /**
+     * parse given `$source` as array length
+     *
+     * @param Source $source input
+     * @return array
+     * @throws UnserializeFailedException
+     */
+    private function parseLength($source)
+    {
+        $parser = new NumberLiteralParser();
+        list($length, $source) = $parser->parse($source);
+        if ($length < 0) {
+            return $source->triggerError();
+        }
+        return [$length, $source];
     }
 
     /**
