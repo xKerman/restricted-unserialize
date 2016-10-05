@@ -34,10 +34,7 @@ class FloatParser implements ParserInterface
         $result .= $sign;
 
         if ($source->peek() === 'I') {
-            if ($result === '+') {
-                return $source->triggerError();
-            }
-            return $this->parseInf($source, ($result === '-'));
+            return $this->parseInf($source, $sign);
         }
 
         list($dnum, $source) = $this->parseDnum($source);
@@ -69,19 +66,23 @@ class FloatParser implements ParserInterface
     /**
      * parse given `$source` as INF / -INF
      *
-     * @param Source  $source input
-     * @param boolean $minus  target is negative or not
+     * @param Source $source input
+     * @param string $sign   '-', '+' or ''
      * @return array
      * @throws UnserializeFailedException
      */
-    private function parseInf($source, $minus)
+    private function parseInf($source, $sign)
     {
+        if (!in_array($sign, ['', '-'], true)) {
+            return $source->triggerError();
+        }
+
         $source->consume('I');
         $source->consume('N');
         $source->consume('F');
         $source->consume(';');
 
-        if ($minus) {
+        if ($sign === '-') {
             return [-INF, $source];
         }
         return [INF, $source];
