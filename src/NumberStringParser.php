@@ -16,7 +16,8 @@ class NumberStringParser implements ParserInterface
      * parse given `$source` as number
      *
      * @param Source $source parser input
-     * @return string
+     * @return array
+     * @throws UnserializeFailedException
      */
     public function parse(Source $source)
     {
