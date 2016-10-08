@@ -11,6 +11,8 @@ If normal `unserialize` function is used for deserilizing user input in your PHP
 1. Don't use this package, use `json_decode` in order to avoid PHP Object Injection
 2. If compatibility matters, first use this function and then try to use `json_decode` in the near future
 
+Also you don't need this library if you use PHP >= 7.0, since PHP7 or later provides `unserialize` function that has `allow_classes` option. For more detail, see http://php.net/manual/function.unserialize.php .
+
 
 ## Why POI-safe?
 
@@ -46,14 +48,22 @@ var_dump(Restricted\unserialize($data));
 ```
 
 
-## [WIP] Related other packages
+## Related other packages
 
-### https://github.com/MikeGarde/unserialize-fix
+### mikegarde/unserialize-fix
 
-This package provide `\unserialize\fix` function that tries to use `unserialize` function first.  So the function is not POI-safe.
+[mikegarde/unserialize-fix](https://github.com/MikeGarde/unserialize-fix) package provides `\unserialize\fix` function that tries to use `unserialize` function first.  So the function is not POI-safe.
 
-### https://github.com/academe/SerializeParser
-### https://github.com/jeroenvdheuvel/serialization
+
+### academe/serializeparser
+
+[academe/serializeparser](https://github.com/academe/SerializeParser) package privides `\Academe\SerializeParser\Parser::parse` method that is PHP-implemented `unserialize`, but doesn't deserialize object instances.  So the method seems that POI-safe, but there is no test.
+
+
+### jeroenvdheuve/serialization
+
+[jeroenvdheuve/serialization](https://github.com/jeroenvdheuvel/serialization) package provides `\jvdh\Serialization\Unserializer\unserialize` method that is also PHP-implemented `unserialize`, and doesn't deserialize object instance.  So the method seems that POI-safe.
+The method can deserialize serialized PHP references, which cannot deserialized by this (xkerman/restricted-unserilize) package.  By using PHP reference, we can create cyclic structure, but that makes migration to `json_decode` harder, since JSON doesn't support cyclic structure decode/encode.
 
 
 ## LICENSE
