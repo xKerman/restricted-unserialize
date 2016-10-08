@@ -140,7 +140,7 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
 
     public function testNan()
     {
-        $this->assertNan(Restricted\unserialize('d:NAN;'));
+        $this->assertTrue(is_nan(Restricted\unserialize('d:NAN;')));
     }
 
     public function provideDataForStringTest()
