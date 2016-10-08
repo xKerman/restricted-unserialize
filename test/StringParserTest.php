@@ -2,15 +2,13 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted\Source;
 use xKerman\Restricted\StringParser;
 
 /**
  * @coversDefaultClass \xKerman\Restricted\StringParser
  */
-class StringParserTest extends TestCase
+class StringParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {

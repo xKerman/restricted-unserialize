@@ -2,12 +2,10 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted\IntegerParser;
 use xKerman\Restricted\Source;
 
-class IntegerParserTest extends TestCase
+class IntegerParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
