@@ -2,13 +2,13 @@
 
 namespace xKerman\Restricted\Test;
 
-use function xKerman\Restricted\unserialize;
+use xKerman\Restricted;
 
 class UnserializeTest extends \PHPUnit_Framework_TestCase
 {
     public function testNull()
     {
-        $this->assertNull(unserialize('N;'));
+        $this->assertNull(Restricted\unserialize('N;'));
     }
 
     public function provideDataForBooleanTest()
@@ -30,7 +30,7 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
      */
     public function testBoolean($input, $expected)
     {
-        $this->assertSame($expected, unserialize($input));
+        $this->assertSame($expected, Restricted\unserialize($input));
     }
 
     public function provideDataForIntegerTest()
@@ -64,7 +64,7 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
      */
     public function testInteger($input, $expected)
     {
-        $this->assertSame($expected, unserialize($input));
+        $this->assertSame($expected, Restricted\unserialize($input));
     }
 
     public function provideDataForDoubleTest()
@@ -135,12 +135,12 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
      */
     public function testDouble($input, $expected)
     {
-        $this->assertSame($expected, unserialize($input));
+        $this->assertSame($expected, Restricted\unserialize($input));
     }
 
     public function testNan()
     {
-        $this->assertNan(unserialize('d:NAN;'));
+        $this->assertNan(Restricted\unserialize('d:NAN;'));
     }
 
     public function provideDataForStringTest()
@@ -178,7 +178,7 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
      */
     public function testString($input, $expected)
     {
-        $this->assertSame($expected, unserialize($input));
+        $this->assertSame($expected, Restricted\unserialize($input));
     }
 
     public function provideDataForArrayTest()
@@ -204,6 +204,6 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
      */
     public function testArray($input, $expected)
     {
-        $this->assertSame($expected, unserialize($input));
+        $this->assertSame($expected, Restricted\unserialize($input));
     }
 }
