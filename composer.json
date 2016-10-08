@@ -2,7 +2,7 @@
     "name": "xkerman/restricted-unserialize",
     "description": "provide PHP Object Injection safe unserialize function",
     "require": {
-        "php": ">=5.5"
+        "php": ">=5.4"
     },
     "require-dev": {
         "phpmd/phpmd": "*",
