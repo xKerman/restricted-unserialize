@@ -38,7 +38,7 @@ class FloatParser implements ParserInterface
         list($exponential, $source) = $this->parseExponentialPart($source);
 
         $source->consume(';');
-        return [floatval(implode([$sign, $dnum, $exponential])), $source];
+        return array(floatval(implode(array($sign, $dnum, $exponential))), $source);
     }
 
     /**
@@ -54,7 +54,7 @@ class FloatParser implements ParserInterface
         $source->consume('A');
         $source->consume('N');
         $source->consume(';');
-        return [NAN, $source];
+        return array(NAN, $source);
     }
 
     /**
@@ -67,7 +67,7 @@ class FloatParser implements ParserInterface
      */
     private function parseInf($source, $sign)
     {
-        if (!in_array($sign, ['', '-'], true)) {
+        if (!in_array($sign, array('', '-'), true)) {
             return $source->triggerError();
         }
 
@@ -77,9 +77,9 @@ class FloatParser implements ParserInterface
         $source->consume(';');
 
         if ($sign === '-') {
-            return [-INF, $source];
+            return array(-INF, $source);
         }
-        return [INF, $source];
+        return array(INF, $source);
     }
 
     /**
@@ -96,7 +96,7 @@ class FloatParser implements ParserInterface
             $result .= $source->peek();
             $source->next();
         }
-        return [$result, $source];
+        return array($result, $source);
     }
 
     /**
@@ -124,7 +124,7 @@ class FloatParser implements ParserInterface
         if (!$hasIntegerPart && !$hasFractionPart) {
             return $source->triggerError();
         }
-        return [$result, $source];
+        return array($result, $source);
     }
 
     /**
@@ -137,7 +137,7 @@ class FloatParser implements ParserInterface
     private function parseExponentialPart($source)
     {
         if (strtolower($source->peek()) !== 'e') {
-            return ['', $source];
+            return array('', $source);
         }
 
         $result = $source->peek();
@@ -145,6 +145,6 @@ class FloatParser implements ParserInterface
         $parser = new NumberStringParser();
         list($exp, $source) = $parser->parse($source);
         $result .= $exp;
-        return [$result, $source];
+        return array($result, $source);
     }
 }

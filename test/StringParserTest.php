@@ -12,38 +12,38 @@ class StringParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
-        return [
-            'empty string' => [
+        return array(
+            'empty string' => array(
                 'input' => '',
-            ],
-            'non string tag' => [
+            ),
+            'non string tag' => array(
                 'input' => 'a:0:"";',
-            ],
-            'length is missing' => [
+            ),
+            'length is missing' => array(
                 'input' => 's::"";',
-            ],
-            'length is not number' => [
+            ),
+            'length is not number' => array(
                 'input' => 's:a:"";',
-            ],
-            'length is not integer' => [
+            ),
+            'length is not integer' => array(
                 'input' => 's:1.0:"a";',
-            ],
-            'length is negative' => [
+            ),
+            'length is negative' => array(
                 'input' => 's:-1:"";',
-            ],
-            'no quote' => [
+            ),
+            'no quote' => array(
                 'input' => 's:1:a;',
-            ],
-            'open quote exist but close quote not exist' => [
+            ),
+            'open quote exist but close quote not exist' => array(
                 'input' => 's:1:"a;',
-            ],
-            'close quote exist but open quote not exist' => [
+            ),
+            'close quote exist but open quote not exist' => array(
                 'input' => 's:1:a";',
-            ],
-            'enclosed by single quote' => [
+            ),
+            'enclosed by single quote' => array(
                 'input' => "s:1:'a';",
-            ],
-        ];
+            ),
+        );
     }
 
     /**

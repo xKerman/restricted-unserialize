@@ -9,20 +9,20 @@ class NullParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
-        return [
-            'empty string' => [
+        return array(
+            'empty string' => array(
                 'input' => '',
-            ],
-            'not null' => [
+            ),
+            'not null' => array(
                 'input' => 'i:0;',
-            ],
-            'missing tag' => [
+            ),
+            'missing tag' => array(
                 'input' => ';',
-            ],
-            'missing semicolon' => [
+            ),
+            'missing semicolon' => array(
                 'input' => 'N',
-            ],
-        ];
+            ),
+        );
     }
 
     /**

@@ -7,7 +7,7 @@ namespace xKerman\Restricted;
 /**
  * Parser for number, return result as string
  *
- * <number> = ["-" / "+"] 1*DIGIT
+ * <number> = array("-" / "+") 1*DIGIT
  * note that leading zeros are valid (e.g. "0089" is valid)
  */
 class NumberStringParser implements ParserInterface
@@ -34,6 +34,6 @@ class NumberStringParser implements ParserInterface
             return $source->triggerError();
         }
 
-        return [$result, $source];
+        return array($result, $source);
     }
 }

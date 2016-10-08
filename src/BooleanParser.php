@@ -27,7 +27,7 @@ class BooleanParser implements ParserInterface
         $source->next();
         $source->consume(';');
 
-        return [(boolean)$result, $source];
+        return array((boolean)$result, $source);
     }
 
     /**

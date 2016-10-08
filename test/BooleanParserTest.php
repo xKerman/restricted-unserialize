@@ -9,26 +9,26 @@ class BooleanParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
-        return [
-            'empty string' => [
+        return array(
+            'empty string' => array(
                 'input' => '',
-            ],
-            'not boolean' => [
+            ),
+            'not boolean' => array(
                 'input' => 'i:0;',
-            ],
-            'missing tag' => [
+            ),
+            'missing tag' => array(
                 'input' => ':0;',
-            ],
-            'missing value' => [
+            ),
+            'missing value' => array(
                 'input' => 'b:;',
-            ],
-            'missing semicolon' => [
+            ),
+            'missing semicolon' => array(
                 'input' => 'b:0',
-            ],
-            'value is not boolean' => [
+            ),
+            'value is not boolean' => array(
                 'input' => 'b:2;',
-            ],
-        ];
+            ),
+        );
     }
 
     /**
