@@ -24,6 +24,6 @@ class IntegerParser implements ParserInterface
         list($result, $source) = $parser->parse($source);
         $source->consume(';');
 
-        return [$result, $source];
+        return array($result, $source);
     }
 }

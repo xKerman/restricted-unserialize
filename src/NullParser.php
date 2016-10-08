@@ -20,6 +20,6 @@ class NullParser implements ParserInterface
     {
         $source->consume('N');
         $source->consume(';');
-        return [null, $source];
+        return array(null, $source);
     }
 }

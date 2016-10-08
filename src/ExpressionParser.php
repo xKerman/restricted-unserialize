@@ -20,7 +20,7 @@ class ExpressionParser implements ParserInterface
     {
         $parser = $this->createParser($source);
         list($result, $source) = $parser->parse($source);
-        return [$result, $source];
+        return array($result, $source);
     }
 
     /**

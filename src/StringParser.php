@@ -36,6 +36,6 @@ class StringParser implements ParserInterface
         $source->consume('"');
         $source->consume(';');
 
-        return [$result, $source];
+        return array($result, $source);
     }
 }

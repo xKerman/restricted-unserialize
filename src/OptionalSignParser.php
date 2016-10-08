@@ -19,11 +19,11 @@ class OptionalSignParser implements ParserInterface
     public function parse(Source $source)
     {
         if (!$this->isSign($source->peek())) {
-            return ['', $source];
+            return array('', $source);
         }
         $sign = $source->peek();
         $source->next();
-        return [$sign, $source];
+        return array($sign, $source);
     }
 
     /**

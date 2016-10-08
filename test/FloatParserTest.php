@@ -9,53 +9,53 @@ class FloatParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
-        return [
-            'empty string' => [
+        return array(
+            'empty string' => array(
                 'input' => '',
-            ],
-            'not integer' => [
+            ),
+            'not integer' => array(
                 'input' => 'N;',
-            ],
-            'missing tag' => [
+            ),
+            'missing tag' => array(
                 'input' => ':0;',
-            ],
-            'missing value' => [
+            ),
+            'missing value' => array(
                 'input' => 'd:;',
-            ],
-            'missing semicolon' => [
+            ),
+            'missing semicolon' => array(
                 'input' => 'd:0',
-            ],
-            'sign only' => [
+            ),
+            'sign only' => array(
                 'input' => 'd:+;',
-            ],
-            'multiple sign' => [
+            ),
+            'multiple sign' => array(
                 'input' => 'd:++6;',
-            ],
-            'dot only' => [
+            ),
+            'dot only' => array(
                 'input' => 'd:.;',
-            ],
-            'dot and exponential' => [
+            ),
+            'dot and exponential' => array(
                 'input' => 'd:.E;',
-            ],
-            'dot and exponential part' => [
+            ),
+            'dot and exponential part' => array(
                 'input' => 'd:.E1;',
-            ],
-            'infinity with plus' => [
+            ),
+            'infinity with plus' => array(
                 'input' => 'd:+INF;',
-            ],
-            'nan with plus' => [
+            ),
+            'nan with plus' => array(
                 'input' => 'd:+NAN;',
-            ],
-            'nan with plus' => [
+            ),
+            'nan with plus' => array(
                 'input' => 'd:-NAN;',
-            ],
-            'float in exponential part' => [
+            ),
+            'float in exponential part' => array(
                 'input' => 'd:1.0e1.0;',
-            ],
-            'only exponential part' => [
+            ),
+            'only exponential part' => array(
                 'input' => 'd:e1;'
-            ],
-        ];
+            ),
+        );
     }
 
     /**

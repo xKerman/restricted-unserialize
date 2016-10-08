@@ -22,7 +22,7 @@ class ArrayParser implements ParserInterface
         $source->consume(':');
 
         list($length, $source) = $this->parseLength($source);
-        $result = [];
+        $result = array();
 
         $source->consume(':');
         $source->consume('{');
@@ -34,7 +34,7 @@ class ArrayParser implements ParserInterface
         }
 
         $source->consume('}');
-        return [$result, $source];
+        return array($result, $source);
     }
 
     /**
@@ -51,7 +51,7 @@ class ArrayParser implements ParserInterface
         if ($length < 0) {
             return $source->triggerError();
         }
-        return [$length, $source];
+        return array($length, $source);
     }
 
     /**

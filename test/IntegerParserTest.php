@@ -9,38 +9,38 @@ class IntegerParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
-        return [
-            'empty string' => [
+        return array(
+            'empty string' => array(
                 'input' => '',
-            ],
-            'not integer' => [
+            ),
+            'not integer' => array(
                 'input' => 'N;',
-            ],
-            'missing tag' => [
+            ),
+            'missing tag' => array(
                 'input' => ':0;',
-            ],
-            'missing value' => [
+            ),
+            'missing value' => array(
                 'input' => 'i:;',
-            ],
-            'missing semicolon' => [
+            ),
+            'missing semicolon' => array(
                 'input' => 'i:0',
-            ],
-            'sign only' => [
+            ),
+            'sign only' => array(
                 'input' => 'i:+;',
-            ],
-            'multiple sign' => [
+            ),
+            'multiple sign' => array(
                 'input' => 'i:++6;',
-            ],
-            'float value' => [
+            ),
+            'float value' => array(
                 'input' => 'i:1.0;',
-            ],
-            'hex value' => [
+            ),
+            'hex value' => array(
                 'input' => 'i:0x50;',
-            ],
-            'binary value' => [
+            ),
+            'binary value' => array(
                 'input' => 'i:0b111;',
-            ],
-        ];
+            ),
+        );
     }
 
     /**
