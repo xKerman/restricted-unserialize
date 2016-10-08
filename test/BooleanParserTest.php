@@ -2,12 +2,10 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted\BooleanParser;
 use xKerman\Restricted\Source;
 
-class BooleanParserTest extends TestCase
+class BooleanParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {

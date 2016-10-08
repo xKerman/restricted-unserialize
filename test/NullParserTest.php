@@ -2,12 +2,10 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted\NullParser;
 use xKerman\Restricted\Source;
 
-class NullParserTest extends TestCase
+class NullParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideInvalidData()
     {
