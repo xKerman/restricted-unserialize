@@ -25,7 +25,7 @@ Since any instances that has magic method for POP chain (such as `__destruct` or
 ## Installation
 
 ```
-$ composer require xKerman/restricted-unserialize
+$ composer require xkerman/restricted-unserialize
 ```
 
 
