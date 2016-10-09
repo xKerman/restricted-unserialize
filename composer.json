@@ -1,6 +1,9 @@
 {
     "name": "xkerman/restricted-unserialize",
     "description": "provide PHP Object Injection safe unserialize function",
+    "version": "1.0.0",
+    "type": "library",
+    "keywords": ["unserialize", "deserialize", "PHP Object Injection"],
     "require": {
         "php": ">=5.3"
     },
