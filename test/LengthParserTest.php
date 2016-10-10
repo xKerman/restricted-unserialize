@@ -9,16 +9,16 @@ class LengthParserTest extends \PHPUnit_Framework_TestCase
 {
     public function provideValidData()
     {
-        return [
-            'w/o plus sign' => [
+        return array(
+            'w/o plus sign' => array(
                 'input' => '10',
                 'expected' => 10,
-            ],
-            'w/ plus sign' => [
+            ),
+            'w/ plus sign' => array(
                 'input' => '+15',
                 'expected' => 15,
-            ],
-        ];
+            ),
+        );
     }
 
     /**
@@ -35,14 +35,14 @@ class LengthParserTest extends \PHPUnit_Framework_TestCase
 
     public function provideInvalidData()
     {
-        return [
-            'not number' => [
+        return array(
+            'not number' => array(
                 'input' => 'aaa',
-            ],
-            'negative integer' => [
+            ),
+            'negative integer' => array(
                 'input' => '-1',
-            ],
-        ];
+            ),
+        );
     }
 
     /**
