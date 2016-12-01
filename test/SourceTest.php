@@ -33,14 +33,31 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('e', $source->peek());
     }
 
+    public function provideConsumeSucceeded()
+    {
+        return [
+            [
+                'input' => 'hello',
+                'consumption' => 'h',
+                'expected' => 'e',
+            ],
+            [
+                'input' => 'hello',
+                'consumption' => 'he',
+                'expected' => 'l',
+            ],
+        ];
+    }
+
     /**
      * @covers ::consume
+     * @dataProvider provideConsumeSucceeded
      */
-    public function testConsumeSucceeded()
+    public function testConsumeSucceeded($input, $consumption, $expected)
     {
-        $source = new Source('hello');
-        $source->consume('h');
-        $this->assertSame('e', $source->peek());
+        $source = new Source($input);
+        $source->consume($consumption);
+        $this->assertSame($expected, $source->peek());
     }
 
     /**

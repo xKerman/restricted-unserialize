@@ -63,17 +63,17 @@ class Source
     }
 
     /**
-     * consume one character if it is as expected
+     * consume given string if it is as expected
      *
-     * @param string $expected expected character
+     * @param string $expected expected string
      * @return void
      * @throws UnserializeFailedException
      */
     public function consume($expected)
     {
-        if ($expected !== $this->peek()) {
+        if (strpos($this->str, $expected, $this->current) !== $this->current) {
             return $this->triggerError();
         }
-        $this->next();
+        $this->current += strlen($expected);
     }
 }
