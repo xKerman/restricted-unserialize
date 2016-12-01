@@ -18,21 +18,18 @@ class StringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('s');
-        $source->consume(':');
+        $source->consume('s:');
 
         $parser = new LengthParser();
         list($length, $source) = $parser->parse($source);
 
-        $source->consume(':');
-        $source->consume('"');
+        $source->consume(':"');
         $result = '';
         for ($i = 0; $i < $length; ++$i) {
             $result .= $source->peek();
             $source->next();
         }
-        $source->consume('"');
-        $source->consume(';');
+        $source->consume('";');
 
         return array($result, $source);
     }
