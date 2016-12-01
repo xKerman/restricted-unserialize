@@ -20,8 +20,7 @@ class FloatParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('d');
-        $source->consume(':');
+        $source->consume('d:');
 
         if ($source->peek() === 'N') {
             return $this->parseNan($source);
@@ -50,10 +49,7 @@ class FloatParser implements ParserInterface
      */
     private function parseNan($source)
     {
-        $source->consume('N');
-        $source->consume('A');
-        $source->consume('N');
-        $source->consume(';');
+        $source->consume('NAN;');
         return array(NAN, $source);
     }
 
@@ -71,10 +67,7 @@ class FloatParser implements ParserInterface
             return $source->triggerError();
         }
 
-        $source->consume('I');
-        $source->consume('N');
-        $source->consume('F');
-        $source->consume(';');
+        $source->consume('INF;');
 
         if ($sign === '-') {
             return array(-INF, $source);

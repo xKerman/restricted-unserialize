@@ -18,8 +18,7 @@ class NullParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('N');
-        $source->consume(';');
+        $source->consume('N;');
         return array(null, $source);
     }
 }

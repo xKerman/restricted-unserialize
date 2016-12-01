@@ -18,15 +18,13 @@ class ArrayParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('a');
-        $source->consume(':');
+        $source->consume('a:');
 
         $parser = new LengthParser();
         list($length, $source) = $parser->parse($source);
         $result = array();
 
-        $source->consume(':');
-        $source->consume('{');
+        $source->consume(':{');
 
         for ($i = 0; $i < $length; ++$i) {
             list($key, $source) = $this->parseKey($source);
