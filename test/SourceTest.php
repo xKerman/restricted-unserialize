@@ -35,18 +35,18 @@ class SourceTest extends \PHPUnit_Framework_TestCase
 
     public function provideConsumeSucceeded()
     {
-        return [
-            [
+        return array(
+            array(
                 'input' => 'hello',
                 'consumption' => 'h',
                 'expected' => 'e',
-            ],
-            [
+            ),
+            array(
                 'input' => 'hello',
                 'consumption' => 'he',
                 'expected' => 'l',
-            ],
-        ];
+            ),
+        );
     }
 
     /**
