@@ -76,4 +76,25 @@ class Source
         }
         $this->current += strlen($expected);
     }
+
+    /**
+     * read givin length substring
+     *
+     * @param integer $length length to read
+     * @return string
+     * @throws UnserializeFailedException
+     */
+    public function read($length)
+    {
+        if ($length < 0) {
+            return $this->triggerError();
+        }
+
+        $result = substr($this->str, $this->current, $length);
+        if (strlen($result) !== $length) {
+            return $this->triggerError();
+        }
+        $this->current += $length;
+        return $result;
+    }
 }

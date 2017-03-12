@@ -68,4 +68,40 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         $source = new Source('hello');
         $source->consume('e');
     }
+
+    /**
+     * @covres ::read
+     */
+    public function testRead()
+    {
+        $source = new Source('abcdefg');
+        $actual = $source->read(5);
+        $this->assertSame('abcde', $actual);
+        $this->assertSame('f', $source->peek());
+    }
+
+    public function provideReadFailure()
+    {
+        return array(
+            array(
+                'input' => 'abc',
+                'length' => 5,
+            ),
+            array(
+                'input' => 'abc',
+                'length' => -1,
+            ),
+        );
+    }
+
+    /**
+     * @covers ::read
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     * @dataProvider provideReadFailure
+     */
+    public function testReadFailure($input, $length)
+    {
+        $source = new Source($input);
+        $source->read($length);
+    }
 }
