@@ -7,7 +7,7 @@
 
 This composer package provides `unserialize` function that is safe for [PHP Obejct Injection (POI)](https://www.owasp.org/index.php/PHP_Object_Injection).
 
-If normal `unserialize` function is used for deserilizing user input in your PHP application:
+If normal `unserialize` function is used for deserializing user input in your PHP application:
 
 1. Don't use this package, use `json_decode` in order to avoid PHP Object Injection
 2. If compatibility matters, first use this function and then try to use `json_decode` in the near future
@@ -17,7 +17,7 @@ Also you don't need this library if you use PHP >= 7.0, since PHP7 or later prov
 
 ## Why POI-safe?
 
-`unserialize` function in this package only deserializes boolean, integer, floating point number, string, and array, and not deserilizes object instance.
+`unserialize` function in this package only deserializes boolean, integer, floating point number, string, and array, and not deserializes object instance.
 Since any instances that has magic method for POP chain (such as `__destruct` or `__toString`) cannot instantiate, any plan to exploit POP chain just fails.
 ( You can read detailed explanation of POP chain https://www.insomniasec.com/downloads/publications/Practical%20PHP%20Object%20Injection.pdf )
 
