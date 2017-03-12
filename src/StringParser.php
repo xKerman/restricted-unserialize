@@ -24,11 +24,7 @@ class StringParser implements ParserInterface
         list($length, $source) = $parser->parse($source);
 
         $source->consume(':"');
-        $result = '';
-        for ($i = 0; $i < $length; ++$i) {
-            $result .= $source->peek();
-            $source->next();
-        }
+        $result = $source->read($length);
         $source->consume('";');
 
         return array($result, $source);
