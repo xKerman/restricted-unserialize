@@ -97,4 +97,21 @@ class Source
         $this->current += $length;
         return $result;
     }
+
+    /**
+     * return matching string for given regexp
+     *
+     * @param string $regexp Regular Expression for expected substring
+     * @return string
+     */
+    public function match($regexp)
+    {
+        $matched = preg_match($regexp, substr($this->str, $this->current), $matches);
+        if ($matched === 0 || $matched === false) {
+            return '';
+        }
+
+        $this->current += strlen($matches[0]);
+        return $matches[0];
+    }
 }

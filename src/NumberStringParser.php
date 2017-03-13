@@ -21,19 +21,10 @@ class NumberStringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $parser = new OptionalSignParser();
-        list($result, $source) = $parser->parse($source);
-
-        $hasDigit = false;
-        while (ctype_digit($source->peek())) {
-            $hasDigit = true;
-            $result .= $source->peek();
-            $source->next();
-        }
-        if (!$hasDigit) {
+        $result = $source->match('/\A[+-]?[0-9]+/');
+        if ($result === '') {
             return $source->triggerError();
         }
-
         return array($result, $source);
     }
 }
