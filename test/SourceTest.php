@@ -104,4 +104,26 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         $source = new Source($input);
         $source->read($length);
     }
+
+    /**
+     * @covers ::match
+     */
+    public function testMatch()
+    {
+        $source = new Source('abcde');
+        $result = $source->match('/\A\w{3}/');
+        $this->assertSame('abc', $result);
+        $this->assertSame('d', $source->peek());
+    }
+
+    /**
+     * @covers ::match
+     */
+    public function testMatchFailure()
+    {
+        $source = new Source('abcde12345');
+        $result = $source->match('/\A\d/');
+        $this->assertSame('', $result);
+        $this->assertSame('a', $source->peek());
+    }
 }
