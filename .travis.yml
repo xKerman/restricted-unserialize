@@ -8,6 +8,7 @@ php:
   - '5.5'
   - '5.4'
   - '5.3'
+  - hhvm
 install:
   - rm composer.lock && composer install --no-interaction
 script:
