@@ -9,6 +9,17 @@ namespace xKerman\Restricted;
  */
 class BooleanParser implements ParserInterface
 {
+    /** @var ParserInterface $parser internal parser for boolean parsing */
+    private $parser;
+
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->parser = new RegexpSubstringParser('/\Gb:[01];/', 2, 1);
+    }
+
     /**
      * parse given `$source` as PHP serialized boolean
      *
@@ -18,7 +29,7 @@ class BooleanParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $matched = $source->match('/\Gb:[01];/');
-        return array(substr($matched, 2, 1) === '1', $source);
+        $result = $this->parser->parse($source);
+        return array($result === '1', $source);
     }
 }
