@@ -18,12 +18,8 @@ class StringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('s:');
-
-        $parser = new LengthParser();
-        list($length, $source) = $parser->parse($source);
-
-        $source->consume(':"');
+        $matched = $source->match('/\Gs:[+]?[0-9]+:"/');
+        $length = intval(substr($matched, 2, -2), 10);
         $result = $source->read($length);
         $source->consume('";');
 
