@@ -18,25 +18,10 @@ class BooleanParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('b:');
-        if (!$this->isBoolean($source->peek())) {
+        $matched = $source->match('/\Gb:[01];/');
+        if ($matched === '') {
             return $source->triggerError();
         }
-        $result = $source->peek();
-        $source->next();
-        $source->consume(';');
-
-        return array((boolean)$result, $source);
-    }
-
-    /**
-     * judge if given `$char` is boolean value or not
-     *
-     * @param string $char target
-     * @return boolean
-     */
-    public function isBoolean($char)
-    {
-        return $char === '0' || $char === '1';
+        return array(boolval(substr($matched, 2, 1)), $source);
     }
 }
