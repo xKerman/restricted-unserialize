@@ -125,15 +125,7 @@ class FloatParser implements ParserInterface
      */
     private function parseExponentialPart($source)
     {
-        if (strtolower($source->peek()) !== 'e') {
-            return array('', $source);
-        }
-
-        $result = $source->peek();
-        $source->next();
-        $parser = new NumberStringParser();
-        list($exp, $source) = $parser->parse($source);
-        $result .= $exp;
+        $result = $source->match('/(?:[eE][+-]?[0-9]+)?/');
         return array($result, $source);
     }
 }

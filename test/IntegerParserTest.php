@@ -45,7 +45,6 @@ class IntegerParserTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \xKerman\Restricted\IntegerParser
-     * @covers \xKerman\Restricted\NumberStringParser
      * @dataProvider provideInvalidData
      * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
