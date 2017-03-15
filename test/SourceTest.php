@@ -111,7 +111,7 @@ class SourceTest extends \PHPUnit_Framework_TestCase
     public function testMatch()
     {
         $source = new Source('abcde');
-        $result = $source->match('/\A\w{3}/');
+        $result = $source->match('/\G\w{3}/');
         $this->assertSame('abc', $result);
         $this->assertSame('d', $source->peek());
     }
@@ -122,7 +122,7 @@ class SourceTest extends \PHPUnit_Framework_TestCase
     public function testMatchFailure()
     {
         $source = new Source('abcde12345');
-        $result = $source->match('/\A\d/');
+        $result = $source->match('/\G\d/');
         $this->assertSame('', $result);
         $this->assertSame('a', $source->peek());
     }

@@ -21,7 +21,7 @@ class NumberStringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $result = $source->match('/\A[+-]?[0-9]+/');
+        $result = $source->match('/\G[+-]?[0-9]+/');
         if ($result === '') {
             return $source->triggerError();
         }

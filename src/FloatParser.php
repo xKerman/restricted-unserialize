@@ -84,7 +84,7 @@ class FloatParser implements ParserInterface
      */
     private function parseDigits($source)
     {
-        $result = $source->match('/\A[0-9]*/');
+        $result = $source->match('/\G[0-9]*/');
         return array($result, $source);
     }
 
