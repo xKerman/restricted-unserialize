@@ -19,6 +19,6 @@ class BooleanParser implements ParserInterface
     public function parse(Source $source)
     {
         $matched = $source->match('/\Gb:[01];/');
-        return array(boolval(substr($matched, 2, 1)), $source);
+        return array(substr($matched, 2, 1) === '1', $source);
     }
 }
