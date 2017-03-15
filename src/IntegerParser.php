@@ -18,11 +18,7 @@ class IntegerParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('i:');
-        $parser = new NumberLiteralParser();
-        list($result, $source) = $parser->parse($source);
-        $source->consume(';');
-
-        return array($result, $source);
+        $matched = $source->match('/\Gi:[+-]?[0-9]+;/');
+        return array(intval(substr($matched, 2, -1), 10), $source);
     }
 }

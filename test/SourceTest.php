@@ -118,12 +118,11 @@ class SourceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ::match
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testMatchFailure()
     {
         $source = new Source('abcde12345');
         $result = $source->match('/\G\d/');
-        $this->assertSame('', $result);
-        $this->assertSame('a', $source->peek());
     }
 }
