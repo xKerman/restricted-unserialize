@@ -17,7 +17,10 @@ class IntegerParser implements ParserInterface
      */
     public function __construct()
     {
-        $this->parser = new RegexpSubstringParser('/\Gi:[+-]?[0-9]+;/', 2, -1);
+        $this->parser = new TypeConvertParser(
+            new RegexpSubstringParser('/\Gi:[+-]?[0-9]+;/', 2, -1),
+            new IntegerConverter()
+        );
     }
 
     /**
@@ -29,7 +32,6 @@ class IntegerParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        list($result, $source) = $this->parser->parse($source);
-        return array(intval($result, 10), $source);
+        return $this->parser->parse($source);
     }
 }

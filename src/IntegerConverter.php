@@ -13,7 +13,7 @@ class IntegerConverter implements ConverterInterface
      * convert given input to integer
      *
      * @param string $input input for converter
-     * @return boolean
+     * @return integer
      */
     public function convert($input)
     {
