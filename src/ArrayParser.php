@@ -18,14 +18,10 @@ class ArrayParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('a:');
+        $matched = $source->match('/\Ga:[+]?[0-9]+:{/');
+        $length = intval(substr($matched, 2, -2), 10);
 
-        $parser = new LengthParser();
-        list($length, $source) = $parser->parse($source);
         $result = array();
-
-        $source->consume(':{');
-
         for ($i = 0; $i < $length; ++$i) {
             list($key, $source) = $this->parseKey($source);
             list($value, $source) = $this->parseValue($source);

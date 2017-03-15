@@ -106,9 +106,9 @@ class Source
      */
     public function match($regexp)
     {
-        $matched = preg_match($regexp, substr($this->str, $this->current), $matches);
+        $matched = preg_match($regexp, $this->str, $matches, 0, $this->current);
         if ($matched === 0 || $matched === false) {
-            return '';
+            return $this->triggerError();
         }
 
         $this->current += strlen($matches[0]);
