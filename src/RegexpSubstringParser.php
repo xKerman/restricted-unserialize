@@ -42,6 +42,6 @@ class RegexpSubstringParser implements ParserInterface
     public function parse(Source $source)
     {
         $result = $source->match($this->regexp);
-        return substr($result, $this->start, $this->length);
+        return array(substr($result, $this->start, $this->length), $source);
     }
 }

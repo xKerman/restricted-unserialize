@@ -35,7 +35,7 @@ class RegexpSubstringParserTest extends \PHPUnit_Framework_TestCase
     {
         $source = new Source($input);
         $parser = new RegexpSubstringParser($regexp, $start, $length);
-        $actual = $parser->parse($source);
+        list($actual, $source) = $parser->parse($source);
         $this->assertSame($expected, $actual);
     }
 

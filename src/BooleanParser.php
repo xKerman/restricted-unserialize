@@ -29,7 +29,7 @@ class BooleanParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $result = $this->parser->parse($source);
+        list($result, $source) = $this->parser->parse($source);
         return array($result === '1', $source);
     }
 }

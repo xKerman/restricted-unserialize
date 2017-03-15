@@ -29,7 +29,7 @@ class IntegerParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $result = $this->parser->parse($source);
+        list($result, $source) = $this->parser->parse($source);
         return array(intval($result, 10), $source);
     }
 }
