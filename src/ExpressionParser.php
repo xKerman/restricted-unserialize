@@ -36,7 +36,10 @@ class ExpressionParser implements ParserInterface
             case 'N':
                 return new NullParser();
             case 'b':
-                return new BooleanParser();
+                return new TypeConvertParser(
+                    new RegexpSubstringParser('/\Gb:[01];/', 2, 1),
+                    new BooleanConverter()
+                );
             case 'i':
                 return new IntegerParser();
             case 'd':

@@ -33,6 +33,36 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, Restricted\unserialize($input));
     }
 
+    public function provideDataForBooleanFailTest()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'missing tag' => array(
+                'input' => ':0;',
+            ),
+            'missing value' => array(
+                'input' => 'b:;',
+            ),
+            'missing semicolon' => array(
+                'input' => 'b:0',
+            ),
+            'value is not boolean' => array(
+                'input' => 'b:2;',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForBooleanFailTest
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testBooleanFail($input)
+    {
+        Restricted\unserialize($input);
+    }
+
     public function provideDataForIntegerTest()
     {
         return array(
