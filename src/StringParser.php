@@ -9,6 +9,20 @@ namespace xKerman\Restricted;
  */
 class StringParser implements ParserInterface
 {
+    /** @var ParserInterface $parser internal parser */
+    private $parser;
+
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->parser = new TypeConvertParser(
+            new RegexpSubstringParser('/\Gs:[+]?[0-9]+:"/', 2, -2),
+            new IntegerConverter()
+        );
+    }
+
     /**
      * parse give `$source` as PHP serialized string
      *
@@ -18,8 +32,7 @@ class StringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $matched = $source->match('/\Gs:[+]?[0-9]+:"/');
-        $length = intval(substr($matched, 2, -2), 10);
+        list($length, $source) = $this->parser->parse($source);
         $result = $source->read($length);
         $source->consume('";');
 

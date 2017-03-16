@@ -9,17 +9,37 @@ namespace xKerman\Restricted;
  */
 class ArrayParser implements ParserInterface
 {
-    /** @var ParserInterface ExpressionParser parser for unserialize expression */
+    /** @var ParserInterface $expressionParser parser for unserialize expression */
     private $expressionParser;
+
+    /** @var ParserInterface $integerParser parser for unserialized integer */
+    private $integerParser;
+
+    /** @var ParserInterface $stringParser parser for unserialized string */
+    private $stringParser;
+
+    /** @var ParserInterface $parser internal parser */
+    private $parser;
 
     /**
      * constructor
      *
-     * @param ParserInterface $parser parser for unserialize expression
+     * @param ParserInterface $expressionParser parser for unserialize expression
+     * @param ParserInterface $integerParser    parser for unserialized integer
+     * @param ParserInterface $stringParser     parser for unserialized string
      */
-    public function __construct(ParserInterface $parser)
-    {
-        $this->expressionParser = $parser;
+    public function __construct(
+        ParserInterface $expressionParser,
+        ParserInterface $integerParser,
+        ParserInterface $stringParser
+    ) {
+        $this->expressionParser = $expressionParser;
+        $this->integerParser = $integerParser;
+        $this->stringParser = $stringParser;
+        $this->parser = new TypeConvertParser(
+            new RegexpSubstringParser('/\Ga:[+]?[0-9]+:{/', 2, -2),
+            new IntegerConverter()
+        );
     }
 
     /**
@@ -31,8 +51,7 @@ class ArrayParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $matched = $source->match('/\Ga:[+]?[0-9]+:{/');
-        $length = intval(substr($matched, 2, -2), 10);
+        list($length, $source) = $this->parser->parse($source);
 
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
@@ -56,15 +75,12 @@ class ArrayParser implements ParserInterface
     {
         switch ($source->peek()) {
             case 'i':
-                $parser = new IntegerParser();
-                break;
+                return $this->integerParser->parse($source);
             case 's':
-                $parser = new StringParser();
-                break;
+                return $this->stringParser->parse($source);
             default:
                 return $source->triggerError();
         }
-        return $parser->parse($source);
     }
 
     /**

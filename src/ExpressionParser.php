@@ -17,16 +17,18 @@ class ExpressionParser implements ParserInterface
      */
     public function __construct()
     {
+        $integerParser = new IntegerParser();
+        $stringParser = new StringParser();
         $this->parsers = array(
             'N' => new NullParser(),
             'b' => new TypeConvertParser(
                 new RegexpSubstringParser('/\Gb:[01];/', 2, 1),
                 new BooleanConverter()
             ),
-            'i' => new IntegerParser(),
+            'i' => $integerParser,
             'd' => new FloatParser(),
-            's' => new StringParser(),
-            'a' => new ArrayParser($this),
+            's' => $stringParser,
+            'a' => new ArrayParser($this, $integerParser, $stringParser),
         );
     }
 
