@@ -4,6 +4,8 @@ namespace xKerman\Restricted\Test;
 
 use xKerman\Restricted\ArrayParser;
 use xKerman\Restricted\ExpressionParser;
+use xKerman\Restricted\IntegerParser;
+use xKerman\Restricted\StringParser;
 use xKerman\Restricted\Source;
 
 class ArrayParserTest extends \PHPUnit_Framework_TestCase
@@ -61,7 +63,7 @@ class ArrayParserTest extends \PHPUnit_Framework_TestCase
     public function testParseFailure($input)
     {
         $source = new Source($input);
-        $parser = new ArrayParser(new ExpressionParser());
+        $parser = new ArrayParser(new ExpressionParser(), new IntegerParser(), new StringParser());
         $parser->parse($source);
     }
 }
