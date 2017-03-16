@@ -9,6 +9,19 @@ namespace xKerman\Restricted;
  */
 class ArrayParser implements ParserInterface
 {
+    /** @var ParserInterface ExpressionParser parser for unserialize expression */
+    private $expressionParser;
+
+    /**
+     * constructor
+     *
+     * @param ParserInterface $parser parser for unserialize expression
+     */
+    public function __construct(ParserInterface $parser)
+    {
+        $this->expressionParser = $parser;
+    }
+
     /**
      * parse given `$source` as PHP serialized array
      *
@@ -63,7 +76,6 @@ class ArrayParser implements ParserInterface
      */
     private function parseValue($source)
     {
-        $parser = new ExpressionParser();
-        return $parser->parse($source);
+        return $this->expressionParser->parse($source);
     }
 }
