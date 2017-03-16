@@ -9,8 +9,11 @@ namespace xKerman\Restricted;
  */
 class ArrayParser implements ParserInterface
 {
-    /** @var ParserInterface ExpressionParser parser for unserialize expression */
+    /** @var ParserInterface $expressionParser parser for unserialize expression */
     private $expressionParser;
+
+    /** @var ParserInterface $parser internal parser */
+    private $parser;
 
     /**
      * constructor
@@ -20,6 +23,10 @@ class ArrayParser implements ParserInterface
     public function __construct(ParserInterface $parser)
     {
         $this->expressionParser = $parser;
+        $this->parser = new TypeConvertParser(
+            new RegexpSubstringParser('/\Ga:[+]?[0-9]+:{/', 2, -2),
+            new IntegerConverter()
+        );
     }
 
     /**
@@ -31,8 +38,7 @@ class ArrayParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $matched = $source->match('/\Ga:[+]?[0-9]+:{/');
-        $length = intval(substr($matched, 2, -2), 10);
+        list($length, $source) = $this->parser->parse($source);
 
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
