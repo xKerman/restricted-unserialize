@@ -9,6 +9,27 @@ namespace xKerman\Restricted;
  */
 class ExpressionParser implements ParserInterface
 {
+    /** @var array $parsers parser list to use */
+    private $parsers;
+
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->parsers = array(
+            'N' => new NullParser(),
+            'b' => new TypeConvertParser(
+                new RegexpSubstringParser('/\Gb:[01];/', 2, 1),
+                new BooleanConverter()
+            ),
+            'i' => new IntegerParser(),
+            'd' => new FloatParser(),
+            's' => new StringParser(),
+            'a' => new ArrayParser($this),
+        );
+    }
+
     /**
      * parse given `$source` as PHP serialized value
      *
@@ -32,24 +53,10 @@ class ExpressionParser implements ParserInterface
      */
     private function createParser($source)
     {
-        switch ($source->peek()) {
-            case 'N':
-                return new NullParser();
-            case 'b':
-                return new TypeConvertParser(
-                    new RegexpSubstringParser('/\Gb:[01];/', 2, 1),
-                    new BooleanConverter()
-                );
-            case 'i':
-                return new IntegerParser();
-            case 'd':
-                return new FloatParser();
-            case 's':
-                return new StringParser();
-            case 'a':
-                return new ArrayParser();
-            default:
-                return $source->triggerError();
+        $char = $source->peek();
+        if (isset($this->parsers[$char])) {
+            return $this->parsers[$char];
         }
+        return $source->triggerError();
     }
 }
