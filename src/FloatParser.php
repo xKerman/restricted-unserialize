@@ -11,6 +11,21 @@ namespace xKerman\Restricted;
  */
 class FloatParser implements ParserInterface
 {
+    /** @var array $mapping parser result mapping */
+    private $mapping;
+
+    /**
+     * constructor
+     */
+    public function __construct()
+    {
+        $this->mapping = array(
+            'INF'  => INF,
+            '-INF' => -INF,
+            'NAN'  => NAN,
+        );
+    }
+
     /**
      * parse given `$source` as PHP serialized float number
      *
@@ -20,55 +35,12 @@ class FloatParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $source->consume('d:');
-
-        if ($source->peek() === 'N') {
-            return $this->parseNan($source);
+        $value = $source->match(
+            '/\Gd:((?:[+-]?(?:[0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)(?:[eE][+-]?[0-9]+)?)|-?INF|NAN);/'
+        );
+        if (array_key_exists($value, $this->mapping)) {
+            return array($this->mapping[$value], $source);
         }
-
-        $parser = new OptionalSignParser();
-        list($sign, $source) = $parser->parse($source);
-
-        if ($source->peek() === 'I') {
-            return $this->parseInf($source, $sign);
-        }
-
-        $num = $source->match('/\G((?:[0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)(?:[eE][+-]?[0-9]+)?);/');
-        return array(floatval($sign . $num), $source);
-    }
-
-    /**
-     * parse given `$source` as NAN
-     *
-     * @param Source $source input
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseNan($source)
-    {
-        $source->consume('NAN;');
-        return array(NAN, $source);
-    }
-
-    /**
-     * parse given `$source` as INF / -INF
-     *
-     * @param Source $source input
-     * @param string $sign   '-', '+' or ''
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseInf($source, $sign)
-    {
-        if (!in_array($sign, array('', '-'), true)) {
-            return $source->triggerError();
-        }
-
-        $source->consume('INF;');
-
-        if ($sign === '-') {
-            return array(-INF, $source);
-        }
-        return array(INF, $source);
+        return array(floatval($value), $source);
     }
 }
