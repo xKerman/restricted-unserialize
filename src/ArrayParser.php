@@ -18,9 +18,6 @@ class ArrayParser implements ParserInterface
     /** @var ParserInterface $stringParser parser for unserialized string */
     private $stringParser;
 
-    /** @var ParserInterface $parser internal parser */
-    private $parser;
-
     /**
      * constructor
      *
@@ -36,10 +33,6 @@ class ArrayParser implements ParserInterface
         $this->expressionParser = $expressionParser;
         $this->integerParser = $integerParser;
         $this->stringParser = $stringParser;
-        $this->parser = new TypeConvertParser(
-            new RegexpParser('/\Ga:([+]?[0-9]+):{/'),
-            new IntegerConverter()
-        );
     }
 
     /**
@@ -51,7 +44,7 @@ class ArrayParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        list($length, $source) = $this->parser->parse($source);
+        $length = intval($source->match('/\Ga:([+]?[0-9]+):{/'), 10);
 
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
