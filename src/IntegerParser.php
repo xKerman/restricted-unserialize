@@ -9,20 +9,6 @@ namespace xKerman\Restricted;
  */
 class IntegerParser implements ParserInterface
 {
-    /** @var ParserInterface $parser internal parser for integer parsing */
-    private $parser;
-
-    /**
-     * constructor
-     */
-    public function __construct()
-    {
-        $this->parser = new TypeConvertParser(
-            new RegexpParser('/\Gi:([+-]?[0-9]+);/'),
-            new IntegerConverter()
-        );
-    }
-
     /**
      * parse given `$source` as PHP serialized integer
      *
@@ -32,6 +18,7 @@ class IntegerParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        return $this->parser->parse($source);
+        $result = intval($source->match('/\Gi:([+-]?[0-9]+);/'), 10);
+        return array($result, $source);
     }
 }
