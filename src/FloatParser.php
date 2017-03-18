@@ -33,11 +33,8 @@ class FloatParser implements ParserInterface
             return $this->parseInf($source, $sign);
         }
 
-        list($dnum, $source) = $this->parseDnum($source);
-        $exponential = $source->match('/(?:[eE][+-]?[0-9]+)?/');
-        $source->consume(';');
-
-        return array(floatval(implode(array($sign, $dnum, $exponential))), $source);
+        $num = $source->match('/\G((?:[0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)(?:[eE][+-]?[0-9]+)?);/');
+        return array(floatval($sign . $num), $source);
     }
 
     /**
@@ -73,18 +70,5 @@ class FloatParser implements ParserInterface
             return array(-INF, $source);
         }
         return array(INF, $source);
-    }
-
-    /**
-     * parse integer part and fraction part
-     *
-     * @param Source $source input
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseDnum($source)
-    {
-        $result = $source->match('/\G([0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)/');
-        return array($result, $source);
     }
 }
