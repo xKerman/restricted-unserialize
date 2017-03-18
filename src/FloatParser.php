@@ -33,11 +33,8 @@ class FloatParser implements ParserInterface
             return $this->parseInf($source, $sign);
         }
 
-        list($dnum, $source) = $this->parseDnum($source);
-        list($exponential, $source) = $this->parseExponentialPart($source);
-
-        $source->consume(';');
-        return array(floatval(implode(array($sign, $dnum, $exponential))), $source);
+        $num = $source->match('/\G((?:[0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)(?:[eE][+-]?[0-9]+)?);/');
+        return array(floatval($sign . $num), $source);
     }
 
     /**
@@ -73,59 +70,5 @@ class FloatParser implements ParserInterface
             return array(-INF, $source);
         }
         return array(INF, $source);
-    }
-
-    /**
-     * parse given `$source` as sequence of DIGIT
-     *
-     * @param Source $source input
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseDigits($source)
-    {
-        $result = $source->match('/\G[0-9]*/');
-        return array($result, $source);
-    }
-
-    /**
-     * parse integer part and fraction part
-     *
-     * @param Source $source input
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseDnum($source)
-    {
-        list($digits, $source) = $this->parseDigits($source);
-        $result = $digits;
-        $hasIntegerPart = ($digits !== '');
-
-        $hasFractionPart = false;
-        if ($source->peek() === '.') {
-            $result .= $source->peek();
-            $source->next();
-            list($digits, $source) = $this->parseDigits($source);
-            $result .= $digits;
-            $hasFractionPart = ($digits !== '');
-        }
-
-        if (!$hasIntegerPart && !$hasFractionPart) {
-            return $source->triggerError();
-        }
-        return array($result, $source);
-    }
-
-    /**
-     * parse given `$source` as exponentail part
-     *
-     * @param Source $source input
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseExponentialPart($source)
-    {
-        $result = $source->match('/(?:[eE][+-]?[0-9]+)?/');
-        return array($result, $source);
     }
 }

@@ -56,7 +56,7 @@ class ArrayParser implements ParserInterface
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
             list($key, $source) = $this->parseKey($source);
-            list($value, $source) = $this->parseValue($source);
+            list($value, $source) = $this->expressionParser->parse($source);
             $result[$key] = $value;
         }
 
@@ -81,17 +81,5 @@ class ArrayParser implements ParserInterface
             default:
                 return $source->triggerError();
         }
-    }
-
-    /**
-     * parse given `$source` as array value
-     *
-     * @param Source $source input
-     * @return array
-     * @throws UnserializeFailedException
-     */
-    private function parseValue($source)
-    {
-        return $this->expressionParser->parse($source);
     }
 }
