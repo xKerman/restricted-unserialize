@@ -112,6 +112,6 @@ class Source
         }
 
         $this->current += strlen($matches[0]);
-        return $matches[0];
+        return isset($matches[1]) ? $matches[1] : $matches[0];
     }
 }

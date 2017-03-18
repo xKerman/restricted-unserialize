@@ -18,7 +18,7 @@ class StringParser implements ParserInterface
     public function __construct()
     {
         $this->parser = new TypeConvertParser(
-            new RegexpSubstringParser('/\Gs:[+]?[0-9]+:"/', 2, -2),
+            new RegexpParser('/\Gs:([+]?[0-9]+):"/'),
             new IntegerConverter()
         );
     }

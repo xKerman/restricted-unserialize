@@ -22,7 +22,7 @@ class ExpressionParser implements ParserInterface
         $this->parsers = array(
             'N' => new NullParser(),
             'b' => new TypeConvertParser(
-                new RegexpSubstringParser('/\Gb:[01];/', 2, 1),
+                new RegexpParser('/\Gb:([01]);/'),
                 new BooleanConverter()
             ),
             'i' => $integerParser,

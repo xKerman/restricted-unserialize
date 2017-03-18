@@ -18,7 +18,7 @@ class IntegerParser implements ParserInterface
     public function __construct()
     {
         $this->parser = new TypeConvertParser(
-            new RegexpSubstringParser('/\Gi:[+-]?[0-9]+;/', 2, -1),
+            new RegexpParser('/\Gi:([+-]?[0-9]+);/'),
             new IntegerConverter()
         );
     }

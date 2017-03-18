@@ -37,7 +37,7 @@ class ArrayParser implements ParserInterface
         $this->integerParser = $integerParser;
         $this->stringParser = $stringParser;
         $this->parser = new TypeConvertParser(
-            new RegexpSubstringParser('/\Ga:[+]?[0-9]+:{/', 2, -2),
+            new RegexpParser('/\Ga:([+]?[0-9]+):{/'),
             new IntegerConverter()
         );
     }
