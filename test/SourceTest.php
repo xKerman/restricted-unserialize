@@ -118,6 +118,17 @@ class SourceTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ::match
+     */
+    public function testMatchSubpattern()
+    {
+        $source = new Source('1234hoge');
+        $result = $source->match('/\G1([0-9]+)/');
+        $this->assertSame('234', $result);
+        $this->assertSame('h', $source->peek());
+    }
+
+    /**
+     * @covers ::match
      * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testMatchFailure()

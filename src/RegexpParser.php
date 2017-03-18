@@ -7,29 +7,19 @@ namespace xKerman\Restricted;
 /**
  * Parser that first process regexp match, and then substring the result
  */
-class RegexpSubstringParser implements ParserInterface
+class RegexpParser implements ParserInterface
 {
     /** @var string $regexp regexp for matching */
     private $regexp;
 
-    /** @var integer $start start position of substring */
-    private $start;
-
-    /** @var integer $length length of substring (see PHP `substr` manual) */
-    private $length;
-
     /**
      * constructor
      *
-     * @param string  $regexp regexp for matching
-     * @param integer $start  start position of substring
-     * @param integer $length length of substring
+     * @param string $regexp regexp for matching
      */
-    public function __construct($regexp, $start, $length)
+    public function __construct($regexp)
     {
         $this->regexp = $regexp;
-        $this->start = $start;
-        $this->length = $length;
     }
 
     /**
@@ -42,6 +32,6 @@ class RegexpSubstringParser implements ParserInterface
     public function parse(Source $source)
     {
         $result = $source->match($this->regexp);
-        return array(substr($result, $this->start, $this->length), $source);
+        return array($result, $source);
     }
 }
