@@ -9,6 +9,9 @@ namespace xKerman\Restricted;
  */
 class StringParser implements ParserInterface
 {
+    /** @var integer */
+    const CLOSE_STRING_LENGTH = 2;
+
     /**
      * parse give `$source` as PHP serialized string
      *
@@ -20,7 +23,7 @@ class StringParser implements ParserInterface
     {
         $length = intval($source->match('/\Gs:([+]?[0-9]+):"/'), 10);
         $result = $source->read($length);
-        $source->consume('";');
+        $source->consume('";', self::CLOSE_STRING_LENGTH);
 
         return array($result, $source);
     }

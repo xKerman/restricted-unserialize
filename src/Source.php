@@ -12,6 +12,9 @@ class Source
     /** @var string $str given string to deserialize */
     private $str;
 
+    /** @var int $length given string length */
+    private $length;
+
     /** @var int $current current position of parser */
     private $current;
 
@@ -27,6 +30,7 @@ class Source
             throw new \InvalidArgumentException('expected string, but got: ' . gettype($str));
         }
         $this->str = $str;
+        $this->length = strlen($str);
         $this->current = 0;
     }
 
@@ -65,16 +69,17 @@ class Source
     /**
      * consume given string if it is as expected
      *
-     * @param string $expected expected string
+     * @param string  $expected expected string
+     * @param integer $length   length of $expected
      * @return void
      * @throws UnserializeFailedException
      */
-    public function consume($expected)
+    public function consume($expected, $length)
     {
         if (strpos($this->str, $expected, $this->current) !== $this->current) {
             return $this->triggerError();
         }
-        $this->current += strlen($expected);
+        $this->current += $length;
     }
 
     /**
@@ -89,13 +94,12 @@ class Source
         if ($length < 0) {
             return $this->triggerError();
         }
-
-        $result = substr($this->str, $this->current, $length);
-        if (strlen($result) !== $length) {
+        if ($this->current + $length > $this->length) {
             return $this->triggerError();
         }
+
         $this->current += $length;
-        return $result;
+        return substr($this->str, $this->current - $length, $length);
     }
 
     /**
