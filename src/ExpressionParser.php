@@ -21,10 +21,7 @@ class ExpressionParser implements ParserInterface
         $stringParser = new StringParser();
         $this->parsers = array(
             'N' => new NullParser(),
-            'b' => new TypeConvertParser(
-                new RegexpParser('/\Gb:([01]);/'),
-                new BooleanConverter()
-            ),
+            'b' => new BooleanParser(),
             'i' => $integerParser,
             'd' => new FloatParser(),
             's' => $stringParser,
