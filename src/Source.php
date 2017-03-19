@@ -69,16 +69,17 @@ class Source
     /**
      * consume given string if it is as expected
      *
-     * @param string $expected expected string
+     * @param string  $expected expected string
+     * @param integer $length   length of $expected
      * @return void
      * @throws UnserializeFailedException
      */
-    public function consume($expected)
+    public function consume($expected, $length)
     {
         if (strpos($this->str, $expected, $this->current) !== $this->current) {
             return $this->triggerError();
         }
-        $this->current += strlen($expected);
+        $this->current += $length;
     }
 
     /**

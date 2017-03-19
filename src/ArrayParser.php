@@ -18,6 +18,9 @@ class ArrayParser implements ParserInterface
     /** @var ParserInterface $stringParser parser for unserialized string */
     private $stringParser;
 
+    /** @var integer */
+    const CLOSE_BRACE_LENGTH = 1;
+
     /**
      * constructor
      *
@@ -53,7 +56,7 @@ class ArrayParser implements ParserInterface
             $result[$key] = $value;
         }
 
-        $source->consume('}');
+        $source->consume('}', self::CLOSE_BRACE_LENGTH);
         return array($result, $source);
     }
 

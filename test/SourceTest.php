@@ -56,7 +56,7 @@ class SourceTest extends \PHPUnit_Framework_TestCase
     public function testConsumeSucceeded($input, $consumption, $expected)
     {
         $source = new Source($input);
-        $source->consume($consumption);
+        $source->consume($consumption, strlen($consumption));
         $this->assertSame($expected, $source->peek());
     }
 
@@ -66,7 +66,7 @@ class SourceTest extends \PHPUnit_Framework_TestCase
     public function testConsumeFailure()
     {
         $source = new Source('hello');
-        $source->consume('e');
+        $source->consume('e', strlen('e'));
     }
 
     /**
