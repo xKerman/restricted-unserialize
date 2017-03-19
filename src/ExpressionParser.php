@@ -39,8 +39,7 @@ class ExpressionParser implements ParserInterface
     public function parse(Source $source)
     {
         $parser = $this->createParser($source);
-        list($result, $source) = $parser->parse($source);
-        return array($result, $source);
+        return $parser->parse($source);
     }
 
     /**
