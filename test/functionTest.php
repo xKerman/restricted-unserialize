@@ -225,7 +225,6 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
     public function testEscapedString($input, $expected)
     {
         $this->assertSame($expected, Restricted\unserialize($input));
-        $this->assertSame($expected, unserialize($input));
     }
 
     public function provideDataForArrayTest()
