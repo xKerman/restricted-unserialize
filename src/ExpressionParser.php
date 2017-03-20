@@ -19,13 +19,15 @@ class ExpressionParser implements ParserInterface
     {
         $integerParser = new IntegerParser();
         $stringParser = new StringParser();
+        $escapedStringParser = new EscapedStringParser();
         $this->parsers = array(
             'N' => new NullParser(),
             'b' => new BooleanParser(),
             'i' => $integerParser,
             'd' => new FloatParser(),
             's' => $stringParser,
-            'a' => new ArrayParser($this, $integerParser, $stringParser),
+            'S' => $escapedStringParser,
+            'a' => new ArrayParser($this, $integerParser, $stringParser, $escapedStringParser),
         );
     }
 
