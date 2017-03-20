@@ -9,6 +9,7 @@ namespace xKerman\Restricted;
  */
 class EscapedStringParser implements ParserInterface
 {
+    /** @var integer */
     const CLOSE_STRING_LENGTH = 2;
 
     /**
