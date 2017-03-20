@@ -15,7 +15,7 @@ class EscapedStringParser implements ParserInterface
      * parse given `$source` as escaped string
      *
      * @param Source $source parser input
-     * @return array()
+     * @return array
      * @throws UnserializeFailedException
      */
     public function parse(Source $source)
