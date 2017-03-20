@@ -181,6 +181,52 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, Restricted\unserialize($input));
     }
 
+    public function provideDataForEscapedStringTest()
+    {
+        return array(
+            'empty string' => array(
+                'input' => 'S:0:"";',
+                'expected' => '',
+            ),
+            'single character (a, not escaped)' => array(
+                'input' => 'S:1:"a";',
+                'expected' => 'a',
+            ),
+            'single character (a, escaped)' => array(
+                'input' => 'S:1:"\61";',
+                'expected' => 'a',
+            ),
+            'single character (j, escaped, upper)' => array(
+                'input' => 'S:1:"\6A";',
+                'expected' => 'j',
+            ),
+            'single character (j, escaped, lower)' => array(
+                'input' => 'S:1:"\6a";',
+                'expected' => 'j',
+            ),
+            'single character (double quote)' => array(
+                'input' => 'S:1:""";',
+                'expected' => '"',
+            ),
+            'single character (null byte)' => array(
+                'input' => 'S:1:"\00";',
+                'expected' => "\x00",
+            ),
+            'single character (\xFF)' => array(
+                'input' => 'S:1:"\FF";',
+                'expected' => "\xff",
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForEscapedStringTest
+     */
+    public function testEscapedString($input, $expected)
+    {
+        $this->assertSame($expected, Restricted\unserialize($input));
+    }
+
     public function provideDataForArrayTest()
     {
         return array(
@@ -195,6 +241,10 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
             'nested array' => array(
                 'input' => serialize(array(array(), array(array(1), null), "a" => array("b" => "c"))),
                 'expected' => array(array(), array(array(1), null), "a" => array("b" => "c")),
+            ),
+            'escaped key array' => array(
+                'input' => 'a:1:{S:1:"\62";N;}',
+                'expected' => array('b' => null),
             ),
         );
     }

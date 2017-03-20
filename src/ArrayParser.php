@@ -18,24 +18,30 @@ class ArrayParser implements ParserInterface
     /** @var ParserInterface $stringParser parser for unserialized string */
     private $stringParser;
 
+    /** @var ParserInterface $escapedStringParser parser for unserialized escaped string */
+    private $escapedStringParser;
+
     /** @var integer */
     const CLOSE_BRACE_LENGTH = 1;
 
     /**
      * constructor
      *
-     * @param ParserInterface $expressionParser parser for unserialize expression
-     * @param ParserInterface $integerParser    parser for unserialized integer
-     * @param ParserInterface $stringParser     parser for unserialized string
+     * @param ParserInterface $expressionParser    parser for unserialize expression
+     * @param ParserInterface $integerParser       parser for unserialized integer
+     * @param ParserInterface $stringParser        parser for unserialized string
+     * @param ParserInterface $escapedStringParser parser for unserialized escaped string
      */
     public function __construct(
         ParserInterface $expressionParser,
         ParserInterface $integerParser,
-        ParserInterface $stringParser
+        ParserInterface $stringParser,
+        ParserInterface $escapedStringParser
     ) {
         $this->expressionParser = $expressionParser;
         $this->integerParser = $integerParser;
         $this->stringParser = $stringParser;
+        $this->escapedStringParser = $escapedStringParser;
     }
 
     /**
@@ -74,6 +80,8 @@ class ArrayParser implements ParserInterface
                 return $this->integerParser->parse($source);
             case 's':
                 return $this->stringParser->parse($source);
+            case 'S':
+                return $this->escapedStringParser->parse($source);
             default:
                 return $source->triggerError();
         }
