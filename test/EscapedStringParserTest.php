@@ -31,6 +31,10 @@ class EscapedStringParserTest extends \PHPUnit_Framework_TestCase
             'length is negative' => array(
                 'input' => 'S:-1:"";',
             ),
+            'length contains plus sign' => array(
+                // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+                'input' => 'S:+1:"a";',
+            ),
             'no quote' => array(
                 'input' => 'S:1:a;',
             ),

@@ -21,7 +21,7 @@ class StringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $length = intval($source->match('/\Gs:([+]?[0-9]+):"/'), 10);
+        $length = intval($source->match('/\Gs:([0-9]+):"/'), 10);
         $result = $source->read($length);
         $source->consume('";', self::CLOSE_STRING_LENGTH);
 

@@ -53,7 +53,7 @@ class ArrayParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $length = intval($source->match('/\Ga:([+]?[0-9]+):{/'), 10);
+        $length = intval($source->match('/\Ga:([0-9]+):{/'), 10);
 
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
