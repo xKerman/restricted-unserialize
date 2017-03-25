@@ -32,6 +32,10 @@ class ArrayParserTest extends \PHPUnit_Framework_TestCase
             'array length is negative' => array(
                 'input' => 'a:-1:{}',
             ),
+            'length contains plus sign' => array(
+                // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+                'input' => 'a:+0:{}',
+            ),
             'array length is smaller than actual items' => array(
                 'input' => 'a:0:{i:0;s:1:"a";}',
             ),

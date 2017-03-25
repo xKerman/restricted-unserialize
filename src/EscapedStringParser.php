@@ -21,7 +21,7 @@ class EscapedStringParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $length = intval($source->match('/\GS:([+]?[0-9]+):"/'), 10);
+        $length = intval($source->match('/\GS:([0-9]+):"/'), 10);
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
             $char = $source->read(1);
