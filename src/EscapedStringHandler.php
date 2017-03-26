@@ -7,7 +7,7 @@ namespace xKerman\Restricted;
 /**
  * Parser for escaped string
  */
-class EscapedStringParser implements ParserInterface
+class EscapedStringHandler implements HandlerInterface
 {
     /** @var integer */
     const CLOSE_STRING_LENGTH = 2;
@@ -16,12 +16,13 @@ class EscapedStringParser implements ParserInterface
      * parse given `$source` as escaped string
      *
      * @param Source $source parser input
+     * @param string $args   submatched
      * @return array
      * @throws UnserializeFailedException
      */
-    public function parse(Source $source)
+    public function handle(Source $source, $args)
     {
-        $length = intval($source->match('/\GS:([0-9]+):"/'), 10);
+        $length = intval($args, 10);
         $result = array();
         for ($i = 0; $i < $length; ++$i) {
             $char = $source->read(1);
@@ -29,7 +30,8 @@ class EscapedStringParser implements ParserInterface
                 $result[] = $char;
                 continue;
             }
-            $result[] = chr(base_convert(($source->match('/\G[0-9a-fA-F]{2}/')), 16, 10));
+            $hex = $source->match('/\G([0-9a-fA-F]{2})/');
+            $result[] = chr(base_convert($hex[0], 16, 10));
         }
         $source->consume('";', self::CLOSE_STRING_LENGTH);
         return array(implode('', $result), $source);

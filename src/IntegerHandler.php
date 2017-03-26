@@ -7,18 +7,18 @@ namespace xKerman\Restricted;
 /**
  * Parser for PHP serialized integer
  */
-class IntegerParser implements ParserInterface
+class IntegerHandler implements HandlerInterface
 {
     /**
      * parse given `$source` as PHP serialized integer
      *
      * @param Source $source parser input
+     * @param string $args   submatched
      * @return array
      * @throws UnserializeFailedException
      */
-    public function parse(Source $source)
+    public function handle(Source $source, $args)
     {
-        $result = intval($source->match('/\Gi:([+-]?[0-9]+);/'), 10);
-        return array($result, $source);
+        return array(intval($args, 10), $source);
     }
 }

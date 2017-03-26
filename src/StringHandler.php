@@ -7,7 +7,7 @@ namespace xKerman\Restricted;
 /**
  * Parser class for parse serialized PHP stirng
  */
-class StringParser implements ParserInterface
+class StringHandler implements HandlerInterface
 {
     /** @var integer */
     const CLOSE_STRING_LENGTH = 2;
@@ -16,12 +16,13 @@ class StringParser implements ParserInterface
      * parse give `$source` as PHP serialized string
      *
      * @param Source $source parser input
+     * @param string $args   submatched
      * @return array parser result
      * @throws UnserializeFailedException
      */
-    public function parse(Source $source)
+    public function handle(Source $source, $args)
     {
-        $length = intval($source->match('/\Gs:([0-9]+):"/'), 10);
+        $length = intval($args, 10);
         $result = $source->read($length);
         $source->consume('";', self::CLOSE_STRING_LENGTH);
 

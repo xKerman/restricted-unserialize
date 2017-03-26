@@ -7,21 +7,18 @@ namespace xKerman\Restricted;
 /**
  * Parser to parse PHP serialized null value
  */
-class NullParser implements ParserInterface
+class NullHandler implements HandlerInterface
 {
-    /** @var integer */
-    const NULL_TOKEN_LENGTH = 2;
-
     /**
      * parse given `$source` as PHP serialized null value
      *
      * @param Source $source parser input
+     * @param mixed  $args   submatched
      * @return array parse result
      * @throws UnserializeFailedException
      */
-    public function parse(Source $source)
+    public function handle(Source $source, $args)
     {
-        $source->consume('N;', self::NULL_TOKEN_LENGTH);
-        return array(null, $source);
+        return array($args, $source);
     }
 }

@@ -47,16 +47,6 @@ class Source
     }
 
     /**
-     * return current character
-     *
-     * @return string
-     */
-    public function peek()
-    {
-        return substr($this->str, $this->current, 1);
-    }
-
-    /**
      * consume given string if it is as expected
      *
      * @param string  $expected expected string
@@ -100,12 +90,12 @@ class Source
      */
     public function match($regexp)
     {
-        $matched = preg_match($regexp, $this->str, $matches, 0, $this->current);
-        if ($matched === 0 || $matched === false) {
+        if (!preg_match($regexp, $this->str, $matches, 0, $this->current)) {
             return $this->triggerError();
         }
 
         $this->current += strlen($matches[0]);
-        return isset($matches[1]) ? $matches[1] : $matches[0];
+        array_shift($matches);
+        return $matches;
     }
 }

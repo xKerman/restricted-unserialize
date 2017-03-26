@@ -9,7 +9,7 @@ namespace xKerman\Restricted;
  *
  * format: http://php.net/manual/en/language.types.float.php
  */
-class FloatParser implements ParserInterface
+class FloatHandler implements HandlerInterface
 {
     /** @var array $mapping parser result mapping */
     private $mapping;
@@ -30,17 +30,15 @@ class FloatParser implements ParserInterface
      * parse given `$source` as PHP serialized float number
      *
      * @param Source $source parser input
+     * @param string $args   submatched
      * @return array
      * @throws UnserializeFailedException
      */
-    public function parse(Source $source)
+    public function handle(Source $source, $args)
     {
-        $value = $source->match(
-            '/\Gd:((?:[+-]?(?:[0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)(?:[eE][+-]?[0-9]+)?)|-?INF|NAN);/'
-        );
-        if (array_key_exists($value, $this->mapping)) {
-            return array($this->mapping[$value], $source);
+        if (array_key_exists($args, $this->mapping)) {
+            return array($this->mapping[$args], $source);
         }
-        return array(floatval($value), $source);
+        return array(floatval($args), $source);
     }
 }

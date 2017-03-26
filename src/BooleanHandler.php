@@ -7,18 +7,18 @@ namespace xKerman\Restricted;
 /**
  * Parser for PHP serialized boolean
  */
-class BooleanParser implements ParserInterface
+class BooleanHandler implements HandlerInterface
 {
     /**
      * parse given `$source` as PHP serialized boolean
      *
      * @param Source $source parser input
+     * @param string $args   submatched
      * @return array
      * @throws UnserializeFailedException
      */
-    public function parse(Source $source)
+    public function handle(Source $source, $args)
     {
-        $result = $source->match('/\Gb:([01]);/');
-        return array((boolean)$result, $source);
+        return array((boolean)$args, $source);
     }
 }

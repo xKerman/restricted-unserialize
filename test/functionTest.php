@@ -11,6 +11,30 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
         $this->assertNull(Restricted\unserialize('N;'));
     }
 
+    public function provideDataForInvalidNull()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'missing tag' => array(
+                'input' => ';',
+            ),
+            'missing semicolon' => array(
+                'input' => 'N',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidNull
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidNull($input)
+    {
+        Restricted\unserialize($input);
+    }
+
     public function provideDataForBooleanTest()
     {
         return array(
@@ -59,6 +83,36 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function provideDataForInvalidBooleanTest()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'missing tag' => array(
+                'input' => ':0;',
+            ),
+            'missing value' => array(
+                'input' => 'b:;',
+            ),
+            'missing semicolon' => array(
+                'input' => 'b:0',
+            ),
+            'value is not boolean' => array(
+                'input' => 'b:2;',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidBooleanTest
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidBoolean($input)
+    {
+        Restricted\unserialize($input);
+    }
+
     /**
      * @dataProvider provideDataForIntegerTest
      */
@@ -67,7 +121,49 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, Restricted\unserialize($input));
     }
 
-    public function provideDataForDoubleTest()
+    public function provideDataForInvalidInteger()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'missing tag' => array(
+                'input' => ':0;',
+            ),
+            'missing value' => array(
+                'input' => 'i:;',
+            ),
+            'missing semicolon' => array(
+                'input' => 'i:0',
+            ),
+            'sign only' => array(
+                'input' => 'i:+;',
+            ),
+            'multiple sign' => array(
+                'input' => 'i:++6;',
+            ),
+            'float value' => array(
+                'input' => 'i:1.0;',
+            ),
+            'hex value' => array(
+                'input' => 'i:0x50;',
+            ),
+            'binary value' => array(
+                'input' => 'i:0b111;',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidInteger
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidInteger($input)
+    {
+        Restricted\unserialize($input);
+    }
+
+    public function provideDataForFloatTest()
     {
         return array(
             'positive double w/o plus sign and point' => array(
@@ -131,11 +227,68 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider provideDataForDoubleTest
+     * @dataProvider provideDataForFloatTest
      */
-    public function testDouble($input, $expected)
+    public function testFloat($input, $expected)
     {
         $this->assertSame($expected, Restricted\unserialize($input));
+    }
+
+    public function provideDataForInvalidFloat()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'missing tag' => array(
+                'input' => ':0;',
+            ),
+            'missing value' => array(
+                'input' => 'd:;',
+            ),
+            'missing semicolon' => array(
+                'input' => 'd:0',
+            ),
+            'sign only' => array(
+                'input' => 'd:+;',
+            ),
+            'multiple sign' => array(
+                'input' => 'd:++6;',
+            ),
+            'dot only' => array(
+                'input' => 'd:.;',
+            ),
+            'dot and exponential' => array(
+                'input' => 'd:.E;',
+            ),
+            'dot and exponential part' => array(
+                'input' => 'd:.E1;',
+            ),
+            'infinity with plus' => array(
+                'input' => 'd:+INF;',
+            ),
+            'nan with plus' => array(
+                'input' => 'd:+NAN;',
+            ),
+            'nan with plus' => array(
+                'input' => 'd:-NAN;',
+            ),
+            'float in exponential part' => array(
+                'input' => 'd:1.0e1.0;',
+            ),
+            'only exponential part' => array(
+                'input' => 'd:e1;'
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidFloat
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidFloat($input)
+    {
+        Restricted\unserialize($input);
     }
 
     public function testNan()
@@ -179,6 +332,52 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
     public function testString($input, $expected)
     {
         $this->assertSame($expected, Restricted\unserialize($input));
+    }
+
+    public function provideDataForInvalidString()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'length is missing' => array(
+                'input' => 's::"";',
+            ),
+            'length is not number' => array(
+                'input' => 's:a:"";',
+            ),
+            'length is not integer' => array(
+                'input' => 's:1.0:"a";',
+            ),
+            'length is negative' => array(
+                'input' => 's:-1:"";',
+            ),
+            'length contains plus sign' => array(
+                // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+                'input' => 's:+1:"a";',
+            ),
+            'no quote' => array(
+                'input' => 's:1:a;',
+            ),
+            'open quote exist but close quote not exist' => array(
+                'input' => 's:1:"a;',
+            ),
+            'close quote exist but open quote not exist' => array(
+                'input' => 's:1:a";',
+            ),
+            'enclosed by single quote' => array(
+                'input' => "s:1:'a';",
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidString
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidString($input)
+    {
+        Restricted\unserialize($input);
     }
 
     public function provideDataForEscapedStringTest()
@@ -227,6 +426,61 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($expected, Restricted\unserialize($input));
     }
 
+    public function provideDataForInvalidEscapedString()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'length is missing' => array(
+                'input' => 'S::"";',
+            ),
+            'length is not number' => array(
+                'input' => 'S:a:"";',
+            ),
+            'length is not integer' => array(
+                'input' => 'S:1.0:"a";',
+            ),
+            'length is negative' => array(
+                'input' => 'S:-1:"";',
+            ),
+            'length contains plus sign' => array(
+                // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+                'input' => 'S:+1:"a";',
+            ),
+            'no quote' => array(
+                'input' => 'S:1:a;',
+            ),
+            'open quote exist but close quote not exist' => array(
+                'input' => 'S:1:"a;',
+            ),
+            'close quote exist but open quote not exist' => array(
+                'input' => 'S:1:a";',
+            ),
+            'enclosed by single quote' => array(
+                'input' => "S:1:'a';",
+            ),
+            'escape range error (first part)' => array(
+                'input' => 'S:1:"\\ag";',
+            ),
+            'escape range error (second part)' => array(
+                'input' => 'S:1:"\\ga";',
+            ),
+            'escaped string is short' => array(
+                'input' => 'S:1:"\\1";',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidEscapedString
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidEscapedString($input)
+    {
+        Restricted\unserialize($input);
+    }
+
     public function provideDataForArrayTest()
     {
         return array(
@@ -255,5 +509,60 @@ class UnserializeTest extends \PHPUnit_Framework_TestCase
     public function testArray($input, $expected)
     {
         $this->assertSame($expected, Restricted\unserialize($input));
+    }
+
+    public function provideDataForInvalidArrayTest()
+    {
+        return array(
+            'empty string' => array(
+                'input' => '',
+            ),
+            'array length is missing' => array(
+                'input' => 'a::{}',
+            ),
+            'array length is not number' => array(
+                'input' => 'a:s:{}',
+            ),
+            'array length is not integer' => array(
+                'input' => 'a:1.0:{}',
+            ),
+            'array length is negative' => array(
+                'input' => 'a:-1:{}',
+            ),
+            'length contains plus sign' => array(
+                // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+                'input' => 'a:+0:{}',
+            ),
+            'array length is smaller than actual items' => array(
+                'input' => 'a:0:{i:0;s:1:"a";}',
+            ),
+            'array length is greater than actual items' => array(
+                'input' => 'a:2:{i:0;s:1:"a";}',
+            ),
+            'array key is not integer nor string' => array(
+                'input' => 'a:1:{N;i:0;}',
+            ),
+            'open brace not exist' => array(
+                'input' => 'a:0:}',
+            ),
+            'close brace not exist' => array(
+                'input' => 'a:0:{',
+            ),
+            'braces not exist' => array(
+                'input' => 'a:0:',
+            ),
+            'value not exist' => array(
+                'input' => 'a:1:{i:0;}',
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider provideDataForInvalidArrayTest
+     * @expectedException \xKerman\Restricted\UnserializeFailedException
+     */
+    public function testInvalidArray($input)
+    {
+        Restricted\unserialize($input);
     }
 }
