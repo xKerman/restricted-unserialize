@@ -23,16 +23,6 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         $this->assertSame('h', $source->peek());
     }
 
-    /**
-     * @covers ::next
-     */
-    public function testNext()
-    {
-        $source = new Source('hello');
-        $source->next();
-        $this->assertSame('e', $source->peek());
-    }
-
     public function provideConsumeSucceeded()
     {
         return array(
