@@ -57,16 +57,6 @@ class Source
     }
 
     /**
-     * go ahead one character
-     *
-     * @return void
-     */
-    public function next()
-    {
-        ++$this->current;
-    }
-
-    /**
      * consume given string if it is as expected
      *
      * @param string  $expected expected string
