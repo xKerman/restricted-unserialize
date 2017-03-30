@@ -17,24 +17,16 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         new Source(2);
     }
 
-    public function testPeek()
-    {
-        $source = new Source('hello');
-        $this->assertSame('h', $source->peek());
-    }
-
     public function provideConsumeSucceeded()
     {
         return array(
             array(
                 'input' => 'hello',
                 'consumption' => 'h',
-                'expected' => 'e',
             ),
             array(
                 'input' => 'hello',
                 'consumption' => 'he',
-                'expected' => 'l',
             ),
         );
     }
@@ -43,11 +35,11 @@ class SourceTest extends \PHPUnit_Framework_TestCase
      * @covers ::consume
      * @dataProvider provideConsumeSucceeded
      */
-    public function testConsumeSucceeded($input, $consumption, $expected)
+    public function testConsumeSucceeded($input, $consumption)
     {
         $source = new Source($input);
         $source->consume($consumption, strlen($consumption));
-        $this->assertSame($expected, $source->peek());
+        $this->assertTrue(true);
     }
 
     /**
@@ -67,7 +59,6 @@ class SourceTest extends \PHPUnit_Framework_TestCase
         $source = new Source('abcdefg');
         $actual = $source->read(5);
         $this->assertSame('abcde', $actual);
-        $this->assertSame('f', $source->peek());
     }
 
     public function provideReadFailure()
@@ -100,21 +91,9 @@ class SourceTest extends \PHPUnit_Framework_TestCase
      */
     public function testMatch()
     {
-        $source = new Source('abcde');
-        $result = $source->match('/\G\w{3}/');
-        $this->assertSame('abc', $result);
-        $this->assertSame('d', $source->peek());
-    }
-
-    /**
-     * @covers ::match
-     */
-    public function testMatchSubpattern()
-    {
         $source = new Source('1234hoge');
         $result = $source->match('/\G1([0-9]+)/');
-        $this->assertSame('234', $result);
-        $this->assertSame('h', $source->peek());
+        $this->assertSame('234', $result[0]);
     }
 
     /**

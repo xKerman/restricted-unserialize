@@ -10,24 +10,21 @@ namespace xKerman\Restricted;
 class ExpressionParser implements ParserInterface
 {
     /** @var array $parsers parser list to use */
-    private $parsers;
+    private $handlers;
 
     /**
      * constructor
      */
     public function __construct()
     {
-        $integerParser = new IntegerParser();
-        $stringParser = new StringParser();
-        $escapedStringParser = new EscapedStringParser();
-        $this->parsers = array(
-            'N' => new NullParser(),
-            'b' => new BooleanParser(),
-            'i' => $integerParser,
-            'd' => new FloatParser(),
-            's' => $stringParser,
-            'S' => $escapedStringParser,
-            'a' => new ArrayParser($this, $integerParser, $stringParser, $escapedStringParser),
+        $this->handlers = array(
+            'N' => new NullHandler(),
+            'b' => new BooleanHandler(),
+            'i' => new IntegerHandler(),
+            'd' => new FloatHandler(),
+            's' => new StringHandler(),
+            'S' => new EscapedStringHandler(),
+            'a' => new ArrayHandler($this),
         );
     }
 
@@ -40,23 +37,20 @@ class ExpressionParser implements ParserInterface
      */
     public function parse(Source $source)
     {
-        $parser = $this->createParser($source);
-        return $parser->parse($source);
-    }
-
-    /**
-     * create parser for given input
-     *
-     * @param Source $source input
-     * @return ParserInterface
-     * @throws UnserializeFailedException
-     */
-    private function createParser($source)
-    {
-        $char = $source->peek();
-        if (isset($this->parsers[$char])) {
-            return $this->parsers[$char];
-        }
-        return $source->triggerError();
+        $matches = $source->match('/\G(?|
+            (s):([0-9]+):"
+            |(i):([+-]?[0-9]+);
+            |(a):([0-9]+):{
+            |(d):((?:
+                [+-]?(?:[0-9]+\.[0-9]*|[0-9]*\.[0-9]+|[0-9]+)(?:[eE][+-]?[0-9]+)?)
+                |-?INF
+                |NAN);
+            |(b):([01]);
+            |(N);
+            |(S):([0-9]+):"
+        )/x');
+        $tag = $matches[0];
+        $args = isset($matches[1]) ? $matches[1] : null;
+        return $this->handlers[$tag]->handle($source, $args);
     }
 }
