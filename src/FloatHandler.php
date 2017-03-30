@@ -1,13 +1,11 @@
 <?php
 /**
- * parser for PHP serialized float number
+ * handler for PHP serialized float number
  */
 namespace xKerman\Restricted;
 
 /**
- * Parser for PHP serialized float number
- *
- * format: http://php.net/manual/en/language.types.float.php
+ * Handler for PHP serialized float number
  */
 class FloatHandler implements HandlerInterface
 {
@@ -30,7 +28,7 @@ class FloatHandler implements HandlerInterface
      * parse given `$source` as PHP serialized float number
      *
      * @param Source $source parser input
-     * @param string $args   submatched
+     * @param string $args   float value
      * @return array
      * @throws UnserializeFailedException
      */

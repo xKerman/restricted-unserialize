@@ -1,11 +1,11 @@
 <?php
 /**
- * parser for serialized string
+ * handler for serialized string
  */
 namespace xKerman\Restricted;
 
 /**
- * Parser class for parse serialized PHP stirng
+ * Handler class for parse serialized PHP stirng
  */
 class StringHandler implements HandlerInterface
 {
@@ -16,7 +16,7 @@ class StringHandler implements HandlerInterface
      * parse give `$source` as PHP serialized string
      *
      * @param Source $source parser input
-     * @param string $args   submatched
+     * @param string $args   string length
      * @return array parser result
      * @throws UnserializeFailedException
      */

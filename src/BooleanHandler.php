@@ -1,11 +1,11 @@
 <?php
 /**
- * parser for PHP serialized boolean
+ * handler for PHP serialized boolean
  */
 namespace xKerman\Restricted;
 
 /**
- * Parser for PHP serialized boolean
+ * Handler for PHP serialized boolean
  */
 class BooleanHandler implements HandlerInterface
 {
@@ -13,7 +13,7 @@ class BooleanHandler implements HandlerInterface
      * parse given `$source` as PHP serialized boolean
      *
      * @param Source $source parser input
-     * @param string $args   submatched
+     * @param string $args   boolean information
      * @return array
      * @throws UnserializeFailedException
      */

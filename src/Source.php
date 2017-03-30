@@ -86,7 +86,7 @@ class Source
      * return matching string for given regexp
      *
      * @param string $regexp Regular Expression for expected substring
-     * @return string
+     * @return array
      */
     public function match($regexp)
     {

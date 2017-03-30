@@ -1,11 +1,11 @@
 <?php
 /**
- * parser for PHP serialized integer
+ * handler for PHP serialized integer
  */
 namespace xKerman\Restricted;
 
 /**
- * Parser for PHP serialized integer
+ * Handler for PHP serialized integer
  */
 class IntegerHandler implements HandlerInterface
 {
@@ -13,7 +13,7 @@ class IntegerHandler implements HandlerInterface
      * parse given `$source` as PHP serialized integer
      *
      * @param Source $source parser input
-     * @param string $args   submatched
+     * @param string $args   integer value
      * @return array
      * @throws UnserializeFailedException
      */

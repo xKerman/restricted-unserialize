@@ -1,11 +1,11 @@
 <?php
 /**
- * parser for escaped string
+ * handler for escaped string
  */
 namespace xKerman\Restricted;
 
 /**
- * Parser for escaped string
+ * Handler for escaped string
  */
 class EscapedStringHandler implements HandlerInterface
 {
@@ -16,7 +16,7 @@ class EscapedStringHandler implements HandlerInterface
      * parse given `$source` as escaped string
      *
      * @param Source $source parser input
-     * @param string $args   submatched
+     * @param string $args   string length
      * @return array
      * @throws UnserializeFailedException
      */

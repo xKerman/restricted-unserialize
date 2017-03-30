@@ -1,11 +1,11 @@
 <?php
 /**
- * parser for PHP null value
+ * handler for PHP null value
  */
 namespace xKerman\Restricted;
 
 /**
- * Parser to parse PHP serialized null value
+ * Handler to parse PHP serialized null value
  */
 class NullHandler implements HandlerInterface
 {
@@ -13,7 +13,7 @@ class NullHandler implements HandlerInterface
      * parse given `$source` as PHP serialized null value
      *
      * @param Source $source parser input
-     * @param mixed  $args   submatched
+     * @param null   $args   null
      * @return array parse result
      * @throws UnserializeFailedException
      */
