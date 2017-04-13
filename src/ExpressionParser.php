@@ -9,7 +9,7 @@ namespace xKerman\Restricted;
  */
 class ExpressionParser implements ParserInterface
 {
-    /** @var array $parsers parser list to use */
+    /** @var array $handlers handlers list to use */
     private $handlers;
 
     /**
