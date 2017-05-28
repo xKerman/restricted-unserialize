@@ -5,13 +5,14 @@
     "type": "library",
     "keywords": ["unserialize", "deserialize", "PHP Object Injection"],
     "require": {
-        "php": ">=5.3"
+        "php": ">=5.2"
     },
     "require-dev": {
         "phpmd/phpmd": "*",
         "phpunit/phpunit": "*",
         "sebastian/phpcpd": "*",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "*",
+        "nikic/php-parser": "*"
     },
     "license": "MIT",
     "authors": [
@@ -32,6 +33,10 @@
             "phpmd src/ text ./phpmd.xml",
             "phpcpd src/",
             "phpunit"
+        ],
+        "generate": [
+            "rm -rf generated/",
+            "php bin/generate.php"
         ]
     }
 }
