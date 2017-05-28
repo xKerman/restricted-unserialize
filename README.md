@@ -40,7 +40,7 @@ use function xKerman\Restricted\unserialize;
 var_dump(unserialize($data));
 ```
 
-if your PHP version =< 5.5:
+if your PHP version >= 5.3 and <= 5.5:
 
 ```
 use xKerman\Restricted;
@@ -48,6 +48,13 @@ use xKerman\Restricted;
 var_dump(Restricted\unserialize($data));
 ```
 
+if your PHP version is 5.2:
+
+```
+require_once 'path/to/generated/src/bootstrap.php'
+
+var_dump(xKerman_Restricted_unserialize($data));
+```
 
 ## Related other packages
 
@@ -65,6 +72,12 @@ var_dump(Restricted\unserialize($data));
 
 [jeroenvdheuve/serialization](https://github.com/jeroenvdheuvel/serialization) package provides `\jvdh\Serialization\Unserializer\unserialize` method that is also PHP-implemented `unserialize`, and doesn't deserialize object instance.  So the method seems that POI-safe.
 The method can deserialize serialized PHP references, which cannot deserialized by this (xkerman/restricted-unserilize) package.  By using PHP reference, we can create cyclic structure, but that makes migration to `json_decode` harder, since JSON doesn't support cyclic structure decode/encode.
+
+
+## Development
+
+To generate code for PHP 5.2, run `composer run generate`.
+Generated code will be saved under `genereated/` directory.
 
 
 ## LICENSE
