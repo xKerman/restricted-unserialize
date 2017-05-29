@@ -51,7 +51,7 @@ var_dump(Restricted\unserialize($data));
 if your PHP version is 5.2:
 
 ```
-require_once 'path/to/generated/src/bootstrap.php'
+require_once 'path/to/generated/src/xKerman/Restricted/bootstrap.php'
 
 var_dump(xKerman_Restricted_unserialize($data));
 ```

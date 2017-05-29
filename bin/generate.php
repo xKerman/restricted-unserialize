@@ -80,8 +80,9 @@ function convert($inDir, $outDir)
             $code = file_get_contents($file);
             $statements = $parser->parse($code);
             $statements = $traverser->traverse($statements);
+            $sep = DIRECTORY_SEPARATOR;
             file_put_contents(
-                $outDir . '/xKerman_Restricted_' . $file->getFileName(),
+                "{$outDir}{$sep}{$file->getFileName()}",
                 $printer->prettyPrintFile($statements)
             );
         } catch (PhpParser\Error $e) {
@@ -100,23 +101,29 @@ function xKerman_Restricted_bootstrap($classname)
     if (strpos($classname, 'xKerman_Restricted_') !== 0) {
         return false;
     }
-    $path = dirname(__FILE__) . "/{$classname}.php";
+    $sep = DIRECTORY_SEPARATOR;
+    $namespace = explode('_', $classname);
+    $filename = array_pop($namespace);
+    $path = dirname(__FILE__) . "{$sep}{$filename}.php";
     if (file_exists($path)) {
         require_once $path;
     }
 }
 
 spl_autoload_register('xKerman_Restricted_bootstrap');
-require_once dirname(__FILE__) . '/xKerman_Restricted_function.php';
+$sep = DIRECTORY_SEPARATOR;
+require_once dirname(__FILE__) . "{$sep}function.php";
+
 PHPCODE;
 
+    $sep = DIRECTORY_SEPARATOR;
     file_put_contents(
-        $dir . '/bootstrap.php',
+        "{$dir}{$sep}bootstrap.php",
         $code
     );
 }
 
 // main
-convert(__DIR__ . '/../src', __DIR__ . '/../generated/src');
-convert(__DIR__ . '/../test', __DIR__ . '/../generated/test');
-generateBootstrap(__DIR__ . '/../generated/src');
+convert(__DIR__ . '/../src', __DIR__ . '/../generated/src/xKerman/Restricted');
+convert(__DIR__ . '/../test', __DIR__ . '/../generated/test/xKerman/Restricted');
+generateBootstrap(__DIR__ . '/../generated/src/xKerman/Restricted');

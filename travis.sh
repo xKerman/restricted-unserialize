@@ -6,5 +6,5 @@ if [ $? -eq 0 ]; then
 else
     rm -rf src/ test/
     mv generated/* ./
-    phpunit --bootstrap src/bootstrap.php
+    phpunit --bootstrap src/xKerman/Restricted/bootstrap.php
 fi
