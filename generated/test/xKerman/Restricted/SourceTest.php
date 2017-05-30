@@ -17,7 +17,7 @@ class xKerman_Restricted_Test_SourceTest extends PHPUnit_Framework_TestCase
         return array(array('input' => 'hello', 'consumption' => 'h'), array('input' => 'hello', 'consumption' => 'he'));
     }
     /**
-     * @covers ::consume
+     *
      * @dataProvider provideConsumeSucceeded
      */
     public function testConsumeSucceeded($input, $consumption)
@@ -48,7 +48,7 @@ class xKerman_Restricted_Test_SourceTest extends PHPUnit_Framework_TestCase
         return array(array('input' => 'abc', 'length' => 5), array('input' => 'abc', 'length' => -1));
     }
     /**
-     * @covers ::read
+     *
      * @expectedException xKerman_Restricted_UnserializeFailedException
      * @dataProvider provideReadFailure
      */
@@ -58,7 +58,7 @@ class xKerman_Restricted_Test_SourceTest extends PHPUnit_Framework_TestCase
         $source->read($length);
     }
     /**
-     * @covers ::match
+     *
      */
     public function testMatch()
     {
@@ -67,7 +67,7 @@ class xKerman_Restricted_Test_SourceTest extends PHPUnit_Framework_TestCase
         $this->assertSame('234', $result[0]);
     }
     /**
-     * @covers ::match
+     *
      * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testMatchFailure()

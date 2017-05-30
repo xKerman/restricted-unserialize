@@ -7,7 +7,7 @@ class xKerman_Restricted_Test_ExpressionParserTest extends PHPUnit_Framework_Tes
         return array('empty string' => array('input' => ''), 'invalid tag' => array('input' => 'x:2:"aa";'));
     }
     /**
-     * @covers \xKerman\Restricted\ExpressionParser
+     * @covers xKerman_Restricted_ExpressionParser
      * @dataProvider provideInvalidData
      * @expectedException xKerman_Restricted_UnserializeFailedException
      */

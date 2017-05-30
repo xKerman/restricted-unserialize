@@ -40,16 +40,18 @@ class NameSpaceConverter extends \PhpParser\NodeVisitorAbstract
             if (is_null($doc)) {
                 return $node;
             }
+
+            $text = preg_replace('/\\\\xKerman\\\\Restricted\\\\([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff])/', 'xKerman_Restricted_$1', $doc->getText());
+            $text = preg_replace('/ @covers ::(?:[a-zA-Z_][a-zA-Z0-9_]*)/', '', $text);
+
             $search = [
-                '\xKerman\Restricted\UnserializeFailedException',
                 '\InvalidArgumentException',
             ];
             $replace = [
-                'xKerman_Restricted_UnserializeFailedException',
                 'InvalidArgumentException',
             ];
             $newDoc = new Comment\Doc(
-                str_replace($search, $replace, $doc->getText()),
+                str_replace($search, $replace, $text),
                 $doc->getLine(),
                 $doc->getFilePos()
             );
