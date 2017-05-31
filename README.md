@@ -1,7 +1,7 @@
 # restricted-unserialize
 
 [![Build Status](https://travis-ci.org/xKerman/restricted-unserialize.svg?branch=master)](https://travis-ci.org/xKerman/restricted-unserialize)
-[![Code Coverage](https://scrutinizer-ci.com/g/xKerman/restricted-unserialize/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/xKerman/restricted-unserialize/?branch=master)
+[![codecov](https://codecov.io/gh/xKerman/restricted-unserialize/branch/master/graph/badge.svg)](https://codecov.io/gh/xKerman/restricted-unserialize)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/xKerman/restricted-unserialize/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/xKerman/restricted-unserialize/?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/xkerman/restricted-unserialize/v/stable)](https://packagist.org/packages/xkerman/restricted-unserialize)
 
