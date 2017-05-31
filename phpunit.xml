@@ -8,6 +8,12 @@
   <filter>
     <whitelist processUncoveredFilesFromWhiltelist="true">
       <directory suffix=".php">src</directory>
+      <exclude>
+        <directory suffix="bootstrap.php">src/xKerman/Restricted</directory>
+        <!-- work around for https://github.com/sebastianbergmann/php-code-coverage/issues/102-->
+        <directory suffix="Interface.php">src/xKerman/Restricted</directory>
+        <directory suffix="Exception.php">src/xKerman/Restricted</directory>
+      </exclude>
     </whitelist>
   </filter>
   <logging>
