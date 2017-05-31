@@ -8,6 +8,9 @@
   <filter>
     <whitelist processUncoveredFilesFromWhiltelist="true">
       <directory suffix=".php">src</directory>
+      <exclude>
+        <directory suffix="bootstrap.php">src</directory>
+      </exclude>
     </whitelist>
   </filter>
   <logging>
