@@ -32,3 +32,5 @@ install:
   - rm composer.lock && composer install --no-interaction || true
 script:
   - bash travis.sh
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
