@@ -35,25 +35,43 @@ $ composer require xkerman/restricted-unserialize
 if your PHP version > 5.5:
 
 ```
-use function xKerman\Restricted\unserialize;
+require 'path/to/vendor/autoload.php';
 
-var_dump(unserialize($data));
+use function xKerman\Restricted\unserialize;
+use xKerman\Restricted\UnserializeFailedException;
+
+try {
+    var_dump(unserialize($data));
+} catch (UnserializeFailedException $e) {
+    echo 'failed to unserialize';
+}
 ```
 
 if your PHP version >= 5.3 and <= 5.5:
 
 ```
-use xKerman\Restricted;
+require 'path/to/vendor/autoload.php';
 
-var_dump(Restricted\unserialize($data));
+use xKerman\Restricted;
+use xKerman\Restricted\UnserializeFailedException;
+
+try {
+    var_dump(Restricted\unserialize($data));
+} catch (UnserializeFailedException $e) {
+    echo 'failed to unserialize';
+}
 ```
 
 if your PHP version is 5.2:
 
 ```
-require_once 'path/to/generated/src/xKerman/Restricted/bootstrap.php'
+require_once 'path/to/generated/src/xKerman/Restricted/bootstrap.php';
 
-var_dump(xKerman_Restricted_unserialize($data));
+try {
+    var_dump(xKerman_Restricted_unserialize($data));
+} catch (xKerman_Restricted_UnserializeFailedException $e) {
+    echo 'failed to unserialize';
+}
 ```
 
 ## Related other packages
