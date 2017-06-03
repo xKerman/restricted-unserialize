@@ -33,4 +33,4 @@ install:
 script:
   - bash travis.sh
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
