@@ -38,6 +38,7 @@ before_install:
 install:
   - rm composer.lock && composer install --no-interaction || true
 script:
-  - bash travis.sh
+  - if [ $TRAVIS_PHP_VERSION != '5.2' ]; then composer test; fi
+  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then phpunit --bootstrap generated/src/xKerman/Restricted/bootstrap.php --configuration phpunit.php52.xml; fi
 after_success:
   - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
