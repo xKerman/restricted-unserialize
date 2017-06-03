@@ -28,6 +28,8 @@ matrix:
       sudo: false
       php: 'hhvm'
 
+before_install:
+  - if [ $TRAVIS_PHP_VERSION = 'hhvm' ]; then echo 'xdebug.enable = 1' >> /etc/hhvm/php.ini; fi
 install:
   - rm composer.lock && composer install --no-interaction || true
 script:
