@@ -29,10 +29,16 @@ matrix:
       php: 'hhvm'
 
 before_install:
+  # enable xdebug for PHP5.2
+  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then pecl install xdebug-2.2.7; fi
+  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then sed -i '/zend_extension_ts="xdebug.so"/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  # enable xdebug for hhvm
+  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then sed -i 's/zend_extension/zend_extension_ts/g' ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi
   - if [ $TRAVIS_PHP_VERSION = 'hhvm' ]; then echo 'xdebug.enable = 1' >> /etc/hhvm/php.ini; fi
 install:
   - rm composer.lock && composer install --no-interaction || true
 script:
-  - bash travis.sh
+  - if [ $TRAVIS_PHP_VERSION != '5.2' ]; then composer test; fi
+  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then phpunit --configuration phpunit.php52.xml; fi
 after_success:
   - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
