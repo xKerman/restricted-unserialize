@@ -104,7 +104,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     public function provideDataForInvalidString()
     {
-        return array('empty string' => array('input' => ''), 'length is missing' => array('input' => 's::"";'), 'length is not number' => array('input' => 's:a:"";'), 'length is not integer' => array('input' => 's:1.0:"a";'), 'length is negative' => array('input' => 's:-1:"";'), 'length contains plus sign' => array('input' => 's:+1:"a";'), 'no quote' => array('input' => 's:1:a;'), 'open quote exist but close quote not exist' => array('input' => 's:1:"a;'), 'close quote exist but open quote not exist' => array('input' => 's:1:a";'), 'enclosed by single quote' => array('input' => "s:1:'a';"));
+        return array('empty string' => array('input' => ''), 'length is missing' => array('input' => 's::"";'), 'length is not number' => array('input' => 's:a:"";'), 'length is not integer' => array('input' => 's:1.0:"a";'), 'length is negative' => array('input' => 's:-1:"";'), 'length contains plus sign' => array(
+            // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+            'input' => 's:+1:"a";',
+        ), 'no quote' => array('input' => 's:1:a;'), 'open quote exist but close quote not exist' => array('input' => 's:1:"a;'), 'close quote exist but open quote not exist' => array('input' => 's:1:a";'), 'enclosed by single quote' => array('input' => "s:1:'a';"));
     }
     /**
      * @dataProvider provideDataForInvalidString
@@ -127,7 +130,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     public function provideDataForInvalidEscapedString()
     {
-        return array('empty string' => array('input' => ''), 'length is missing' => array('input' => 'S::"";'), 'length is not number' => array('input' => 'S:a:"";'), 'length is not integer' => array('input' => 'S:1.0:"a";'), 'length is negative' => array('input' => 'S:-1:"";'), 'length contains plus sign' => array('input' => 'S:+1:"a";'), 'no quote' => array('input' => 'S:1:a;'), 'open quote exist but close quote not exist' => array('input' => 'S:1:"a;'), 'close quote exist but open quote not exist' => array('input' => 'S:1:a";'), 'enclosed by single quote' => array('input' => "S:1:'a';"), 'escape range error (first part)' => array('input' => 'S:1:"\\ag";'), 'escape range error (second part)' => array('input' => 'S:1:"\\ga";'), 'escaped string is short' => array('input' => 'S:1:"\\1";'));
+        return array('empty string' => array('input' => ''), 'length is missing' => array('input' => 'S::"";'), 'length is not number' => array('input' => 'S:a:"";'), 'length is not integer' => array('input' => 'S:1.0:"a";'), 'length is negative' => array('input' => 'S:-1:"";'), 'length contains plus sign' => array(
+            // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+            'input' => 'S:+1:"a";',
+        ), 'no quote' => array('input' => 'S:1:a;'), 'open quote exist but close quote not exist' => array('input' => 'S:1:"a;'), 'close quote exist but open quote not exist' => array('input' => 'S:1:a";'), 'enclosed by single quote' => array('input' => "S:1:'a';"), 'escape range error (first part)' => array('input' => 'S:1:"\\ag";'), 'escape range error (second part)' => array('input' => 'S:1:"\\ga";'), 'escaped string is short' => array('input' => 'S:1:"\\1";'));
     }
     /**
      * @dataProvider provideDataForInvalidEscapedString
@@ -150,7 +156,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     public function provideDataForInvalidArrayTest()
     {
-        return array('empty string' => array('input' => ''), 'array length is missing' => array('input' => 'a::{}'), 'array length is not number' => array('input' => 'a:s:{}'), 'array length is not integer' => array('input' => 'a:1.0:{}'), 'array length is negative' => array('input' => 'a:-1:{}'), 'length contains plus sign' => array('input' => 'a:+0:{}'), 'array length is smaller than actual items' => array('input' => 'a:0:{i:0;s:1:"a";}'), 'array length is greater than actual items' => array('input' => 'a:2:{i:0;s:1:"a";}'), 'array key is not integer nor string' => array('input' => 'a:1:{N;i:0;}'), 'open brace not exist' => array('input' => 'a:0:}'), 'close brace not exist' => array('input' => 'a:0:{'), 'braces not exist' => array('input' => 'a:0:'), 'value not exist' => array('input' => 'a:1:{i:0;}'));
+        return array('empty string' => array('input' => ''), 'array length is missing' => array('input' => 'a::{}'), 'array length is not number' => array('input' => 'a:s:{}'), 'array length is not integer' => array('input' => 'a:1.0:{}'), 'array length is negative' => array('input' => 'a:-1:{}'), 'length contains plus sign' => array(
+            // see: https://github.com/php/php-src/commit/8522e2894edd52322148945261433e79a3ec3f88
+            'input' => 'a:+0:{}',
+        ), 'array length is smaller than actual items' => array('input' => 'a:0:{i:0;s:1:"a";}'), 'array length is greater than actual items' => array('input' => 'a:2:{i:0;s:1:"a";}'), 'array key is not integer nor string' => array('input' => 'a:1:{N;i:0;}'), 'open brace not exist' => array('input' => 'a:0:}'), 'close brace not exist' => array('input' => 'a:0:{'), 'braces not exist' => array('input' => 'a:0:'), 'value not exist' => array('input' => 'a:1:{i:0;}'));
     }
     /**
      * @dataProvider provideDataForInvalidArrayTest
