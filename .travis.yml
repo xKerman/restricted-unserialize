@@ -1,5 +1,4 @@
 language: php
-sudo: false
 cache:
   directories:
     - vendor
@@ -18,10 +17,12 @@ matrix:
       sudo: false
       php: '5.4'
     - os: linux
-      sudo: false
+      dist: precise
+      sudo: true
       php: '5.3'
     - os: linux
-      sudo: false
+      dist: precise
+      sudo: true
       php: '5.2'
     - os: linux
       dist: trusty
