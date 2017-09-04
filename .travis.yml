@@ -12,4 +12,4 @@ before_install:
 install:
   - curl -s -O https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
 script:
-  - docker run -v $(pwd):/tmp sh -c 'cd /tmp && php composer.phar install && php composer.phar test'
+  - docker run -v $(pwd):/tmp $DOCKER_IMAGE sh -c 'cd /tmp && php composer.phar install && php composer.phar test'
