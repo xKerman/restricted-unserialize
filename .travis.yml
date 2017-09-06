@@ -7,7 +7,7 @@ env:
     PHP_VERSION=5.6
     COMPOSER_VERSION=1.5.1
 before_install:
-  - docker build -t xkerman/php:$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION
+  - docker build -t xkerman/php:$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker
 install:
   - curl -s -O https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
 script:
