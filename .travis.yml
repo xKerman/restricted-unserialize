@@ -1,15 +1,16 @@
+language: generic
 sudo: required
 service:
   - docker
 env:
   -
-    PHP_VERSION=5.6
+    TRAVIS_PHP_VERSION=5.6
     COMPOSER_VERSION=1.5.1
 before_install:
-  - docker build -t xkerman/php:$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker
+  - docker build -t xkerman/php-$TRAVIS_PHP_VERSION -f docker/Dockerfile.$TRAVIS_PHP_VERSION docker
 install:
   - curl -s -O https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
 script:
-  - docker run -v $(pwd):/tmp xkerman/php:$PHP_VERSION sh -c 'cd /tmp && php composer.phar install && php composer.phar test'
+  - docker run -v $(pwd):/tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'cd /tmp && php composer.phar install && php composer.phar test'
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
+  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
