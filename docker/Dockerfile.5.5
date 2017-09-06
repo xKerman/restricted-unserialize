@@ -1,0 +1,6 @@
+FROM nyanpass/php5.5:5.5-cli
+
+RUN apt-get update && \
+    apt-get install unzip && \
+    pecl install xdebug && \
+    docker-php-ext-enable xdebug
