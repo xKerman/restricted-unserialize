@@ -12,6 +12,9 @@ env:
   -
     TRAVIS_PHP_VERSION=5.4
     COMPOSER_VERSION=1.5.1
+  -
+    TRAVIS_PHP_VERSION=5.3
+    COMPOSER_VERSION=1.5.1
 before_install:
   - docker build -t xkerman/php-$TRAVIS_PHP_VERSION -f docker/Dockerfile.$TRAVIS_PHP_VERSION docker
 install:
