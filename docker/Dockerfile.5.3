@@ -2,5 +2,5 @@ FROM mindk/php5.3.29-apache
 
 RUN apt-get update && \
     apt-get install unzip && \
-    pecl install xdebug && \
+    pecl install xdebug-2.2.7 && \
     docker-php-ext-enable xdebug
