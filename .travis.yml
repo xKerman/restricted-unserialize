@@ -13,7 +13,8 @@ before_install:
   - docker build -t xkerman/php-$TRAVIS_PHP_VERSION -f docker/Dockerfile.$TRAVIS_PHP_VERSION docker
 install:
   - curl -s -O https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
+  - rm composer.lock
 script:
-  - docker run -v $(pwd):/tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'cd /tmp && php composer.phar install && php composer.phar test'
+  - docker run -v $(pwd):/tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'cd /tmp && php composer.phar install --no-interaction && php composer.phar test'
 after_success:
   - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
