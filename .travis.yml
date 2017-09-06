@@ -12,3 +12,5 @@ install:
   - curl -s -O https://getcomposer.org/download/$COMPOSER_VERSION/composer.phar
 script:
   - docker run -v $(pwd):/tmp xkerman/php:$PHP_VERSION sh -c 'cd /tmp && php composer.phar install && php composer.phar test'
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
