@@ -2,7 +2,6 @@ language: php
 sudo: required
 service:
   - docker
-env:
 matrix:
   include:
     - php: '5.6'
