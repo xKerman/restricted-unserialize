@@ -8,6 +8,7 @@ env:
   - TRAVIS_PHP_VERSION=5.4
   - TRAVIS_PHP_VERSION=5.3
   - TRAVIS_PHP_VERSION=5.2
+  - TRAVIS_PHP_VERSION=hhvm
 before_install:
   - docker build -t xkerman/php-$TRAVIS_PHP_VERSION -f docker/Dockerfile.$TRAVIS_PHP_VERSION docker
 install:
