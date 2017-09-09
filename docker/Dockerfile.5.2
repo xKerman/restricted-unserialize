@@ -20,4 +20,5 @@ RUN cd /usr/local && \
     cd php-timer && git checkout tags/1.0.3 && cd .. && \
     cd php-token-stream && git checkout tags/1.1.4 && cd .. && \
     cd phpunit-mock-objects && git checkout 1.1 && cd .. && \
+    echo 'date.timezone="UTC"' >> $PHP_INI && \
     echo 'include_path=".:/usr/local/php/phpunit/:/usr/local/php/php-code-coverage/:/usr/local/php/php-file-iterator/:/usr/local/php/php-text-template/:/usr/local/php/php-timer:/usr/local/php/php-token-stream:/usr/local/php/phpunit-mock-objects/"' >> $PHP_INI
