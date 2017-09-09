@@ -1,7 +1,7 @@
 FROM nyanpass/apache2.2-php5.2.17
 
 RUN apt-get update && \
-    apt-get install git unzip
+    apt-get install -y git unzip
 
 # see: http://qiita.com/dozo/items/d76c36e911059951f1b6
 RUN cd /user/local && \
