@@ -1,44 +1,39 @@
 language: php
-sudo: false
-cache:
-  directories:
-    - vendor
+sudo: required
+service:
+  - docker
 matrix:
   include:
-    - os: linux
-      dist: trusty
+    - php: '5.6'
       sudo: false
-      php: '5.6'
-    - os: linux
-      dist: trusty
+      env: USE_DOCKER=0 PHP_VERSION=5.6
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.5
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.4
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.3
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.2
+    - php: 'hhvm'
       sudo: false
-      php: '5.5'
-    - os: linux
-      dist: trusty
-      sudo: false
-      php: '5.4'
-    - os: linux
-      sudo: false
-      php: '5.3'
-    - os: linux
-      sudo: false
-      php: '5.2'
-    - os: linux
-      dist: trusty
-      sudo: false
-      php: 'hhvm'
+      env: USE_DOCKER=0 PHP_VERSION=hhvm
 
 before_install:
-  # enable xdebug for PHP5.2
-  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then pecl install xdebug-2.2.7; fi
-  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then sed -i '/zend_extension_ts="xdebug.so"/d' ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
-  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then sed -i 's/zend_extension/zend_extension_ts/g' ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini; fi
-  # enable xdebug for hhvm
+  - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
   - if [ $TRAVIS_PHP_VERSION = 'hhvm' ]; then echo 'xdebug.enable = 1' >> /etc/hhvm/php.ini; fi
 install:
-  - rm composer.lock && composer install --no-interaction || true
+  - rm composer.lock
+  - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction; fi
+  - if [ $USE_DOCKER -eq 1 ]; then curl -s -O https://getcomposer.org/composer.phar; fi
 script:
-  - if [ $TRAVIS_PHP_VERSION != '5.2' ]; then composer test; fi
-  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then phpunit --configuration phpunit.php52.xml; fi
+  - if [ $USE_DOCKER -eq 0 ]; then composer test; fi
+  - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php composer.phar install --no-interaction && php composer.phar test'; fi
+  - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION = '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php /usr/local/php/phpunit/phpunit.php --configuration phpunit.php52.xml'; fi
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
+  - if [ $USE_DOCKER -eq 1 ]; then sudo chown -R $(whoami) ./report; fi
+  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
