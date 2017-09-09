@@ -4,7 +4,7 @@ RUN apt-get update && \
     apt-get install -y git unzip
 
 # see: http://qiita.com/dozo/items/d76c36e911059951f1b6
-RUN cd /user/local && \
+RUN cd /usr/local && \
     mkdir php && cd php && \
     git clone git://github.com/sebastianbergmann/phpunit.git && \
     git clone git://github.com/sebastianbergmann/php-file-iterator.git && \
