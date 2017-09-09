@@ -1,6 +1,0 @@
-FROM php:5.6-cli
-
-RUN apt-get update && \
-    apt-get install unzip && \
-    pecl install xdebug && \
-    docker-php-ext-enable xdebug
