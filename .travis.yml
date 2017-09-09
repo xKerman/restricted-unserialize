@@ -1,22 +1,40 @@
-language: generic
+language: php
 sudo: required
 service:
   - docker
 env:
-  - TRAVIS_PHP_VERSION=5.6
-  - TRAVIS_PHP_VERSION=5.5
-  - TRAVIS_PHP_VERSION=5.4
-  - TRAVIS_PHP_VERSION=5.3
-  - TRAVIS_PHP_VERSION=5.2
-  - TRAVIS_PHP_VERSION=hhvm
+matrix:
+  include:
+    - php: '5.6'
+      sudo: false
+      env: USE_DOCKER=0 PHP_VERSION=5.6
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.5
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.4
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.3
+    - php: '5.6'
+      sudo: required
+      env: USE_DOCKER=1 PHP_VERSION=5.2
+    - php: 'hhvm'
+      sudo: false
+      env: USE_DOCKER=0 PHP_VERSION=hhvm
+
 before_install:
-  - docker build -t xkerman/php-$TRAVIS_PHP_VERSION -f docker/Dockerfile.$TRAVIS_PHP_VERSION docker
+  - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
+  - if [ $TRAVIS_PHP_VERSION = 'hhvm' ]; then echo 'xdebug.enable = 1' >> /etc/hhvm/php.ini; fi
 install:
-  - curl -s -O https://getcomposer.org/composer.phar
   - rm composer.lock
+  - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction; fi
+  - if [ $USE_DOCKER -eq 1 ]; then curl -s -O https://getcomposer.org/composer.phar; fi
 script:
-  - if [ $TRAVIS_PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'php -v && php composer.phar install --no-interaction && php composer.phar test'; fi
-  - if [ $TRAVIS_PHP_VERSION = '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'php -v && php /usr/local/php/phpunit/phpunit.php --configuration phpunit.php52.xml'; fi
+  - if [ $USE_DOCKER -eq 0 ]; then composer test; fi
+  - if [ $USE_DOCKER -eq 1 && $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'php -v && php composer.phar install --no-interaction && php composer.phar test'; fi
+  - if [ $USE_DOCKER -eq 1 && $TRAVIS_PHP_VERSION = '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$TRAVIS_PHP_VERSION sh -c 'php -v && php /usr/local/php/phpunit/phpunit.php --configuration phpunit.php52.xml'; fi
 after_success:
-  - sudo chown -R $(whoami) ./report
-  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $TRAVIS_PHP_VERSION | sed -e 's/\./_/g')
+  - if [ $USE_DOCKER -eq 1 ]; then sudo chown -R $(whoami) ./report; fi
+  - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
