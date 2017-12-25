@@ -2,12 +2,14 @@
 
 namespace xKerman\Restricted\Test;
 
+use PHPUnit\Framework\TestCase;
+
 use xKerman\Restricted\Source;
 
 /**
  * @coversDefaultClass \xKerman\Restricted\Source
  */
-class SourceTest extends \PHPUnit_Framework_TestCase
+class SourceTest extends TestCase
 {
     /**
      * @expectedException \InvalidArgumentException
