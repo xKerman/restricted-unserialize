@@ -12,8 +12,6 @@ If normal `unserialize` function is used for deserializing user input in your PH
 1. Don't use this package, use `json_decode` in order to avoid PHP Object Injection
 2. If compatibility matters, first use this function and then try to use `json_decode` in the near future
 
-Also you don't need this library if you use PHP >= 7.0, since PHP7 or later provides `unserialize` function that has `allow_classes` option. For more detail, see http://php.net/manual/function.unserialize.php .
-
 
 ## Why POI-safe?
 
