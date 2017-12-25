@@ -2,10 +2,12 @@
 
 namespace xKerman\Restricted\Test;
 
+use PHPUnit\Framework\TestCase;
+
 use xKerman\Restricted\ExpressionParser;
 use xKerman\Restricted\Source;
 
-class ExpressionParserTest extends \PHPUnit_Framework_TestCase
+class ExpressionParserTest extends TestCase
 {
     public function provideInvalidData()
     {

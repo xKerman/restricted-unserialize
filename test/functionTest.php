@@ -2,9 +2,11 @@
 
 namespace xKerman\Restricted\Test;
 
+use PHPUnit\Framework\TestCase;
+
 use xKerman\Restricted;
 
-class UnserializeTest extends \PHPUnit_Framework_TestCase
+class UnserializeTest extends TestCase
 {
     public function testNull()
     {
