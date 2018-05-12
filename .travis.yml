@@ -38,7 +38,7 @@ before_install:
 
 install:
   - rm composer.lock
-  - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction; fi
+  - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction --optimize-autoloader; fi
   - if [ $USE_DOCKER -eq 1 ]; then curl -s -O https://getcomposer.org/composer.phar; fi
 
 script:
