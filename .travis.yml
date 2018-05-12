@@ -35,14 +35,17 @@ matrix:
 before_install:
   - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
   - if [ $TRAVIS_PHP_VERSION = 'hhvm' ]; then echo 'xdebug.enable = 1' >> /etc/hhvm/php.ini; fi
+
 install:
   - rm composer.lock
   - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction; fi
   - if [ $USE_DOCKER -eq 1 ]; then curl -s -O https://getcomposer.org/composer.phar; fi
+
 script:
   - if [ $USE_DOCKER -eq 0 ]; then composer test; fi
   - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php composer.phar install --no-interaction && php composer.phar test'; fi
   - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION = '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php /usr/local/php/phpunit/phpunit.php --configuration phpunit.php52.xml'; fi
+
 after_success:
   - if [ $USE_DOCKER -eq 1 ]; then sudo chown -R $(whoami) ./report; fi
   - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
