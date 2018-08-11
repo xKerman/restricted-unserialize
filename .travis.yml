@@ -4,6 +4,9 @@ service:
   - docker
 matrix:
   include:
+    - php: '7.3'
+      sudo: false
+      env: USE_DOCKER=0 PHP_VERSION=7.3
     - php: '7.2'
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=7.2 TEST=test
