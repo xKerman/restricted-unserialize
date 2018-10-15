@@ -32,6 +32,12 @@
             "phpcs",
             "phpmd src/ text ./phpmd.xml",
             "phpcpd src/",
+            "phpdbg -qrr ./vendor/bin/phpunit"
+        ],
+        "test-legacy": [
+            "phpcs",
+            "phpmd src/ text ./phpmd.xml",
+            "phpcpd src/",
             "phpunit"
         ],
         "generate": [
