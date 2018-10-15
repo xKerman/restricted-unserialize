@@ -39,7 +39,7 @@ install:
 
 script:
   - if [ $USE_DOCKER -eq 0 ]; then composer test; fi
-  - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php composer.phar install --no-interaction && php composer.phar test'; fi
+  - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php composer.phar install --no-interaction && php composer.phar test-legacy'; fi
   - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION = '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php /usr/local/php/phpunit/phpunit.php --configuration phpunit.php52.xml'; fi
 
 after_success:
