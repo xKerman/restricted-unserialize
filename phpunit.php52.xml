@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="generated/src/xKerman/Restricted/bootstrap.php">
   <testsuites>
-    <testsuite>
+    <testsuite name="restricted-unserialize">
       <directory>generated/test</directory>
     </testsuite>
   </testsuites>
   <filter>
-    <whitelist processUncoveredFilesFromWhiltelist="true">
+    <whitelist processUncoveredFilesFromWhitelist="true">
       <directory suffix=".php">generated/src</directory>
       <exclude>
         <directory suffix="bootstrap.php">generated/src/xKerman/Restricted</directory>
