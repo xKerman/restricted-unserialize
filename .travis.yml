@@ -7,6 +7,9 @@ matrix:
     - php: nightly
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test
+    - php: '7.4snapshot'
+      sudo: false
+      env: USE_DOCKER=0 PHP_VERSION=7.4 TEST=test
     - php: '7.3'
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=7.3 TEST=test
