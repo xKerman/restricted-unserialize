@@ -38,7 +38,7 @@ matrix:
     - php: '5.6'
       sudo: required
       env: USE_DOCKER=1 PHP_VERSION=5.2
-  allow_failure:
+  allow_failures:
     - php: nightly
 
 before_install:
