@@ -4,6 +4,8 @@ service:
   - docker
 php: # this is needed for allow_failure setting
 matrix:
+  exclude:
+    - php:
   include:
     - php: nightly
       sudo: false
