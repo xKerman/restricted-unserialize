@@ -2,6 +2,7 @@ language: php
 sudo: required
 service:
   - docker
+php: # this is needed for allow_failure setting
 matrix:
   include:
     - php: nightly
@@ -37,6 +38,8 @@ matrix:
     - php: '5.6'
       sudo: required
       env: USE_DOCKER=1 PHP_VERSION=5.2
+  allow_failure:
+    - php: nightly
 
 before_install:
   - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
