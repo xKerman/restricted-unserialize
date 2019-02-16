@@ -42,6 +42,7 @@ matrix:
       env: USE_DOCKER=1 PHP_VERSION=5.2
   allow_failures:
     - php: nightly
+  fast_finish: true
 
 before_install:
   - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
