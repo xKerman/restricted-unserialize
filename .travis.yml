@@ -2,10 +2,10 @@ language: php
 sudo: required
 service:
   - docker
-php: # this is needed for allow_failure setting
+php: dummy # this is needed for allow_failure setting
 matrix:
   exclude:
-    - php:
+    - php: dummy
   include:
     - php: nightly
       sudo: false
