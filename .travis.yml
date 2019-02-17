@@ -2,11 +2,17 @@ language: php
 sudo: required
 service:
   - docker
+php: dummy # this is needed for allow_failure setting
 matrix:
+  exclude:
+    - php: dummy
   include:
     - php: nightly
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test
+    - php: '7.4snapshot'
+      sudo: false
+      env: USE_DOCKER=0 PHP_VERSION=7.4 TEST=test
     - php: '7.3'
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=7.3 TEST=test
@@ -34,6 +40,9 @@ matrix:
     - php: '5.6'
       sudo: required
       env: USE_DOCKER=1 PHP_VERSION=5.2
+  allow_failures:
+    - php: nightly
+  fast_finish: true
 
 before_install:
   - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
