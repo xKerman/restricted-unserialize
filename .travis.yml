@@ -60,3 +60,13 @@ script:
 after_success:
   - if [ $USE_DOCKER -eq 1 ]; then sudo chown -R $(whoami) ./report; fi
   - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
+
+
+jobs:
+  include:
+    - stage: check dependencies
+      if: type = cron
+      php: 7.3
+      sudo: false
+      script:
+        - composer outdated --direct --strict
