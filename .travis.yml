@@ -3,6 +3,8 @@ sudo: required
 service:
   - docker
 
+php: dummy
+
 stages:
   - test
   - check dependencies
@@ -11,9 +13,15 @@ jobs:
   allow_failures:
     - php: nightly
 
+  exclude:
+    - php: dummy
+
   include:
     - &test
       stage: test
+      php: nightly
+      sudo: false
+      env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test
       before_install:
         - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
       install:
@@ -27,11 +35,6 @@ jobs:
       after_success:
         - if [ $USE_DOCKER -eq 1 ]; then sudo chown -R $(whoami) ./report; fi
         - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
-
-    - <<: *test
-      php: nightly
-      sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test
     - <<: *test
       php: '7.4snapshot'
       sudo: false
