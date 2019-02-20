@@ -8,7 +8,7 @@ php: dummy                  # this is needed for allow_failures setting
 stages:
   - name: test
   - name: check dependencies
-    if: type != cron
+    if: type = cron
 
 jobs:
   allow_failures:
