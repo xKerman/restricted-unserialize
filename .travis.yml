@@ -3,11 +3,12 @@ sudo: required
 service:
   - docker
 
-php: dummy
+php: dummy                  # this is needed for allow_failures setting
 
 stages:
-  - test
-  - check dependencies
+  - name: test
+  - name: check dependencies
+    if: type != cron
 
 jobs:
   allow_failures:
@@ -77,7 +78,6 @@ jobs:
       env: USE_DOCKER=1 PHP_VERSION=5.2
 
     - stage: check dependencies
-      if: type != cron
       php: 7.3
       sudo: false
       install:
