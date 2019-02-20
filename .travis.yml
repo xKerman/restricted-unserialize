@@ -65,7 +65,7 @@ after_success:
 jobs:
   include:
     - stage: check dependencies
-      if: type = cron
+      if: type != cron
       php: 7.3
       sudo: false
       script:
