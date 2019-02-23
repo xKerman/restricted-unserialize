@@ -9,10 +9,12 @@ build:
   environment:
     php:
       version: 7.3
-  tests:
-    override:
-      -
-        command: composer test
-        coverage:
-          file: report/coverage/clover.xml
-          format: php-clover
+  nodes:
+    coverage:    # https://scrutinizer-ci.com/docs/build/code_coverage
+      tests:
+        override:
+          -
+            command: composer test
+            coverage:
+              file: report/coverage/clover.xml
+              format: php-clover
