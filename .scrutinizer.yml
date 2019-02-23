@@ -8,11 +8,17 @@ filter:
 build:
   environment:
     php:
-      version: 7.2
-  tests:
-    override:
-      -
-        command: composer test
-        coverage:
-          file: report/coverage/clover.xml
-          format: php-clover
+      version: 7.3
+  nodes:
+    analysis: # https://scrutinizer-ci.com/docs/tools/php/php-analyzer/guides/migrate_to_new_php_analysis
+      tests:
+        override:
+          - php-scrutinizer-run
+    coverage:    # https://scrutinizer-ci.com/docs/build/code_coverage
+      tests:
+        override:
+          -
+            command: composer test
+            coverage:
+              file: report/coverage/clover.xml
+              format: php-clover
