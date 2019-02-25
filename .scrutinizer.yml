@@ -10,10 +10,12 @@ build:
     php:
       version: 7.3
   nodes:
-    analysis: # https://scrutinizer-ci.com/docs/tools/php/php-analyzer/guides/migrate_to_new_php_analysis
+    analysis: # https://scrutinizer-ci.com/docs/tools/php/php-scrutinizer/#security-analysis
+      project_setup:
+        override: true
       tests:
         override:
-          - php-scrutinizer-run
+          - php-scrutinizer-run --enable-security-analysis
     coverage:    # https://scrutinizer-ci.com/docs/build/code_coverage
       tests:
         override:
