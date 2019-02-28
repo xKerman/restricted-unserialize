@@ -1,6 +1,6 @@
 <?php
 
-class xKerman_Restricted_Test_ExpressionParserTest extends PHPUnit_Framework_TestCase
+class xKerman_Restricted_Test_ExpressionParserTest extends xKerman_Restricted_Test_TestCase
 {
     public function provideInvalidData()
     {
@@ -9,10 +9,10 @@ class xKerman_Restricted_Test_ExpressionParserTest extends PHPUnit_Framework_Tes
     /**
      * @covers xKerman_Restricted_ExpressionParser
      * @dataProvider provideInvalidData
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testParseFailure($input)
     {
+        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
         $source = new xKerman_Restricted_Source($input);
         $parser = new xKerman_Restricted_ExpressionParser();
         $parser->parse($source);
