@@ -14,5 +14,6 @@ function xKerman_Restricted_Test_bootstrap($classname)
     }
 }
 
+$sep = DIRECTORY_SEPARATOR;
 require_once dirname(dirname(dirname(dirname(__FILE__)))) . "{$sep}src{$sep}xKerman{$sep}Restricted{$sep}bootstrap.php";
 spl_autoload_register('xKerman_Restricted_Test_bootstrap');
