@@ -2,8 +2,6 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted\ExpressionParser;
 use xKerman\Restricted\Source;
 
@@ -24,10 +22,11 @@ class ExpressionParserTest extends TestCase
     /**
      * @covers \xKerman\Restricted\ExpressionParser
      * @dataProvider provideInvalidData
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testParseFailure($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         $source = new Source($input);
         $parser = new ExpressionParser();
         $parser->parse($source);
