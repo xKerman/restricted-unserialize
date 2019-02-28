@@ -144,6 +144,7 @@ function xKerman_Restricted_Test_bootstrap($classname)
     }
 }
 
+$sep = DIRECTORY_SEPARATOR;
 require_once %s;
 spl_autoload_register('xKerman_Restricted_Test_bootstrap');
 
