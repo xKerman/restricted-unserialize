@@ -125,7 +125,40 @@ PHPCODE;
     );
 }
 
+function generateBootstrapForTest($dir, $bootstrap)
+{
+    $code = <<<'PHPCODE'
+<?php
+
+function xKerman_Restricted_Test_bootstrap($classname)
+{
+    if (strpos($classname, 'xKerman_Restricted_Test') !== 0) {
+        return false;
+    }
+    $sep = DIRECTORY_SEPARATOR;
+    $namespace = explode('_', $classname);
+    $filename = array_pop($namespace);
+    $path = dirname(__FILE__) . "{$sep}{$filename}.php";
+    if (file_exists($path)) {
+        require_once $path;
+    }
+}
+
+require_once %s;
+spl_autoload_register('xKerman_Restricted_Test_bootstrap');
+
+PHPCODE;
+
+    $sep = DIRECTORY_SEPARATOR;
+    file_put_contents(
+        "{$dir}{$sep}bootstrap.test.php",
+        sprintf($code, $bootstrap),
+    );
+}
+
 // main
 convert(__DIR__ . '/../src', __DIR__ . '/../generated/src/xKerman/Restricted');
 convert(__DIR__ . '/../test', __DIR__ . '/../generated/test/xKerman/Restricted');
 generateBootstrap(__DIR__ . '/../generated/src/xKerman/Restricted');
+$bootstrap = 'dirname(dirname(dirname(dirname(__FILE__)))) . "{$sep}src{$sep}xKerman{$sep}Restricted{$sep}bootstrap.php"';
+generateBootstrapForTest(__DIR__ . '/../generated/test/xKerman/Restricted', $bootstrap);

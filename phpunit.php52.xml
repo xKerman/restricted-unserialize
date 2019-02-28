@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="generated/src/xKerman/Restricted/bootstrap.php">
+<phpunit bootstrap="generated/test/xKerman/Restricted/bootstrap.test.php">
   <testsuites>
     <testsuite name="restricted-unserialize">
       <directory>generated/test</directory>
