@@ -17,6 +17,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
         }
 
         $exception = $arguments[0];
-        $this->setExpectedException($exception);
+        $this->setExpectedException($this->getClassName($exception));
+    }
+
+    private function getClassName($name)
+    {
+        if (version_compare(PHP_VERSION, '5.3.0', '<')) {
+            $newName = str_replace('\\', '_', $name);
+            return substr($newName, 1);
+        }
+        return $name;
     }
 }
