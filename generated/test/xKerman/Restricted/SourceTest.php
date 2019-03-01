@@ -7,7 +7,7 @@ class xKerman_Restricted_Test_SourceTest extends xKerman_Restricted_Test_TestCas
 {
     public function testConstructFailed()
     {
-        $this->expectException('\\InvalidArgumentException');
+        $this->expectException('InvalidArgumentException');
         new xKerman_Restricted_Source(2);
     }
     public function provideConsumeSucceeded()
@@ -26,7 +26,7 @@ class xKerman_Restricted_Test_SourceTest extends xKerman_Restricted_Test_TestCas
     }
     public function testConsumeFailure()
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         $source = new xKerman_Restricted_Source('hello');
         $source->consume('e', strlen('e'));
     }
@@ -49,7 +49,7 @@ class xKerman_Restricted_Test_SourceTest extends xKerman_Restricted_Test_TestCas
      */
     public function testReadFailure($input, $length)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         $source = new xKerman_Restricted_Source($input);
         $source->read($length);
     }
@@ -67,7 +67,7 @@ class xKerman_Restricted_Test_SourceTest extends xKerman_Restricted_Test_TestCas
      */
     public function testMatchFailure()
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         $source = new xKerman_Restricted_Source('abcde12345');
         $result = $source->match('/\\G\\d/');
     }

@@ -57,6 +57,14 @@ class NameSpaceConverter extends \PhpParser\NodeVisitorAbstract
             );
             $node->setAttribute('comments', [$newDoc]);
         }
+        if ($node instanceof Expr\MethodCall) {
+            if ($node->name->toString() === 'expectException' && $node->args[0]->value instanceof Node\Scalar\String_) {
+                $newName = substr(str_replace('\\', '_', $node->args[0]->value->value), 1);
+                $node->args[0] = new Node\Arg(
+                    new Node\Scalar\String_($newName)
+                );
+            }
+        }
     }
 }
 

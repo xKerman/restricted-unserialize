@@ -12,7 +12,7 @@ class xKerman_Restricted_Test_ExpressionParserTest extends xKerman_Restricted_Te
      */
     public function testParseFailure($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         $source = new xKerman_Restricted_Source($input);
         $parser = new xKerman_Restricted_ExpressionParser();
         $parser->parse($source);

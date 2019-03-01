@@ -15,7 +15,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidNull($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForBooleanTest()
@@ -42,7 +42,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidBoolean($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     /**
@@ -61,7 +61,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidInteger($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForFloatTest()
@@ -84,7 +84,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidFloat($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function testNan()
@@ -114,7 +114,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidString($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForEscapedStringTest()
@@ -140,7 +140,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidEscapedString($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForArrayTest()
@@ -166,7 +166,7 @@ class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_Te
      */
     public function testInvalidArray($input)
     {
-        $this->expectException('\\xKerman\\Restricted\\UnserializeFailedException');
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
 }
