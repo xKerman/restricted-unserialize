@@ -2,8 +2,6 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted;
 
 class UnserializeTest extends TestCase
@@ -30,10 +28,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidNull
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidNull($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 
@@ -108,10 +107,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidBooleanTest
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidBoolean($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 
@@ -158,10 +158,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidInteger
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidInteger($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 
@@ -286,10 +287,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidFloat
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidFloat($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 
@@ -375,10 +377,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidString
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidString($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 
@@ -476,10 +479,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidEscapedString
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidEscapedString($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 
@@ -561,10 +565,11 @@ class UnserializeTest extends TestCase
 
     /**
      * @dataProvider provideDataForInvalidArrayTest
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testInvalidArray($input)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         Restricted\unserialize($input);
     }
 }

@@ -2,20 +2,18 @@
 
 namespace xKerman\Restricted\Test;
 
-use PHPUnit\Framework\TestCase;
-
 use xKerman\Restricted\Source;
+use xKerman\Restricted\UnserializeFailedException;
 
 /**
  * @coversDefaultClass \xKerman\Restricted\Source
  */
 class SourceTest extends TestCase
 {
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testConstructFailed()
     {
+        $this->expectException('\InvalidArgumentException');
+
         new Source(2);
     }
 
@@ -44,11 +42,10 @@ class SourceTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /**
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
-     */
     public function testConsumeFailure()
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         $source = new Source('hello');
         $source->consume('e', strlen('e'));
     }
@@ -79,11 +76,12 @@ class SourceTest extends TestCase
 
     /**
      * @covers ::read
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      * @dataProvider provideReadFailure
      */
     public function testReadFailure($input, $length)
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         $source = new Source($input);
         $source->read($length);
     }
@@ -100,10 +98,11 @@ class SourceTest extends TestCase
 
     /**
      * @covers ::match
-     * @expectedException \xKerman\Restricted\UnserializeFailedException
      */
     public function testMatchFailure()
     {
+        $this->expectException('\xKerman\Restricted\UnserializeFailedException');
+
         $source = new Source('abcde12345');
         $result = $source->match('/\G\d/');
     }

@@ -27,6 +27,11 @@
             "xKerman\\Restricted\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "xKerman\\Restricted\\Test\\": "test"
+        }
+    },
     "scripts": {
         "test": [
             "phpcs",

@@ -57,6 +57,14 @@ class NameSpaceConverter extends \PhpParser\NodeVisitorAbstract
             );
             $node->setAttribute('comments', [$newDoc]);
         }
+        if ($node instanceof Expr\MethodCall) {
+            if ($node->name->toString() === 'expectException' && $node->args[0]->value instanceof Node\Scalar\String_) {
+                $newName = substr(str_replace('\\', '_', $node->args[0]->value->value), 1);
+                $node->args[0] = new Node\Arg(
+                    new Node\Scalar\String_($newName)
+                );
+            }
+        }
     }
 }
 
@@ -125,7 +133,41 @@ PHPCODE;
     );
 }
 
+function generateBootstrapForTest($dir, $bootstrap)
+{
+    $code = <<<'PHPCODE'
+<?php
+
+function xKerman_Restricted_Test_bootstrap($classname)
+{
+    if (strpos($classname, 'xKerman_Restricted_Test') !== 0) {
+        return false;
+    }
+    $sep = DIRECTORY_SEPARATOR;
+    $namespace = explode('_', $classname);
+    $filename = array_pop($namespace);
+    $path = dirname(__FILE__) . "{$sep}{$filename}.php";
+    if (file_exists($path)) {
+        require_once $path;
+    }
+}
+
+$sep = DIRECTORY_SEPARATOR;
+require_once %s;
+spl_autoload_register('xKerman_Restricted_Test_bootstrap');
+
+PHPCODE;
+
+    $sep = DIRECTORY_SEPARATOR;
+    file_put_contents(
+        "{$dir}{$sep}bootstrap.test.php",
+        sprintf($code, $bootstrap),
+    );
+}
+
 // main
 convert(__DIR__ . '/../src', __DIR__ . '/../generated/src/xKerman/Restricted');
 convert(__DIR__ . '/../test', __DIR__ . '/../generated/test/xKerman/Restricted');
 generateBootstrap(__DIR__ . '/../generated/src/xKerman/Restricted');
+$bootstrap = 'dirname(dirname(dirname(dirname(__FILE__)))) . "{$sep}src{$sep}xKerman{$sep}Restricted{$sep}bootstrap.php"';
+generateBootstrapForTest(__DIR__ . '/../generated/test/xKerman/Restricted', $bootstrap);

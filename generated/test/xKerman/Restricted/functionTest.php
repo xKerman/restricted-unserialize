@@ -1,6 +1,6 @@
 <?php
 
-class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
+class xKerman_Restricted_Test_UnserializeTest extends xKerman_Restricted_Test_TestCase
 {
     public function testNull()
     {
@@ -12,10 +12,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidNull
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidNull($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForBooleanTest()
@@ -39,10 +39,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidBooleanTest
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidBoolean($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     /**
@@ -58,10 +58,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidInteger
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidInteger($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForFloatTest()
@@ -81,10 +81,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidFloat
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidFloat($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function testNan()
@@ -111,10 +111,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidString
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidString($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForEscapedStringTest()
@@ -137,10 +137,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidEscapedString
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidEscapedString($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
     public function provideDataForArrayTest()
@@ -163,10 +163,10 @@ class xKerman_Restricted_Test_UnserializeTest extends PHPUnit_Framework_TestCase
     }
     /**
      * @dataProvider provideDataForInvalidArrayTest
-     * @expectedException xKerman_Restricted_UnserializeFailedException
      */
     public function testInvalidArray($input)
     {
+        $this->expectException('xKerman_Restricted_UnserializeFailedException');
         xKerman_Restricted_unserialize($input);
     }
 }
