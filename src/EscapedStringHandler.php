@@ -31,7 +31,7 @@ class EscapedStringHandler implements HandlerInterface
                 continue;
             }
             $hex = $source->match('/\G([0-9a-fA-F]{2})/');
-            $result[] = chr(base_convert($hex[0], 16, 10));
+            $result[] = chr(intval($hex[0], 16));
         }
         $source->consume('";', self::CLOSE_STRING_LENGTH);
         return array(implode('', $result), $source);
