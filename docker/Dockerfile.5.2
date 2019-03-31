@@ -1,6 +1,8 @@
 FROM nyanpass/apache2.2-php5.2.17
 
-RUN apt-get update && \
+RUN echo "deb http://deb.debian.org/debian jessie main" > /etc/apt/sources.list && \
+    echo "deb http://security.debian.org jessie/updates main" >> /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install -y git unzip
 
 # see: http://qiita.com/dozo/items/d76c36e911059951f1b6
