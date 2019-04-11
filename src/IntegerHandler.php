@@ -12,8 +12,8 @@ class IntegerHandler implements HandlerInterface
     /**
      * parse given `$source` as PHP serialized integer
      *
-     * @param Source $source parser input
-     * @param string $args   integer value
+     * @param Source      $source parser input
+     * @param string|null $args   integer value
      * @return array
      * @throws UnserializeFailedException
      */

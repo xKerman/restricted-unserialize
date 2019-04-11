@@ -15,8 +15,8 @@ class EscapedStringHandler implements HandlerInterface
     /**
      * parse given `$source` as escaped string
      *
-     * @param Source $source parser input
-     * @param string $args   string length
+     * @param Source      $source parser input
+     * @param string|null $args   string length
      * @return array
      * @throws UnserializeFailedException
      */

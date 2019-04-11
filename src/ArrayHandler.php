@@ -28,8 +28,8 @@ class ArrayHandler implements HandlerInterface
     /**
      * parse given `$source` as PHP serialized array
      *
-     * @param Source $source parser input
-     * @param string $args   array length
+     * @param Source      $source parser input
+     * @param string|null $args   array length
      * @return array
      * @throws UnserializeFailedException
      */
