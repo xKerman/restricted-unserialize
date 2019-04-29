@@ -27,8 +27,8 @@ class FloatHandler implements HandlerInterface
     /**
      * parse given `$source` as PHP serialized float number
      *
-     * @param Source $source parser input
-     * @param string $args   float value
+     * @param Source      $source parser input
+     * @param string|null $args   float value
      * @return array
      * @throws UnserializeFailedException
      */

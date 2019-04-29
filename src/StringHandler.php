@@ -15,8 +15,8 @@ class StringHandler implements HandlerInterface
     /**
      * parse give `$source` as PHP serialized string
      *
-     * @param Source $source parser input
-     * @param string $args   string length
+     * @param Source      $source parser input
+     * @param string|null $args   string length
      * @return array parser result
      * @throws UnserializeFailedException
      */
