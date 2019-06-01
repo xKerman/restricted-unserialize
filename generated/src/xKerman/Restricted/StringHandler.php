@@ -10,8 +10,8 @@ class xKerman_Restricted_StringHandler implements xKerman_Restricted_HandlerInte
     /**
      * parse give `$source` as PHP serialized string
      *
-     * @param Source $source parser input
-     * @param string $args   string length
+     * @param Source      $source parser input
+     * @param string|null $args   string length
      * @return array parser result
      * @throws UnserializeFailedException
      */
