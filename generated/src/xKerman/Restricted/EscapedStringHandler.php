@@ -10,8 +10,8 @@ class xKerman_Restricted_EscapedStringHandler implements xKerman_Restricted_Hand
     /**
      * parse given `$source` as escaped string
      *
-     * @param Source $source parser input
-     * @param string $args   string length
+     * @param Source      $source parser input
+     * @param string|null $args   string length
      * @return array
      * @throws UnserializeFailedException
      */
@@ -26,7 +26,7 @@ class xKerman_Restricted_EscapedStringHandler implements xKerman_Restricted_Hand
                 continue;
             }
             $hex = $source->match('/\\G([0-9a-fA-F]{2})/');
-            $result[] = chr(base_convert($hex[0], 16, 10));
+            $result[] = chr(intval($hex[0], 16));
         }
         $source->consume('";', self::CLOSE_STRING_LENGTH);
         return array(implode('', $result), $source);

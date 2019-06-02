@@ -17,8 +17,8 @@ class xKerman_Restricted_FloatHandler implements xKerman_Restricted_HandlerInter
     /**
      * parse given `$source` as PHP serialized float number
      *
-     * @param Source $source parser input
-     * @param string $args   float value
+     * @param Source      $source parser input
+     * @param string|null $args   float value
      * @return array
      * @throws UnserializeFailedException
      */

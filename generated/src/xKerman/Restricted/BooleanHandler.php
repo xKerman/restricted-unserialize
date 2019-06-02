@@ -8,8 +8,8 @@ class xKerman_Restricted_BooleanHandler implements xKerman_Restricted_HandlerInt
     /**
      * parse given `$source` as PHP serialized boolean
      *
-     * @param Source $source parser input
-     * @param string $args   boolean information
+     * @param Source      $source parser input
+     * @param string|null $args   boolean information
      * @return array
      * @throws UnserializeFailedException
      */

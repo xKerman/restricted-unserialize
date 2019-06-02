@@ -8,8 +8,8 @@ class xKerman_Restricted_NullHandler implements xKerman_Restricted_HandlerInterf
     /**
      * parse given `$source` as PHP serialized null value
      *
-     * @param Source $source parser input
-     * @param null   $args   null
+     * @param Source      $source parser input
+     * @param string|null $args   null
      * @return array parse result
      * @throws UnserializeFailedException
      */
