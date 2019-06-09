@@ -8,7 +8,7 @@
     },
     "require-dev": {
         "phpmd/phpmd": "^2.6",
-        "phpunit/phpunit": "^4.8|^5.7|^6.5|^7.4|^8.1",
+        "phpunit/phpunit": "^4.8|^5.7|^6.5|^7.4|^8.2",
         "sebastian/phpcpd": "^2.0|^3.0|^4.1",
         "squizlabs/php_codesniffer": "^2.9|^3.4",
         "nikic/php-parser": "^1.4|^3.0|^4.2"
