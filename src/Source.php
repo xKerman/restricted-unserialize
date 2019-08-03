@@ -4,6 +4,8 @@
  */
 namespace xKerman\Restricted;
 
+use InvalidArgumentException;
+
 /**
  * Parser Input
  */
@@ -27,7 +29,7 @@ class Source
     public function __construct($str)
     {
         if (!is_string($str)) {
-            throw new \InvalidArgumentException('expected string, but got: ' . gettype($str));
+            throw new InvalidArgumentException('expected string, but got: ' . gettype($str));
         }
         $this->str = $str;
         $this->length = strlen($str);
