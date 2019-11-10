@@ -11,7 +11,7 @@
         "phpunit/phpunit": "^4.8|^5.7|^6.5|^7.4|^8.4",
         "sebastian/phpcpd": "^2.0|^3.0|^4.1",
         "squizlabs/php_codesniffer": "^2.9|^3.5",
-        "nikic/php-parser": "^1.4|^3.0|^4.2"
+        "nikic/php-parser": "^1.4|^3.0|^4.3"
     },
     "license": "MIT",
     "authors": [
