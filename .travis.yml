@@ -38,7 +38,7 @@ jobs:
         - if [ $USE_DOCKER -eq 1 ]; then sudo chown -R $(whoami) ./report; fi
         - bash <(curl -s https://codecov.io/bash) -c -F $(echo $PHP_VERSION | sed -e 's/\./_/g')
     - <<: *test
-      php: '7.4snapshot'
+      php: '7.4'
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=7.4 TEST=test
     - <<: *test
@@ -79,7 +79,7 @@ jobs:
       env: USE_DOCKER=1 PHP_VERSION=5.2
 
     - stage: check dependencies
-      php: 7.3
+      php: 7.4
       sudo: false
       install:
         - composer install

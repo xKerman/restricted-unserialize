@@ -8,7 +8,7 @@ filter:
 build:
   environment:
     php:
-      version: 7.3
+      version: 7.4
   nodes:
     analysis: # https://scrutinizer-ci.com/docs/tools/php/php-scrutinizer/#security-analysis
       project_setup:
