@@ -22,7 +22,7 @@ jobs:
       stage: test
       php: nightly
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test
+      env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test-full
       before_install:
         - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
       install:
