@@ -7,10 +7,7 @@
         "php": ">=5.2"
     },
     "require-dev": {
-        "phpmd/phpmd": "^2.8",
-        "phpunit/phpunit": "^4.8|^5.7|^6.5|^7.4|^8.5",
-        "sebastian/phpcpd": "^2.0|^3.0|^4.1",
-        "squizlabs/php_codesniffer": "^2.9|^3.5",
+        "phpunit/phpunit": "^4.8|^5.7|^6.5|^7.4|^8.5|^9.0",
         "nikic/php-parser": "^1.4|^3.0|^4.3"
     },
     "license": "MIT",
@@ -32,16 +29,16 @@
         }
     },
     "scripts": {
-        "test": [
-            "phpcs",
-            "phpmd src/ text ./phpmd.xml",
-            "phpcpd src/",
+        "test-full": [
+            "./tools/phpcs",
+            "./tools/phpmd src/ text ./phpmd.xml",
+            "./tools/phpcpd src/",
+            "phpdbg -qrr ./vendor/bin/phpunit"
+        ],
+        "test-simple": [
             "phpdbg -qrr ./vendor/bin/phpunit"
         ],
         "test-legacy": [
-            "phpcs",
-            "phpmd src/ text ./phpmd.xml",
-            "phpcpd src/",
             "phpunit"
         ],
         "generate": [
