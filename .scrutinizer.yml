@@ -20,7 +20,7 @@ build:
       tests:
         override:
           -
-            command: composer test
+            command: composer run test-full
             coverage:
               file: report/coverage/clover.xml
               format: php-clover
