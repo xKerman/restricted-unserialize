@@ -5,6 +5,7 @@ filter:
     - bin/*
     - generated/*
     - test/*
+    - tools/*
 build:
   environment:
     php:
@@ -18,6 +19,9 @@ build:
           - php-scrutinizer-run --enable-security-analysis
     coverage:    # https://scrutinizer-ci.com/docs/build/code_coverage
       tests:
+        dependencies:
+          before:
+            - php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A
         override:
           -
             command: composer run test-full
