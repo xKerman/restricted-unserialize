@@ -78,6 +78,7 @@ class xKerman_Restricted_Source
      */
     public function match($regexp)
     {
+        $matches = array();
         if (!preg_match($regexp, $this->str, $matches, 0, $this->current)) {
             return $this->triggerError();
         }
