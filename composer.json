@@ -38,9 +38,6 @@
         "test-simple": [
             "phpunit"
         ],
-        "test-legacy": [
-            "phpunit"
-        ],
         "generate": [
             "rm -rf generated/",
             "php bin/generate.php"
