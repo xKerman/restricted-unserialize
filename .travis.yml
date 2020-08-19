@@ -30,9 +30,10 @@ jobs:
         - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction; fi
         - if [ $USE_DOCKER -eq 1 ]; then curl -s -O https://getcomposer.org/composer.phar; fi
         - if [ $TEST = 'test-full' ]; then php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A; fi
+        - if [ $DRIVER = 'pcov' ]; then pecl install pcov; fi
       script:
         - if [ $USE_DOCKER -eq 0 ]; then composer $TEST; fi
-        - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php -d memory_limit=-1 composer.phar install --no-interaction && php composer.phar test-legacy'; fi
+        - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php -d memory_limit=-1 composer.phar install --no-interaction && php composer.phar test-simple'; fi
         - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION = '5.2' ]; then git diff --exit-code -- generated; fi
         - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION = '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php /usr/local/php/phpunit/phpunit.php --configuration phpunit.php52.xml'; fi
       after_success:
@@ -41,27 +42,27 @@ jobs:
     - <<: *test
       php: '7.4'
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=7.4 TEST=test-full
+      env: USE_DOCKER=0 PHP_VERSION=7.4 TEST=test-full DRIVER=pcov
     - <<: *test
       php: '7.3'
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=7.3 TEST=test-simple
+      env: USE_DOCKER=0 PHP_VERSION=7.3 TEST=test-simple DRIVER=pcov
     - <<: *test
       php: '7.2'
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=7.2 TEST=test-simple
+      env: USE_DOCKER=0 PHP_VERSION=7.2 TEST=test-simple DRIVER=pcov
     - <<: *test
       php: '7.1'
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=7.1 TEST=test-simple
+      env: USE_DOCKER=0 PHP_VERSION=7.1 TEST=test-simple DRIVER=pcov
     - <<: *test
       php: '7.0'
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=7.0 TEST=test-simple
+      env: USE_DOCKER=0 PHP_VERSION=7.0 TEST=test-simple DRIVER=xdebug
     - <<: *test
       php: '5.6'
       sudo: false
-      env: USE_DOCKER=0 PHP_VERSION=5.6 TEST=test-legacy
+      env: USE_DOCKER=0 PHP_VERSION=5.6 TEST=test-simple DRIVER=xdebug
     - <<: *test
       php: '5.6'
       sudo: required

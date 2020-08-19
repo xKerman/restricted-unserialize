@@ -33,12 +33,9 @@
             "./tools/phpcs",
             "./tools/phpmd src/ text ./phpmd.xml",
             "./tools/phpcpd src/",
-            "phpdbg -qrr ./vendor/bin/phpunit"
+            "phpunit"
         ],
         "test-simple": [
-            "phpdbg -qrr ./vendor/bin/phpunit"
-        ],
-        "test-legacy": [
             "phpunit"
         ],
         "generate": [
