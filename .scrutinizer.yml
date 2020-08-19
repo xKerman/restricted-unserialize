@@ -10,6 +10,8 @@ build:
   environment:
     php:
       version: 7.4
+      pecl_extensions:
+        - pcov
   nodes:
     analysis: # https://scrutinizer-ci.com/docs/tools/php/php-scrutinizer/#security-analysis
       project_setup:
