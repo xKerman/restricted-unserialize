@@ -10,8 +10,6 @@ build:
   environment:
     php:
       version: 7.4
-      pecl_extensions:
-        - pcov
   nodes:
     analysis: # https://scrutinizer-ci.com/docs/tools/php/php-scrutinizer/#security-analysis
       project_setup:
@@ -22,6 +20,7 @@ build:
     coverage:    # https://scrutinizer-ci.com/docs/build/code_coverage
       dependencies:
         before:
+          - pecl install pcov
           - php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A
       tests:
         override:
