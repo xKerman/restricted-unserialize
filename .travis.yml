@@ -30,6 +30,7 @@ jobs:
         - if [ $USE_DOCKER -eq 0 ]; then composer install --no-interaction; fi
         - if [ $USE_DOCKER -eq 1 ]; then curl -s -O https://getcomposer.org/composer.phar; fi
         - if [ $TEST = 'test-full' ]; then php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A; fi
+        - if [ -n $TEST ]; then pecl install pcov; fi
       script:
         - if [ $USE_DOCKER -eq 0 ]; then composer $TEST; fi
         - if [ $USE_DOCKER -eq 1 -a $PHP_VERSION != '5.2' ]; then docker run -v $(pwd):/tmp  -w /tmp xkerman/php-$PHP_VERSION sh -c 'php -v && php -d memory_limit=-1 composer.phar install --no-interaction && php composer.phar test-legacy'; fi
