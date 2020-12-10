@@ -21,7 +21,7 @@ build:
       dependencies:
         before:
           - pecl install pcov
-          - php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A
+          - php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A,0F9684B8B16B7AB0
       tests:
         override:
           -
