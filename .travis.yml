@@ -3,6 +3,13 @@ sudo: required
 service:
   - docker
 
+env:
+  global:
+    - secure: "GnzjJGQ7mWc5UjkveJb2JXcYgy7AlVK3dcphU4XQ2EYSNMeRL1KKpteiNdIwfbhgatCWgjwddqtyvmxC3pWjr3GB0UWPVAZnxOdZ4e/JuhWEcH5H1UX0o3H6kyzY0lz7vaFrQ0rZPgUTzeZBmZ271XZxgeqGEPD9kijWtlWcrZ6BzvG7WrMUEJLNXC5vYmEuDYy9azsM4vKSOhzNan+Zv7x3Fid8so89hlshYCzfqdYFm4d0NTVQdgsjuQjgb59Fuea6hoj80yhWlSXwMvnBZLVA53s5LLJeP7mZKZI+ToK9fpVq+ucyosVBy+CbFB191D44WS36HA1vvJ7w8OStxubfQnTez6sjKQ13vv8l28yJ3P++EVm9gb1aE+WY/KjMv6RMLEVkNDfq0E8OPKvMVrAhLC9KKkkG34035ZRosiKkPpz3xgYVnBjJbsUP7akfng+yxI65Ifd1CuT5HzzJyAzQRfpBN7GjDVv2qbqSnK6STdAPT1/Jtdote4vrWijrnrAXHryL6Kjg+2AZdSlIPaHNXq3aCX1CfWqPUcTiu4clNG1haFk2BS8KgpqO6O8yAm/BehatoAhrNP3fgo+9tUrqIuGgvzRJSiS7jXQ/H6Q7wd7Iyj8NsnMj6Lik+e4W9Rj+od5I6peFfr0ZhQQ/5zfUEqfzh3GxCxfnfsE3sn8="
+    - secure: "m5aKyqItCm1oRs6HicyXcvkbxqR3iWMOHGjiUGSA6sp1l8GnWwOZB/Ir0YmBfDqTXCbQF1bTv5mLi9dkcjTl2xjAhX2Dm9RemtHEaZIz2rNmLiSS1C+TC9Dp/tLFxM2fzr6Lgke1iyyrLCSZ3dq3u6cnhsR95brS6M4VNineYGQQxKmzXV+kOcNinG/B0JJb4SozSs7GtTZuaRR/yCNHaj52afN+bPeBVewHPUB4VycHLTv2dszY3kBRyvNRH7TfsK9nJ+bZKM2HM5Y4mPhJ2t5TiwhxXTBHK2uw1Y7rvcQr/WuFdzfdSr3U3O/e2gFn/J5vw1DrHAPMHGcOPNW5Njq05xMzieCRwDLMldpdqU1AhT3T4/6kcdY7u8TgvO/qDA7igxigfBhfYc1hzaDuPVnL9RMvQQOSpsyIHT96ocZYo8V/6Tfne/VOO76bXIb62kDROConwxaq8waEhSG9mQzhnnc9s6eIsA9aPMXpnleITOsPukHEIAPKC0dFQokrF47H2odCRdDIMMz9MS/Hpp2Ioxn+wTs5Yokr8G6OPIgIY1ayKJ23e9YDP+M9qXkAAGOY2oAU43Yjl+5++m0ebL6W4eoGLOMjW9vX3X4xzMWMt75E18d71jVzNE8DHo2CJ/VveoiXLRa7sT2CighlJENnYxKYj0gurLYNObt1ceU="
+    - secure: "OMDvEi/nZZdjSZWoZVfn9ZZZrOOqCrnH0DRmZsJiFhURBgz5KzCtrOYomGEoEH/VesmW3dGO5RXFGFmRePGsgsb8EEFfUKkAYYP3S4j6qIta1fNQZtdd75SfazZbZZ/5DlLrklSDM9QdOPh64gAsQwXON2GJH1t9xWFDAGQWP/o7mRsz93nVKvrJHy4d0+5BKCTcxTYwI2TAwRVcIjHV3jpKRPUdjJZtI8S+KSyIH1wmIiCbsiGWUxX35h4+Q//dzZW64zebijXF9Y68aa2jNn5CS4IYClDNNnkm1wZLGGElRoTaH3hFPhHOkkp8w9kVaCwC/Ha1KmvF1NMHgPay79oIHSQiXaVxcBm7hGMyt7RKS3bIyKziKCfTZe1h7aWNuUqB8qgAfWjSrOPisx+C04GksKbsP7ys+dUcSCBZooBb1+TlQM7BuuLHee4MJFKM23gc6jia/Km8Pp7w5NcsfP1nFUWHvvLuJtrThjnRndK/COYzJa7UJ85ifbnTNxlkMDAnKClgOKMmCFV13MKBShZNRQqTdUiwKn8ONBpm1yTxG6CZMlyOze59ZhoESLhqN4H9MW2+Os4GMMFTNobar0drQNtBGvNtgv391p1dMq8uPWuZG17ptWivFad6ghqN2sSj7/pmAk54tVr1ZBDGKYjZg0QEpsLc5G+wph77xek="
+
+
 php: dummy                  # this is needed for allow_failures setting
 
 stages:
@@ -24,6 +31,7 @@ jobs:
       sudo: false
       env: USE_DOCKER=0 PHP_VERSION=nightly TEST=test-full
       before_install:
+        - if [ $USE_DOCKER -eq 1 ]; then echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin; fi
         - if [ $USE_DOCKER -eq 1 ]; then docker build -t xkerman/php-$PHP_VERSION -f docker/Dockerfile.$PHP_VERSION docker; fi
       install:
         - rm composer.lock
