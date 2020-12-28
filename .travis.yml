@@ -3,6 +3,10 @@ sudo: required
 service:
   - docker
 
+env:
+  global:
+    - secure: "GnzjJGQ7mWc5UjkveJb2JXcYgy7AlVK3dcphU4XQ2EYSNMeRL1KKpteiNdIwfbhgatCWgjwddqtyvmxC3pWjr3GB0UWPVAZnxOdZ4e/JuhWEcH5H1UX0o3H6kyzY0lz7vaFrQ0rZPgUTzeZBmZ271XZxgeqGEPD9kijWtlWcrZ6BzvG7WrMUEJLNXC5vYmEuDYy9azsM4vKSOhzNan+Zv7x3Fid8so89hlshYCzfqdYFm4d0NTVQdgsjuQjgb59Fuea6hoj80yhWlSXwMvnBZLVA53s5LLJeP7mZKZI+ToK9fpVq+ucyosVBy+CbFB191D44WS36HA1vvJ7w8OStxubfQnTez6sjKQ13vv8l28yJ3P++EVm9gb1aE+WY/KjMv6RMLEVkNDfq0E8OPKvMVrAhLC9KKkkG34035ZRosiKkPpz3xgYVnBjJbsUP7akfng+yxI65Ifd1CuT5HzzJyAzQRfpBN7GjDVv2qbqSnK6STdAPT1/Jtdote4vrWijrnrAXHryL6Kjg+2AZdSlIPaHNXq3aCX1CfWqPUcTiu4clNG1haFk2BS8KgpqO6O8yAm/BehatoAhrNP3fgo+9tUrqIuGgvzRJSiS7jXQ/H6Q7wd7Iyj8NsnMj6Lik+e4W9Rj+od5I6peFfr0ZhQQ/5zfUEqfzh3GxCxfnfsE3sn8="
+
 php: dummy                  # this is needed for allow_failures setting
 
 stages:
