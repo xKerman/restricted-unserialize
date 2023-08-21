@@ -1,4 +1,4 @@
-imports:
+imports
   - php
 checks:
   php: true
