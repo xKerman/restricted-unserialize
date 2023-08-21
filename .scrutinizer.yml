@@ -2,10 +2,10 @@ checks:
   php: true
 filter:
   excluded_paths:
-    - bin/*
-    - generated/*
-    - test/*
-    - tools/*
+    - bin/
+    - generated/
+    - test/
+    - tools/
 build:
   environment:
     php:
@@ -24,8 +24,7 @@ build:
           - php phive.phar --no-progress install --copy --force-accept-unsigned --trust-gpg-keys 31C7E470E2138192,4AA394086372C20A,0F9684B8B16B7AB0
       tests:
         override:
-          -
-            command: composer run test-full
+          - command: composer run test-full
             coverage:
               file: report/coverage/clover.xml
               format: php-clover
