@@ -2,10 +2,10 @@ checks:
   php: true
 filter:
   excluded_paths:
-    - bin/*
-    - generated/*
-    - test/*
-    - tools/*
+    - bin/
+    - generated/
+    - test/
+    - tools/
 build:
   environment:
     php:
