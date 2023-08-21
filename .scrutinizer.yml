@@ -1,3 +1,5 @@
+imports:
+  - php
 checks:
   php: true
 filter:
